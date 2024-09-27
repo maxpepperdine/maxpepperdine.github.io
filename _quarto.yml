@@ -3,18 +3,23 @@ project:
   output-dir: docs
 
 website:
-  title: "maxpepperdine.github.io"
+  title: "Maxwell Pepperdine"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: resources.qmd
+        text: Resources
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: minty
+      dark: solar
     css: styles.css
-    toc: true
+    toc: false
+    page-layout: full
 
 editor: visual
 

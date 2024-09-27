@@ -5,5 +5,26 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Maxwell Pepperdine",
+    "section": "",
+    "text": "Hi there! I’m Maxwell Pepperdine and I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems. This fostered my admiration and affinity for the natural environment at an early age. Specializing in Conservation Planning at the Bren School, I hopes to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and is excited to apply these skills in the field of natural resource management and conservation planning."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Maxwell Pepperdine",
+    "section": "Education",
+    "text": "Education\nsome text"
+  },
+  {
+    "objectID": "index.html#professional-experience",
+    "href": "index.html#professional-experience",
+    "title": "Maxwell Pepperdine",
+    "section": "Professional Experience",
+    "text": "Professional Experience\nmore text here"
   }
 ]
