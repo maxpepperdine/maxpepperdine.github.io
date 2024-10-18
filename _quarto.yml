@@ -1,19 +1,31 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "maxpepperdine.github.io"
+  title: "Maxwell Pepperdine"
+  favicon: images/my-favicon.png
   navbar:
-    left:
+    logo: images/my-favicon.png
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: resources.qmd
+        text: Resources
+      - text: Resume
+        href: Resume/Living Resume.pdf
+  page-footer:
+    background: light
+    left: Copyright 2024, Maxwell Pepperdine
+    right: This website is built with {{< fa brands github title="the octocat guthub icon" >}}
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
-    toc: true
+    theme: styles.scss
+    mainfont: Nunito
+    toc: false
+    page-layout: full
 
 editor: visual
 

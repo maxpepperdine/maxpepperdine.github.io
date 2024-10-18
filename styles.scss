@@ -1,0 +1,63 @@
+/*-- scss:defaults --*/
+
+// Import Google fonts
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+// Create font variables
+$josefin-sans: "Josefin Sans", sans-serif;
+
+// Colors 
+$blue-gray: #7393B3;
+$cadet-blue: #5F9EA0;
+$denim: #6F8FAF;
+$powder-blue: #B6D0E2;
+$seafoam-green: #9FE2BF;
+$glaucous: #6082B6;
+$platinum: #E5E4E2;
+$azure: #F0FFFF;
+
+
+// Quarto Sass Variables 
+$body-bg: $powder-blue;
+$navbar-bg: $azure; 
+$navbar-fg: $cadet-blue;
+$navbar-hl: $glaucous;
+
+
+
+/*-- scss:rules --*/
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $josefin-sans;
+}
+
+h1, h2 {
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.title{
+  color: maroon;
+}
+
+.center-text{
+  text-align: center;
+}
+
+.blue-text{
+  color: $glaucous;
+}
+
+.navbar-brand img {
+  max-height: 50px;
+  width: auto;
+}
+
+
+
+
+
+
+
+
+
