@@ -1,0 +1,64 @@
+---
+title: "blog post title"
+title-block-banner: true
+description: "short description of the blog post"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-10-18
+categories: [Geospatial-analysis, MESM, Conservation-planning]
+toc: true
+bibliography: references.bib
+csl: plos-computational-biology.csl
+image: blog-test-image.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-10-18-my-first-post/
+draft: true
+---
+
+## This is my first section
+
+I'm going to insert a footnote here[^1]
+
+[^1]: Here is a new footnote
+
+## This is my second
+
+Here's my next paragraph[^2]
+
+[^2]: Here is my second footnote
+
+I'm citing me[@csik2022]
+
+Here is more random text. I'm going to cite a journal article now[@gaynor2022].
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("blog-test-image.jpg")
+```
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| messages: false
+#| fig-align: center
+library(palmerpenguins)
+library(tidyverse)
+
+ggplot(penguins, aes(x = species, fill = species)) +
+  geom_bar() +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
