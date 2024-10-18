@@ -4,15 +4,23 @@ title: "About"
 
 ## What I do for work
 
-<p class="title">some text goes here</p>
+<p class="title">
+
+some text goes here
+
+</p>
 
 ## What I do for fun
 
-<p class="blue-text">more text goes here</p>
+<p class="blue-text">
+
+more text goes here
+
+</p>
 
 [here is some more text styled with Quarto]{.blue-text}
 
-:::{.center-text}
+::: center-text
 here is a line
 
 here is another line

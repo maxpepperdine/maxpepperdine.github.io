@@ -13,6 +13,8 @@ website:
       - about.qmd
       - href: resources.qmd
         text: Resources
+      - href: posts.qmd
+        text: Portfolio
       - text: Resume
         href: Resume/Living Resume.pdf
   page-footer:
