@@ -1,0 +1,21 @@
+---
+title: "Exploring patterns of environmental justice in Los Angeles County"
+title-block-banner: true
+description: "A spatial analysis to analyze the legacy of historical redlining in Los Angeles County"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-11-05
+categories: [Geospatial-analysis, MESM, RStudio]
+toc: true
+image: redlining.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-11-05-redlining-legacies/
+draft: false
+---
+
+
+
+

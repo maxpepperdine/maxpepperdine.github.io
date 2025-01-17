@@ -1,5 +1,5 @@
 ---
-title: "Exploring habitat connectivity between patches"
+title: "Exploring habitat connectivity between core areas in a Costa Rican landscape"
 title-block-banner: true
 description: "Modeling movement patterns and connectivity for the jaguar (Panthera onca) across southern Costa Rica with Circuitscape"
 author: 
