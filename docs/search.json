@@ -1,52 +1,38 @@
 [
   {
-    "objectID": "posts/2025-01-16-mamu-scm/index.html",
-    "href": "posts/2025-01-16-mamu-scm/index.html",
-    "title": "Mapping suitable nesting habitat for an endangered bird in the SCM",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
     "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2025,\n  author = {Pepperdine, Maxwell},\n  title = {Mapping Suitable Nesting Habitat for an Endangered Bird in\n    the {SCM}},\n  date = {2025-01-16},\n  url = {https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2025. “Mapping Suitable Nesting Habitat for\nan Endangered Bird in the SCM.” January 16, 2025. https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/."
+    "text": "Mapping suitable nesting habitat for an endangered bird in the SCM\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nDelineating suitable nesting habitat for marbled murrelets following severe wildfires in the Santa Cruz Mountains (SCM)\n\n\n\nMaxwell Pepperdine\n\n\nJan 16, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInvestigating EJ implications of the Houston blackout\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRStudio\n\n\n\nA spatial analysis of the Houston blackout and affected communities\n\n\n\nMaxwell Pepperdine\n\n\nNov 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApplying supervised machine mearning to landuse cover in Santa Barbara, CA\n\n\n\nMachine-learning\n\n\nMESM\n\n\nRemote-sensing\n\n\nRStudio\n\n\n\nBuilding algorithms with machine learning to understand how we use our land\n\n\n\nMaxwell Pepperdine\n\n\nNov 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExploring patterns of environmental justice in Los Angeles County\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRStudio\n\n\n\nA spatial analysis to analyze the legacy of historical redlining in Los Angeles County\n\n\n\nMaxwell Pepperdine\n\n\nNov 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMapping the distribution of native and invasive marine species in the Indo-Pacific region\n\n\n\nMaxEnt\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nUsing MaxEnt to model current and future distributions of grape coral and crown-of-thorn starfish\n\n\n\nMaxwell Pepperdine\n\n\nSep 22, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInforming reserve design in the Morro Bay Watershed\n\n\n\nPrioritizR\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nReserve design in the Morro Bay watershed prioritizing special status species\n\n\n\nMaxwell Pepperdine\n\n\nSep 20, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExploring habitat connectivity between core areas in a Costa Rican landscape\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nArcGIS Pro\n\n\n\nModeling movement patterns and connectivity for the jaguar (Panthera onca) across southern Costa Rica with Circuitscape\n\n\n\nMaxwell Pepperdine\n\n\nSep 17, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyzing the impacts of hurricanes upon bathymetry\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRemote-sensing\n\n\nPython\n\n\n\nQuantifying and mapping bathymetric changes surrounding the Grand Bahama & Great Abaco islands due to Hurricane Dorian\n\n\n\nMaxwell Pepperdine\n\n\nSep 10, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/2024-11-10-houston-blackout/index.html",
-    "href": "posts/2024-11-10-houston-blackout/index.html",
-    "title": "Investigating EJ implications of the Houston blackout",
+    "objectID": "posts/2024-11-15-ml-landuse/index.html",
+    "href": "posts/2024-11-15-ml-landuse/index.html",
+    "title": "Applying supervised machine mearning to landuse cover in Santa Barbara, CA",
     "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Investigating {EJ} Implications of the {Houston} Blackout},\n  date = {2024-11-15},\n  url = {https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Investigating EJ Implications of the\nHouston Blackout.” November 15, 2024. https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/."
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Applying Supervised Machine Mearning to Landuse Cover in\n    {Santa} {Barbara,} {CA}},\n  date = {2024-11-15},\n  url = {https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Applying Supervised Machine Mearning\nto Landuse Cover in Santa Barbara, CA.” November 15, 2024. https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/."
   },
   {
-    "objectID": "posts/2024-09-20-morro-prioritizr/index.html",
-    "href": "posts/2024-09-20-morro-prioritizr/index.html",
-    "title": "Informing reserve design in the Morro Bay Watershed",
+    "objectID": "posts/2024-11-05-redlining-legacies/index.html",
+    "href": "posts/2024-11-05-redlining-legacies/index.html",
+    "title": "Exploring patterns of environmental justice in Los Angeles County",
     "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Informing Reserve Design in the {Morro} {Bay} {Watershed}},\n  date = {2024-09-20},\n  url = {https://maxpepperdine.github.io/posts/2024-09-20-morro-prioritizr/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Informing Reserve Design in the Morro\nBay Watershed.” September 20, 2024. https://maxpepperdine.github.io/posts/2024-09-20-morro-prioritizr/."
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Exploring Patterns of Environmental Justice in {Los}\n    {Angeles} {County}},\n  date = {2024-11-05},\n  url = {https://maxpepperdine.github.io/posts/2024-11-05-redlining-legacies/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Exploring Patterns of Environmental\nJustice in Los Angeles County.” November 5, 2024. https://maxpepperdine.github.io/posts/2024-11-05-redlining-legacies/."
   },
   {
-    "objectID": "posts/2024-09-10-bathy-dorian/index.html",
-    "href": "posts/2024-09-10-bathy-dorian/index.html",
-    "title": "Analyzing the impacts of hurricanes upon bathymetry",
+    "objectID": "posts/2024-09-22-maxent-coral/index.html",
+    "href": "posts/2024-09-22-maxent-coral/index.html",
+    "title": "Mapping the distribution of native and invasive marine species in the Indo-Pacific region",
     "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Analyzing the Impacts of Hurricanes Upon Bathymetry},\n  date = {2024-09-10},\n  url = {https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Analyzing the Impacts of Hurricanes\nUpon Bathymetry.” September 10, 2024. https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/."
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Mapping the Distribution of Native and Invasive Marine\n    Species in the {Indo-Pacific} Region},\n  date = {2024-09-22},\n  url = {https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Mapping the Distribution of Native and\nInvasive Marine Species in the Indo-Pacific Region.” September\n22, 2024. https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "posts/2024-09-17-connectivity/index.html",
+    "href": "posts/2024-09-17-connectivity/index.html",
+    "title": "Exploring habitat connectivity between core areas in a Costa Rican landscape",
     "section": "",
-    "text": "some text goes here"
-  },
-  {
-    "objectID": "about.html#what-i-do-for-work",
-    "href": "about.html#what-i-do-for-work",
-    "title": "About",
-    "section": "",
-    "text": "some text goes here"
-  },
-  {
-    "objectID": "about.html#what-i-do-for-fun",
-    "href": "about.html#what-i-do-for-fun",
-    "title": "About",
-    "section": "What I do for fun",
-    "text": "What I do for fun\n\nmore text goes here\n\nhere is some more text styled with Quarto\n\nhere is a line\nhere is another line"
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Exploring Habitat Connectivity Between Core Areas in a\n    {Costa} {Rican} Landscape},\n  date = {2024-09-17},\n  url = {https://maxpepperdine.github.io/posts/2024-09-17-connectivity/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Exploring Habitat Connectivity Between\nCore Areas in a Costa Rican Landscape.” September 17, 2024. https://maxpepperdine.github.io/posts/2024-09-17-connectivity/."
   },
   {
     "objectID": "index.html",
@@ -70,38 +56,59 @@
     "text": "Professional Experience\nmore text here"
   },
   {
-    "objectID": "posts/2024-09-17-connectivity/index.html",
-    "href": "posts/2024-09-17-connectivity/index.html",
-    "title": "Exploring habitat connectivity between core areas in a Costa Rican landscape",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Maxwell Pepperdine",
     "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Exploring Habitat Connectivity Between Core Areas in a\n    {Costa} {Rican} Landscape},\n  date = {2024-09-17},\n  url = {https://maxpepperdine.github.io/posts/2024-09-17-connectivity/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Exploring Habitat Connectivity Between\nCore Areas in a Costa Rican Landscape.” September 17, 2024. https://maxpepperdine.github.io/posts/2024-09-17-connectivity/."
+    "text": "Hi there! I’m Maxwell Pepperdine (no affiliation to the university) and I’m a current master’s student in Environmental Science and Management at the Bren School at UC Santa Barbara. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning.\nI graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family.\n\nExperienceEducationOcean photographySome of my favorate places\n\n\nArnhold Environmental Graduate Fellow (Jun 2024 - present) | Environmental Markets Lab, (emLab), Santa Barbara, CA\nGraduate Teaching Assistant (Jan 2024 - present) | Environmental Studies Program & Department of Ecology, Evolution, and Marine Biology (EEMB), Santa Barbara, CA\nRemote Sensing Research Assistant (Jun 2024 - Sep 2024) | Edge Hill University, Ormskirk, UK\nSpatial Conservation Planning Research Assistant (Dec 2023 - May 2024) | California Central Coast Joint Venture (C3JV), Santa Cruz, CA\n\n\nMaster of Environmental Science and Management (Expected Jun 2025) | Bren School of Environmental Science & Management, UCSB\nB.S. in Environmental Management and Protection (Jun 2023) | California Polytechnic State University (Cal Poly), San Luis Obispo\n\n\ninsert photos here\n\n\ninsert more photos here"
   },
   {
-    "objectID": "posts/2024-09-22-maxent-coral/index.html",
-    "href": "posts/2024-09-22-maxent-coral/index.html",
-    "title": "Mapping the distribution of native and invasive marine species in the Indo-Pacific region",
+    "objectID": "about.html#about-me",
+    "href": "about.html#about-me",
+    "title": "Maxwell Pepperdine",
     "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Mapping the Distribution of Native and Invasive Marine\n    Species in the {Indo-Pacific} Region},\n  date = {2024-09-22},\n  url = {https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Mapping the Distribution of Native and\nInvasive Marine Species in the Indo-Pacific Region.” September\n22, 2024. https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/."
+    "text": "Hi there! I’m Maxwell Pepperdine (no affiliation to the university) and I’m a current master’s student in Environmental Science and Management at the Bren School at UC Santa Barbara. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning.\nI graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family.\n\nExperienceEducationOcean photographySome of my favorate places\n\n\nArnhold Environmental Graduate Fellow (Jun 2024 - present) | Environmental Markets Lab, (emLab), Santa Barbara, CA\nGraduate Teaching Assistant (Jan 2024 - present) | Environmental Studies Program & Department of Ecology, Evolution, and Marine Biology (EEMB), Santa Barbara, CA\nRemote Sensing Research Assistant (Jun 2024 - Sep 2024) | Edge Hill University, Ormskirk, UK\nSpatial Conservation Planning Research Assistant (Dec 2023 - May 2024) | California Central Coast Joint Venture (C3JV), Santa Cruz, CA\n\n\nMaster of Environmental Science and Management (Expected Jun 2025) | Bren School of Environmental Science & Management, UCSB\nB.S. in Environmental Management and Protection (Jun 2023) | California Polytechnic State University (Cal Poly), San Luis Obispo\n\n\ninsert photos here\n\n\ninsert more photos here"
   },
   {
-    "objectID": "posts/2024-11-05-redlining-legacies/index.html",
-    "href": "posts/2024-11-05-redlining-legacies/index.html",
-    "title": "Exploring patterns of environmental justice in Los Angeles County",
-    "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Exploring Patterns of Environmental Justice in {Los}\n    {Angeles} {County}},\n  date = {2024-11-05},\n  url = {https://maxpepperdine.github.io/posts/2024-11-05-redlining-legacies/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Exploring Patterns of Environmental\nJustice in Los Angeles County.” November 5, 2024. https://maxpepperdine.github.io/posts/2024-11-05-redlining-legacies/."
+    "objectID": "about.html#what-i-do-for-work",
+    "href": "about.html#what-i-do-for-work",
+    "title": "Maxwell Pepperdine",
+    "section": "What I do for work",
+    "text": "What I do for work\n\nsome text goes here"
   },
   {
-    "objectID": "posts/2024-11-15-ml-landuse/index.html",
-    "href": "posts/2024-11-15-ml-landuse/index.html",
-    "title": "Applying supervised machine mearning to landuse cover in Santa Barbara, CA",
-    "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Applying Supervised Machine Mearning to Landuse Cover in\n    {Santa} {Barbara,} {CA}},\n  date = {2024-11-15},\n  url = {https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Applying Supervised Machine Mearning\nto Landuse Cover in Santa Barbara, CA.” November 15, 2024. https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/."
+    "objectID": "about.html#what-i-do-for-fun",
+    "href": "about.html#what-i-do-for-fun",
+    "title": "Maxwell Pepperdine",
+    "section": "What I do for fun",
+    "text": "What I do for fun\n\nmore text goes here\n\nhere is some more text styled with Quarto\n\nhere is a line\nhere is another line"
   },
   {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog",
+    "objectID": "posts/2024-09-10-bathy-dorian/index.html",
+    "href": "posts/2024-09-10-bathy-dorian/index.html",
+    "title": "Analyzing the impacts of hurricanes upon bathymetry",
     "section": "",
-    "text": "Mapping suitable nesting habitat for an endangered bird in the SCM\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nDelineating suitable nesting habitat for marbled murrelets following severe wildfires in the Santa Cruz Mountains (SCM)\n\n\n\nMaxwell Pepperdine\n\n\nJan 16, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInvestigating EJ implications of the Houston blackout\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRStudio\n\n\n\nA spatial analysis of the Houston blackout and affected communities\n\n\n\nMaxwell Pepperdine\n\n\nNov 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApplying supervised machine mearning to landuse cover in Santa Barbara, CA\n\n\n\nMachine-learning\n\n\nMESM\n\n\nRemote-sensing\n\n\nRStudio\n\n\n\nBuilding algorithms with machine learning to understand how we use our land\n\n\n\nMaxwell Pepperdine\n\n\nNov 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExploring patterns of environmental justice in Los Angeles County\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRStudio\n\n\n\nA spatial analysis to analyze the legacy of historical redlining in Los Angeles County\n\n\n\nMaxwell Pepperdine\n\n\nNov 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMapping the distribution of native and invasive marine species in the Indo-Pacific region\n\n\n\nMaxEnt\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nUsing MaxEnt to model current and future distributions of grape coral and crown-of-thorn starfish\n\n\n\nMaxwell Pepperdine\n\n\nSep 22, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInforming reserve design in the Morro Bay Watershed\n\n\n\nPrioritizR\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nReserve design in the Morro Bay watershed prioritizing special status species\n\n\n\nMaxwell Pepperdine\n\n\nSep 20, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExploring habitat connectivity between core areas in a Costa Rican landscape\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nArcGIS Pro\n\n\n\nModeling movement patterns and connectivity for the jaguar (Panthera onca) across southern Costa Rica with Circuitscape\n\n\n\nMaxwell Pepperdine\n\n\nSep 17, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyzing the impacts of hurricanes upon bathymetry\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRemote-sensing\n\n\nPython\n\n\n\nQuantifying and mapping bathymetric changes surrounding the Grand Bahama & Great Abaco islands due to Hurricane Dorian\n\n\n\nMaxwell Pepperdine\n\n\nSep 10, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Analyzing the Impacts of Hurricanes Upon Bathymetry},\n  date = {2024-09-10},\n  url = {https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Analyzing the Impacts of Hurricanes\nUpon Bathymetry.” September 10, 2024. https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/."
+  },
+  {
+    "objectID": "posts/2024-09-20-morro-prioritizr/index.html",
+    "href": "posts/2024-09-20-morro-prioritizr/index.html",
+    "title": "Informing reserve design in the Morro Bay Watershed",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Informing Reserve Design in the {Morro} {Bay} {Watershed}},\n  date = {2024-09-20},\n  url = {https://maxpepperdine.github.io/posts/2024-09-20-morro-prioritizr/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Informing Reserve Design in the Morro\nBay Watershed.” September 20, 2024. https://maxpepperdine.github.io/posts/2024-09-20-morro-prioritizr/."
+  },
+  {
+    "objectID": "posts/2024-11-10-houston-blackout/index.html",
+    "href": "posts/2024-11-10-houston-blackout/index.html",
+    "title": "Investigating EJ implications of the Houston blackout",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Investigating {EJ} Implications of the {Houston} Blackout},\n  date = {2024-11-15},\n  url = {https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Investigating EJ Implications of the\nHouston Blackout.” November 15, 2024. https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/."
+  },
+  {
+    "objectID": "posts/2025-01-16-mamu-scm/index.html",
+    "href": "posts/2025-01-16-mamu-scm/index.html",
+    "title": "Mapping suitable nesting habitat for an endangered bird in the SCM",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2025,\n  author = {Pepperdine, Maxwell},\n  title = {Mapping Suitable Nesting Habitat for an Endangered Bird in\n    the {SCM}},\n  date = {2025-01-16},\n  url = {https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2025. “Mapping Suitable Nesting Habitat for\nan Endangered Bird in the SCM.” January 16, 2025. https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/."
   }
 ]
