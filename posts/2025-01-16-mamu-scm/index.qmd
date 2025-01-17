@@ -1,0 +1,21 @@
+---
+title: "Mapping suitable nesting habitat for an endangered bird in the SCM"
+title-block-banner: true
+description: "Delineating suitable nesting habitat for marbled murrelets following severe wildfires in the Santa Cruz Mountains (SCM)"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2025-01-16
+categories: [Geospatial-analysis, MESM, Conservation-planning, RStudio]
+toc: true
+image: sdm.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/
+draft: false
+---
+
+
+
+

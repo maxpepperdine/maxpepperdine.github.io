@@ -1,0 +1,20 @@
+---
+title: "Analyzing the impacts of hurricanes upon bathymetry"
+title-block-banner: true
+description: "Quantifying and mapping bathymetric changes surrounding the Grand Bahama & Great Abaco islands due to Hurricane Dorian"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-09-10
+categories: [Geospatial-analysis, MESM, Remote-sensing, Python]
+toc: true
+image: bathy_difference.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/
+draft: false
+---
+
+
+

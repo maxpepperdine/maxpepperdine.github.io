@@ -1,5 +1,19 @@
 [
   {
+    "objectID": "posts/2025-01-16-mamu-scm/index.html",
+    "href": "posts/2025-01-16-mamu-scm/index.html",
+    "title": "Mapping suitable nesting habitat for an endangered bird in the SCM",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2025,\n  author = {Pepperdine, Maxwell},\n  title = {Mapping Suitable Nesting Habitat for an Endangered Bird in\n    the {SCM}},\n  date = {2025-01-16},\n  url = {https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2025. “Mapping Suitable Nesting Habitat for\nan Endangered Bird in the SCM.” January 16, 2025. https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/."
+  },
+  {
+    "objectID": "posts/2024-09-10-bathy-dorian/index.html",
+    "href": "posts/2024-09-10-bathy-dorian/index.html",
+    "title": "Analyzing the impacts of hurricanes upon bathymetry",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Analyzing the Impacts of Hurricanes Upon Bathymetry},\n  date = {2024-09-10},\n  url = {https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Analyzing the Impacts of Hurricanes\nUpon Bathymetry.” September 10, 2024. https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -25,7 +39,7 @@
     "href": "index.html",
     "title": "Maxwell Pepperdine",
     "section": "",
-    "text": "Hi there! I’m Maxwell Pepperdine and I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems. This fostered my admiration and affinity for the natural environment at an early age. Specializing in Conservation Planning at the Bren School with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning."
+    "text": "Hi there! I’m Maxwell Pepperdine (no affiliation to the university) and I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems. This fostered my admiration and affinity for the natural environment at an early age. Specializing in Conservation Planning at the Bren School with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning."
   },
   {
     "objectID": "index.html#education",
@@ -46,6 +60,6 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "No matching items"
+    "text": "Mapping suitable nesting habitat for an endangered bird in the SCM\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nDelineating suitable nesting habitat for marbled murrelets following severe wildfires in the Santa Cruz Mountains (SCM)\n\n\n\nMaxwell Pepperdine\n\n\nJan 16, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyzing the impacts of hurricanes upon bathymetry\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRemote-sensing\n\n\nPython\n\n\n\nBathymetric changes surrounding the Grand Bahama & Great Abaco islands due to Hurricane Dorian\n\n\n\nMaxwell Pepperdine\n\n\nSep 10, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]
