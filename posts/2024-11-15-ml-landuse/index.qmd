@@ -1,0 +1,21 @@
+---
+title: "Applying supervised machine mearning to landuse cover in Santa Barbara, CA"
+title-block-banner: true
+description: "Building algorithms with machine learning to understand how we use our land"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-11-15
+categories: [MaxEnt, MESM, Conservation-planning, RStudio]
+toc: true
+image: lu_classification.jpeg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/
+draft: false
+---
+
+
+
+

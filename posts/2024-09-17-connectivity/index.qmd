@@ -1,0 +1,22 @@
+---
+title: "Exploring habitat connectivity between patches"
+title-block-banner: true
+description: "Modeling movement patterns and connectivity for the jaguar (Panthera onca) across southern Costa Rica with Circuitscape"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-09-17
+categories: [Geospatial-analysis, MESM, Conservation-planning, ArcGIS Pro]
+toc: true
+image: connectivity_map.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-09-17-connectivity/
+draft: false
+---
+
+
+
+
+

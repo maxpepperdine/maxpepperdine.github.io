@@ -1,0 +1,22 @@
+---
+title: "Informing reserve design in the Morro Bay Watershed"
+title-block-banner: true
+description: "Reserve design in the Morro Bay watershed prioritizing special status species"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-09-20
+categories: [PrioritizR, MESM, Conservation-planning, RStudio]
+toc: true
+image: reserve_design.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-09-20-morro-prioritizr/
+draft: false
+---
+
+
+
+
+

@@ -7,32 +7,25 @@
     "text": "CitationBibTeX citation:@online{pepperdine2025,\n  author = {Pepperdine, Maxwell},\n  title = {Mapping Suitable Nesting Habitat for an Endangered Bird in\n    the {SCM}},\n  date = {2025-01-16},\n  url = {https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2025. “Mapping Suitable Nesting Habitat for\nan Endangered Bird in the SCM.” January 16, 2025. https://maxpepperdine.github.io/posts/2025-01-16-mamu-scm/."
   },
   {
-    "objectID": "posts/2024-09-10-bathy-dorian/index.html",
-    "href": "posts/2024-09-10-bathy-dorian/index.html",
-    "title": "Analyzing the impacts of hurricanes upon bathymetry",
+    "objectID": "posts/2024-11-10-houston-blackout/index.html",
+    "href": "posts/2024-11-10-houston-blackout/index.html",
+    "title": "Investigating EJ implications of the Houston blackout",
     "section": "",
-    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Analyzing the Impacts of Hurricanes Upon Bathymetry},\n  date = {2024-09-10},\n  url = {https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Analyzing the Impacts of Hurricanes\nUpon Bathymetry.” September 10, 2024. https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/."
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Investigating {EJ} Implications of the {Houston} Blackout},\n  date = {2024-11-15},\n  url = {https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Investigating EJ Implications of the\nHouston Blackout.” November 15, 2024. https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "posts/2024-09-22-maxent-coral/index.html",
+    "href": "posts/2024-09-22-maxent-coral/index.html",
+    "title": "Mapping the distribution of native and invasive marine species in the Indo-Pacific region",
     "section": "",
-    "text": "some text goes here"
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Mapping the Distribution of Native and Invasive Marine\n    Species in the {Indo-Pacific} Region},\n  date = {2024-09-22},\n  url = {https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Mapping the Distribution of Native and\nInvasive Marine Species in the Indo-Pacific Region.” September\n22, 2024. https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/."
   },
   {
-    "objectID": "about.html#what-i-do-for-work",
-    "href": "about.html#what-i-do-for-work",
-    "title": "About",
+    "objectID": "posts/2024-09-17-connectivity/index.html",
+    "href": "posts/2024-09-17-connectivity/index.html",
+    "title": "Exploring habitat connectivity between patches",
     "section": "",
-    "text": "some text goes here"
-  },
-  {
-    "objectID": "about.html#what-i-do-for-fun",
-    "href": "about.html#what-i-do-for-fun",
-    "title": "About",
-    "section": "What I do for fun",
-    "text": "What I do for fun\n\nmore text goes here\n\nhere is some more text styled with Quarto\n\nhere is a line\nhere is another line"
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Exploring Habitat Connectivity Between Patches},\n  date = {2024-09-17},\n  url = {https://maxpepperdine.github.io/posts/2024-09-17-connectivity/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Exploring Habitat Connectivity Between\nPatches.” September 17, 2024. https://maxpepperdine.github.io/posts/2024-09-17-connectivity/."
   },
   {
     "objectID": "index.html",
@@ -56,10 +49,52 @@
     "text": "Professional Experience\nmore text here"
   },
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "some text goes here"
+  },
+  {
+    "objectID": "about.html#what-i-do-for-work",
+    "href": "about.html#what-i-do-for-work",
+    "title": "About",
+    "section": "",
+    "text": "some text goes here"
+  },
+  {
+    "objectID": "about.html#what-i-do-for-fun",
+    "href": "about.html#what-i-do-for-fun",
+    "title": "About",
+    "section": "What I do for fun",
+    "text": "What I do for fun\n\nmore text goes here\n\nhere is some more text styled with Quarto\n\nhere is a line\nhere is another line"
+  },
+  {
+    "objectID": "posts/2024-09-10-bathy-dorian/index.html",
+    "href": "posts/2024-09-10-bathy-dorian/index.html",
+    "title": "Analyzing the impacts of hurricanes upon bathymetry",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Analyzing the Impacts of Hurricanes Upon Bathymetry},\n  date = {2024-09-10},\n  url = {https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Analyzing the Impacts of Hurricanes\nUpon Bathymetry.” September 10, 2024. https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/."
+  },
+  {
+    "objectID": "posts/2024-09-20-morro-prioritizr/index.html",
+    "href": "posts/2024-09-20-morro-prioritizr/index.html",
+    "title": "Informing reserve design in the Morro Bay Watershed",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Informing Reserve Design in the {Morro} {Bay} {Watershed}},\n  date = {2024-09-20},\n  url = {https://maxpepperdine.github.io/posts/2024-09-20-morro-prioritizr/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Informing Reserve Design in the Morro\nBay Watershed.” September 20, 2024. https://maxpepperdine.github.io/posts/2024-09-20-morro-prioritizr/."
+  },
+  {
+    "objectID": "posts/2024-11-15-ml-landuse/index.html",
+    "href": "posts/2024-11-15-ml-landuse/index.html",
+    "title": "Applying supervised machine mearning to landuse cover in Santa Barbara, CA",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{pepperdine2024,\n  author = {Pepperdine, Maxwell},\n  title = {Applying Supervised Machine Mearning to Landuse Cover in\n    {Santa} {Barbara,} {CA}},\n  date = {2024-11-15},\n  url = {https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPepperdine, Maxwell. 2024. “Applying Supervised Machine Mearning\nto Landuse Cover in Santa Barbara, CA.” November 15, 2024. https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/."
+  },
+  {
     "objectID": "posts.html",
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "Mapping suitable nesting habitat for an endangered bird in the SCM\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nDelineating suitable nesting habitat for marbled murrelets following severe wildfires in the Santa Cruz Mountains (SCM)\n\n\n\nMaxwell Pepperdine\n\n\nJan 16, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyzing the impacts of hurricanes upon bathymetry\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRemote-sensing\n\n\nPython\n\n\n\nBathymetric changes surrounding the Grand Bahama & Great Abaco islands due to Hurricane Dorian\n\n\n\nMaxwell Pepperdine\n\n\nSep 10, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Mapping suitable nesting habitat for an endangered bird in the SCM\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nDelineating suitable nesting habitat for marbled murrelets following severe wildfires in the Santa Cruz Mountains (SCM)\n\n\n\nMaxwell Pepperdine\n\n\nJan 16, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInvestigating EJ implications of the Houston blackout\n\n\n\nMaxEnt\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nA spatial analysis of the Houston blackout and affected communities\n\n\n\nMaxwell Pepperdine\n\n\nNov 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApplying supervised machine mearning to landuse cover in Santa Barbara, CA\n\n\n\nMaxEnt\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nBuilding algorithms with machine learning to understand how we use our land\n\n\n\nMaxwell Pepperdine\n\n\nNov 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMapping the distribution of native and invasive marine species in the Indo-Pacific region\n\n\n\nMaxEnt\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nUsing MaxEnt to model current and future distributions of grape coral and crown-of-thorn starfish\n\n\n\nMaxwell Pepperdine\n\n\nSep 22, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInforming reserve design in the Morro Bay Watershed\n\n\n\nPrioritizR\n\n\nMESM\n\n\nConservation-planning\n\n\nRStudio\n\n\n\nReserve design in the Morro Bay watershed prioritizing special status species\n\n\n\nMaxwell Pepperdine\n\n\nSep 20, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExploring habitat connectivity between patches\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nConservation-planning\n\n\nArcGIS Pro\n\n\n\nModeling movement patterns and connectivity for the jaguar (Panthera onca) across southern Costa Rica with Circuitscape\n\n\n\nMaxwell Pepperdine\n\n\nSep 17, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyzing the impacts of hurricanes upon bathymetry\n\n\n\nGeospatial-analysis\n\n\nMESM\n\n\nRemote-sensing\n\n\nPython\n\n\n\nQuantifying and mapping bathymetric changes surrounding the Grand Bahama & Great Abaco islands due to Hurricane Dorian\n\n\n\nMaxwell Pepperdine\n\n\nSep 10, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]

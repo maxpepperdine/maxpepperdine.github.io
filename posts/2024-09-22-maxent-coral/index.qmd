@@ -1,0 +1,21 @@
+---
+title: "Mapping the distribution of native and invasive marine species in the Indo-Pacific region"
+title-block-banner: true
+description: "Using MaxEnt to model current and future distributions of grape coral and crown-of-thorn starfish"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-09-22
+categories: [MaxEnt, MESM, Conservation-planning, RStudio]
+toc: true
+image: coral_maxent.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/
+draft: false
+---
+
+
+
+
