@@ -8,7 +8,7 @@ author:
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
 date: 2024-11-15
-categories: [MaxEnt, MESM, Conservation-planning, RStudio]
+categories: [Geospatial-analysis, MESM, RStudio]
 toc: true
 image: blackout_income.jpg
 citation: 
