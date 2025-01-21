@@ -4,23 +4,22 @@ title: " "
 
 ## About me
 
-Hi there! I'm Maxwell Pepperdine (no affiliation to the university) and I'm a current master's student in Environmental Science and Management at the Bren School at UC Santa Barbara. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning. 
+Hi there! I'm Maxwell Pepperdine (no affiliation to the university) and I'm a current master's student in Environmental Science and Management at the Bren School at UC Santa Barbara. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning.
 
-I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family. 
+I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family.
 
 ::: panel-tabset
-
-#### Experience 
+#### Experience
 
 **Arnhold Environmental Graduate Fellow** (Jun 2024 - present) \| Environmental Markets Lab, (emLab), Santa Barbara, CA
 
-**Graduate Teaching Assistant** (Jan 2024 - present) \| Environmental Studies Program & Department of Ecology, Evolution, and Marine Biology (EEMB), Santa Barbara, CA
+**Graduate Teaching Assistant** (Jan 2024 - present) \| University of California, Santa Barbara
 
 **Remote Sensing Research Assistant** (Jun 2024 - Sep 2024) \| Edge Hill University, Ormskirk, UK
 
 **Spatial Conservation Planning Research Assistant** (Dec 2023 - May 2024) \| California Central Coast Joint Venture (C3JV), Santa Cruz, CA
 
-#### Education 
+#### Education
 
 **Master of Environmental Science and Management** (Expected Jun 2025) \| Bren School of Environmental Science & Management, UCSB
 
@@ -33,7 +32,6 @@ insert photos here
 #### Some of my favorate places
 
 insert more photos here
-
 :::
 
 ## What I do for work

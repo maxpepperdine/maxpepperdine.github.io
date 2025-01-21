@@ -14,7 +14,540 @@ image: redlining.jpg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-11-05-redlining-legacies/
 draft: false
+execute:
+  eval: true
+  warning: false
+  message: false
 ---
+
+#### Background
+
+Legacies of historical injustices are often reflected in present-day environmental injustices. One example of this is racial segregation in the United States, in which a long history of these injustices are still visible today. As part of the New Deal in the 1930's, the Home Owners' Loan Corporation (HOLC) classified neighborhoods based on their perceived safety or risk for mortgage lending (hereby refered to as 'HOLC grade'). Thy used this ranking system (HOLC grades of A, B, C, D) to block access to loans for home ownership, delineating maps to indicate where mortgages and loans should not be invested. This practice, colloquially known as "redlining," disproportionately affected communities of color and has had lasting impacts on the socio-economic and environmental conditions of these neighborhoods that are still evident today.
+
+This analysis aims to explore the legacy of redlining in Los Angeles County by examining the distribution of environmental and biodiversity observations within each HOLC grade. The analysis will be divided into two parts:
+
+1. **Legacy of redlining in current environmental (in)justice:** This section will explore the relationship between HOLC grades and three environmental justice (EJ) screen variables in Los Angeles County: % low income, percentile for PM 2.5, and percentile for low life expectancy. The analysis will examine how the current conditions of these variables differ with the four HOLC grades.
+
+2. **Legacy of redlining in biodiversity observations:** This section will examine the distribution of bird observations from 2022 within each HOLC grade in Los Angeles County to explore how the distribution of biodiversity observations has been influenced by historical redlining practices.
+
+## Part 1: Legacy of redlining in current environmental (in)justice
+
+#### Load packages
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true 
+#| code-summary: "Show packages used in this analysis"
+
+library(tidyverse)
+library(sf)
+library(here)
+library(tmap)
+library(kableExtra)
+library(tmaptools)
+library(leaflet)
+library(patchwork)
+```
+
+#### Load data
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# redlining data 
+holc_redlining <- st_read(here("posts/2024-11-05-redlining-legacies/data/mapping-inequality/mapping-inequality-los-angeles.json"))
+holc_redlining <- holc_redlining %>% 
+  filter(st_is_valid(holc_redlining)) # remove invalid geometries
+
+# EJ screen data
+ej_screen <- st_read(here("posts/2024-11-05-redlining-legacies/data/ejscreen/EJSCREEN_2023_BG_StatePct_with_AS_CNMI_GU_VI.gdb"))
+ej_screen <- ej_screen %>% 
+  filter(st_is_valid(ej_screen)) %>% # remove invalid geometries
+  st_transform(crs = st_crs(holc_redlining)) # set same CRS as redlining data
+
+# filter EJ screen data to LA county
+ej_screen_la <- ej_screen %>% 
+  filter(STATE_NAME == "California" & CNTY_NAME == "Los Angeles County")
+
+# LA county boundary; sourced from City of Los Angeles Hub
+la_county <- st_read(here("posts/2024-11-05-redlining-legacies/data/la_county_boundary/County_Boundary.shp")) %>% 
+  st_transform(crs = st_crs(holc_redlining)) # set same CRS as redlining data
+la_county <- la_county %>%
+  filter(st_is_valid(la_county)) # remove invalid geometries
+```
+
+###### QC #1: Are there any invalid geometries in the layers that will be used?
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# check for invalid geometries in the redlining data with testthat
+if(testthat::expect_true(all(st_is_valid(holc_redlining)))) {
+  print("No invalid geometries in the redlining data")
+} else {
+  warning("There are invalid geometries in the redlining data")
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# check for invalid geometries in the EJ screen data
+if(testthat::expect_true(all(st_is_valid(ej_screen_la)))) {
+  print("No invalid geometries in the EJ screen data")
+} else {
+  warning("There are invalid geometries in the EJ screen data")
+}
+```
+
+#### Make a map with `tmap`
+
+```{r}
+#| label: fig-map
+#| fig-cap: "Historical redlining neighborhoods in Los Angeles County. HOLC grades of A are represented in dark blue, B by light blue, C by yellow, and D by red. Areas with no HOLC grade, or 'missing' grades, are shown in grey. The Los Angeles County boundary is also portrayed with the black line to provide additional geospatial context. HOLC grade data was sourced from Nelson et al. (2023) and the LA County boundary was sourced from the City of Los Angeles GeoHub."
+#| code-fold: true
+#| code-summary: "Show the map code"
+
+
+# set plot mode to interactive to activate basemaps
+tmap_mode("view")
+
+# make the map
+tm_basemap("Esri.WorldTopoMap", alpha = 0.7) + # add a basemap
+tm_shape(holc_redlining, 
+         name = "Historical redlining") +
+  tm_fill(col = "grade", palette = "-RdYlBu", # color by grade; reverse pal
+          title = "HOLC Grade") + # clean up the layer name
+  tm_borders() + 
+tm_shape(la_county, 
+         name = "LA County boundary") +
+  tm_borders(lwd = 1.5) + 
+  tm_scale_bar(position = c("top", "right")) 
+## commented out for interactive maps; the compass function doesn't work
+# tm_layout(legend.position = c("right", "bottom")) +
+#   tm_compass(position = c("left", "bottom"))
+```
+
+#### Determine the % of current census block groups within each HOLC grade 
+
+*Pseudocode outline:*
+
+1. Check if the EJ screen and HOLC redlining data are in the same Coordinate Reference System (CRS) using `st_crs()`. If they are not in the same CRS, reproject one of the datasets to match the other.
+
+2. Join the HOLC redlining data to the EJ screen data. In this step, I used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the EJ screen data which is already at the block group level and add the HOLC grade to each observation.
+
+3. Calculate the % census blocks groups within in HOLC grade (A, B, C, D). Group the data by HOLC grade using `group_by()` and then calculate the % of block groups in each grade. I used the `n()` function to count the number of block groups in each grade, and then calculated the % of block groups in each grade by dividing the count number by the sum of blocks counted.
+
+4. Clean up the data and show the results in a table (Table 1 below).
+
+###### QC #2: Are the EJ screen and redlining data in the same CRS?
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make sure the CRS of the EJ screen data and HOLC redlining are the same
+if(st_crs(ej_screen_la) == st_crs(holc_redlining)) {
+  print("The EJ screen and HOLC redlining data are in the same CRS")
+} else {
+  warning("The EJ screen and HOLC redlining data are NOT in the same CRS")
+}
+```
+
+###### Calculate the % of block groups within each HOLC grade
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# join the redlining data to the EJ screen data; left join by default
+ej_screen_redlining <- st_join(ej_screen_la, holc_redlining)
+
+# calculate the % of each HOLC grade in the EJ screen data
+ej_screen_redlining_pct <- ej_screen_redlining %>%
+  group_by(grade) %>% # group by HOLC grade
+  summarize(n = n()) %>% # count the number of block groups in each grade
+  mutate(pct_grade = n / sum(n) * 100) # add new column of % block groups in each grade
+
+
+
+##### cleaning up the data for the table
+
+# rename some columns and drop the geometry column
+ej_screen_redlining_pct_clean <- ej_screen_redlining_pct %>% 
+  rename("HOLC Grade" = grade) %>% # make the column names cleaner
+  rename("% of Block Groups" = pct_grade) %>%
+  select("HOLC Grade", "% of Block Groups") %>% 
+  st_drop_geometry() # drop the geometry column
+
+# change the NA value in the HOLC Grade column to "None"
+# if not an NA value, leave the value as is
+ej_screen_redlining_pct_clean$`HOLC Grade` <- 
+  ifelse(is.na(ej_screen_redlining_pct_clean$`HOLC Grade`), "None", 
+         ej_screen_redlining_pct_clean$`HOLC Grade`)
+
+# change the # of decimals in the % column to 2
+ej_screen_redlining_pct_clean$`% of Block Groups` <- 
+  round(ej_screen_redlining_pct_clean$`% of Block Groups`, 2)
+```
+
+###### Make a table to show the results
+
+```{r}
+#| label: tbl-grades
+#| tbl-cap: "Percentage of current census block groups within each HOLC grade."
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make a table of the % of each HOLC grade in the EJ screen data
+ej_screen_redlining_pct_clean %>%
+  kable() %>%
+  kable_styling(position = "center", 
+                row_label_position = "c") %>% 
+  kable_classic(full_width = F)
+```
+
+#### Explore conditions of different EJ Screen variables by HOLC grade
+
+###### QC #3: Are the EJ screen and redlining data still in the same CRS?
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make sure the CRS of the EJ screen data and HOLC redlining are the same
+if(st_crs(ej_screen_la) == st_crs(holc_redlining)) {
+  print("The EJ screen and HOLC redlining data are in the same CRS")
+} else {
+  warning("The EJ screen and HOLC redlining data are NOT in the same CRS")
+}
+```
+
+###### Overview of analysis & variables
+
+- *Analysis goal:* 
+  - This analysis aims to explore the relationship between the Home Owners’ Loan Corporation (HOLC) grades and three EJ Screen variables in Los Angeles County. To examine how the current conditions of these variables in census block groups differ with the four HOLC grades, I calculated the mean of each variable within each HOLC grade. Figure 2 below shows the results of this analysis.
+
+- *Variables of interest:*
+  - **% low income (`LOWINCPCT`)**: Taken from the EPA EJ Screen documentation: "The percent of a block group's population in households where the household income is less than or equal to twice the federal 'poverty level.'"
+  - **Percentile for PM 2.5 (`P_PM25`)**: Taken from the EPA EJ Screen documentation: "EJScreen presents PM2.5 concentrations using percentile rank, ranging from 0 (lowest) to 100 (highest)."
+  - **Percentile for low life expectancy (`P_LIFEEXPPCT`)**: Taken from the EPA EJ Screen documentation: EJScreen presents life expectancy using percentile rank, ranging from 0 (lowest) to 100 (highest) low life expectancy. A higher percentile indicates a lower life expectancy.
+
+###### Data wrangling
+
+*Steps/Pseudocode outline:*
+
+1. Filter the EJ Screen data to create three new data frames that contain the EJ Screen variables of interest in LA County: % low income (`LOWINCPCT`), percentile for PM 2.5 (`P_PM25`), and percentile for low life expectancy (`P_LIFEEXPPCT`)
+
+2. With each of the three variables created, join the EJ Screen data to the HOLC redlining data. In this step, I again used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the EJ Screen data and add the HOLC grade to each observation.
+
+3. Calculate the mean of each variable for each HOLC grade. This is done by grouping the data by HOLC grade using `group_by()` and then calculating the mean of the variable of interest. I used the `na.rm = TRUE` argument in the `mean()` function to remove any NA values in the data.
+
+4. Make a set of figures to show the results, and then combine them into one with the `patchwork` package.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+## filter the EJ screen data to create three data frames, one for each variable
+ej_screen_low_income <- ej_screen_la %>% 
+  select(ID, LOWINCPCT) # % low income
+
+ej_screen_pm25 <- ej_screen_la %>%
+  select(ID, P_PM25) # percentile for PM 2.5
+
+ej_screen_life_exp <- ej_screen_la %>%
+  select(ID, P_LIFEEXPPCT) # percentile for low life expectancy
+
+
+## join the EJ screen data to the HOLC redlining data for each variable
+ej_screen_redlining_low_income <- st_join(ej_screen_low_income, holc_redlining)
+
+ej_screen_redlining_pm25 <- st_join(ej_screen_pm25, holc_redlining)
+
+ej_screen_redlining_life_exp <- st_join(ej_screen_life_exp, holc_redlining)
+
+
+#### calculate the mean of each variable for each HOLC grade ####
+
+# low income 
+ej_screen_redlining_low_income_mean <- ej_screen_redlining_low_income %>%
+  group_by(grade) %>%
+  summarize(mean_low_income = mean(LOWINCPCT, na.rm = TRUE))
+# change NA value in the HOLC Grade column to "None"; same method as above
+ej_screen_redlining_low_income_mean$grade <- 
+  ifelse(is.na(ej_screen_redlining_low_income_mean$grade), "None", 
+         ej_screen_redlining_low_income_mean$grade)
+
+
+# PM 2.5
+ej_screen_redlining_pm25_mean <- ej_screen_redlining_pm25 %>%
+  group_by(grade) %>%
+  summarize(mean_pm25 = mean(P_PM25, na.rm = TRUE))
+# change NA value in the HOLC Grade column to "None"
+ej_screen_redlining_pm25_mean$grade <- 
+  ifelse(is.na(ej_screen_redlining_pm25_mean$grade), "None", 
+         ej_screen_redlining_pm25_mean$grade)
+
+
+# low life expectancy
+ej_screen_redlining_life_exp_mean <- ej_screen_redlining_life_exp %>%
+  group_by(grade) %>%
+  summarize(mean_life_exp = mean(P_LIFEEXPPCT, na.rm = TRUE))
+# change NA value in the HOLC Grade column to "None"
+ej_screen_redlining_life_exp_mean$grade <- 
+  ifelse(is.na(ej_screen_redlining_life_exp_mean$grade), "None", 
+         ej_screen_redlining_life_exp_mean$grade)
+```
+
+###### Make a set of figures (one for each variable)
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# % low income figure 
+pct_low_income <- ggplot(ej_screen_redlining_low_income_mean, 
+                        aes(x = grade, y = mean_low_income, 
+                            fill = grade)) +
+  geom_col(col = "black") +
+  labs(title = " ",
+       x = " ",
+       y = "% low income") +
+  scale_fill_manual(values = c("A" = "limegreen", 
+                               "B" = "royalblue2", 
+                               "C" = "gold", 
+                               "D" = "firebrick3", 
+                               "None" = "grey")) +
+  theme_classic()
+pct_low_income <- pct_low_income + 
+  theme(legend.position = "none")
+```
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# PM 2.5 figure
+pm25 <- ggplot(ej_screen_redlining_pm25_mean, 
+               aes(x = grade, y = mean_pm25, 
+                   fill = grade)) +
+  geom_col(col = "black") +
+  labs(title = " ",
+       x = "HOLC Grade",
+       y = "percentile for PM 2.5") +
+  scale_fill_manual(values = c("A" = "limegreen", 
+                               "B" = "royalblue2", 
+                               "C" = "gold", 
+                               "D" = "firebrick3", 
+                               "None" = "grey")) +
+  theme_classic()
+pm25 <- pm25 +
+  theme(legend.position = "none")
+```
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# low life expectancy figure
+life_exp <- ggplot(ej_screen_redlining_life_exp_mean, 
+                   aes(x = grade, y = mean_life_exp, 
+                       fill = grade)) +
+  geom_col(col = "black") +
+  labs(title = " ",
+       x = " ",
+       y = "percentile for low life expectancy") +
+  scale_fill_manual(values = c("A" = "limegreen", 
+                               "B" = "royalblue2", 
+                               "C" = "gold", 
+                               "D" = "firebrick3", 
+                               "None" = "grey")) +
+  theme_classic()
+life_exp <- life_exp +
+  theme(legend.position = "none")
+```
+
+###### Combine the three figures into one with `patchwork`
+
+```{r}
+#| label: fig-variables
+#| fig-cap: "EJ Screen variables by HOLC grade. (A) % low income, (B) percentile for PM 2.5, (C) percentile for low life expectancy. All values represent the mean value of each EJ Screen variable by HOLC grade. Looking at the three figures, it is clear that areas with lower HOLC grades have higher % low income, higher PM 2.5 percentiles, and higher low life expectancy percentiles."
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make a grid of the three figures
+combined_figures <- pct_low_income + pm25 + life_exp
+combined_figures + plot_annotation(title = "EJ Screen variables by HOLC grade", 
+                                   tag_levels = "A") # label figures A,B,C
+```
+
+#### Interpretation of Results
+
+Looking at the results of the analysis shown in Figure 2 above, it is clear that areas with **lower HOLC grades** (i.e., D) have **higher % low income, higher percentiles for particulate matter 2.5, and higher percentiles for low life expectancy**. This suggests that the legacy of redlining has had long lasting impacts on the socio-economic and environmental conditions of these neighborhoods, and that these present day environmental injustices reflect patterns of historical injustice. Given that that this analysis only explored 3 environmental and demographic variables, future research could expand on this analysis by examining additional information offered on EJ screen and exploring their conditions within different HOLC grades.
+
+## Part 2: Legacy of redlining in biodiversity observations
+
+#### Background
+
+A recent study by Ellis-Soto et al. (2023) found that historical redlining has influenced our observations of biodiversity along with the socio-economic and environmental conditions of communities. Looking across 195 US cities, they found that redlined neighborhoods remain the most under sampled areas for biodiversity. One reason that makes this disparity concerning is that conservation decisions and management actions are often made based on available observation data. This can lead to biased selection of locations for conservation, inequitable distribution of the many benefits that result from being adjacent or close to conservation projects, and incomplete representations of biodiversity.
+
+To explore this further, this analysis will examine the distribution of bird observations from 2022 within each HOLC grade in Los Angeles County using publicly accessible data from Nelson et al. (2023) and the Global Biodiversity Information Facility (GBIF).
+
+#### Load data
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# GBIF birds data
+birds <- st_read(here("posts/2024-11-05-redlining-legacies/data/gbif-birds-LA/gbif-birds-LA.shp"))
+st_crs(birds) # WGS 84; same as HOLC redlining, but we should still check
+
+# filter to only include data from 2022 bc the assignment
+# asks to analyze observations from 2022
+birds <- birds %>% 
+  filter(year == 2022)
+```
+
+#### QC #4: Are the GBIF birds data and redlining data in the same CRS? 
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make sure the CRS of the GBIF birds data and HOLC redlining are the same
+if(st_crs(birds) == st_crs(holc_redlining)) {
+  print("The GBIF birds data and HOLC redlining data are in the same CRS")
+} else {
+  warning("The GBIF birds data and HOLC redlining data are NOT in the same CRS")
+}
+```
+
+#### QC #5: Does the birds data only include observations from 2022?
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# check if the birds data only includes observations from 2022
+if(all(birds$year == 2022)) {
+  print("The GBIF birds data only includes observations from 2022")
+} else {
+  warning("Stop! The GBIF birds data includes observations from other years")
+}
+```
+
+#### Data wrangling
+
+*Steps/Pseudocode outline:*
+
+1. Join the GBIF birds data with observations from 2022 to the HOLC redlining data. In this step, I again used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the GBIF birds data and add the HOLC grade to each observation.
+
+2. Calculate the percent of observations within each HOLC grade. This is done by grouping the data by HOLC grade using `group_by()` and then calculating the percent of observations in each grade. I used the `n()` function to count the number of observations in each grade and then calculated the percent of observations in each grade by dividing this number by the sum of observations.
+
+3. Make a figure to show the results.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# join the HOLC redlining data to the GBIF birds data
+birds_redlining <- st_join(birds, holc_redlining)
+
+# calculate the % of observations within each HOLC grade
+birds_redlining_pct <- birds_redlining %>%
+  group_by(grade) %>%
+  summarize(n = n()) %>% # count the number of observations in each grade
+  mutate(pct_grade = n / sum(n) * 100) # add new column of % obsvs. in each grade
+
+# change NA value in the HOLC Grade column to "None"; same method as above
+birds_redlining_pct$grade <- 
+  ifelse(is.na(birds_redlining_pct$grade), "None", 
+         birds_redlining_pct$grade)
+
+# change the # of decimals in the % column to 2
+birds_redlining_pct$pct_grade <- 
+  round(birds_redlining_pct$pct_grade, 2)
+
+# make a new object without the None observations 
+birds_redlining_pct_no_none <- birds_redlining_pct %>% 
+  filter(grade != "None")
+```
+
+#### Make a two figures & combine them with `patchwork`
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make a bar plot of the % of observations in each HOLC grade
+birds_plot_none <- ggplot(birds_redlining_pct, 
+                     aes(x = grade, y = pct_grade, 
+                         fill = grade)) +
+  geom_col(col = "black") +
+  labs(title = " ",
+       x = "HOLC Grade",
+       y = "% of Observations") +
+  scale_fill_manual(values = c("A" = "limegreen", 
+                               "B" = "royalblue2", 
+                               "C" = "gold", 
+                               "D" = "firebrick3", 
+                               "None" = "grey")) +
+  theme_classic()
+birds_plot_none <- birds_plot_none + 
+  theme(legend.position = "none")
+
+# make a plot without the None category at the end
+birds_plot <- ggplot(birds_redlining_pct_no_none, 
+                     aes(x = grade, y = pct_grade, 
+                         fill = grade)) +
+  geom_col(col = "black") +
+  geom_text(aes(label = paste0(pct_grade, "%")), 
+            position = position_stack(vjust = 1.05), 
+            size = 3) +
+  labs(title = " ",
+       x = "HOLC Grade",
+       y = "% of Observations") +
+  scale_fill_manual(values = c("A" = "limegreen", 
+                               "B" = "royalblue2", 
+                               "C" = "gold", 
+                               "D" = "firebrick3")) +
+  theme_classic()
+birds_plot <- birds_plot + 
+  theme(legend.position = "none")
+```
+
+```{r}
+#| label: fig-birds
+#| fig-cap: "Percentage of bird observations from 2022 within each HOLC grade. (A) Including 'None' category with observations that were not within redlined districts, (B) Excluding 'None' category to only show observations within redlined districts. Other than non-redlined areas, districts with a grade of C had the highest % of bird observations. However, there doesn't appear to be a clear relationship between HOLC grade and bird observations. Observation data was sourced from the Global Biodiversity Information Facility (GBIF), including data only from 2022."
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# combine the two figures with patchwork
+birds_plot_none + birds_plot + 
+  plot_annotation(title = "Percentage of bird observations within each HOLC grade", 
+                  tag_levels = "A") # number the figures "A", "B", and "C"
+```
+
+#### Interpretation of Results
+
+Ellis-Soto et al. (2023) found that redlining has shaped our observations and distribution of biodiveristy as well as the socio-economic and environmental conditions of communities. They showed that "historically redlined neigborhoods remain the most under sampled urban areas for bird biodiversity today." While there isn't a clear difference in the % of bird observations between HOLC grades, Figure 1(A) makes it clear that redlined neighborhoods are still under sampled for bird biodiversity. This aligns with the findings of Ellis-Soto et al. (2023) and suggests that the legacy of redlining has had lasting impacts on the distribution of biodiversity observations in Los Angeles County.
+
+## References
+
+City of Los Angeles GeoHub. (2020). County Boundary. <https://geohub.lacity.org/datasets/county-boundary>
+
+Ellis-Soto, D., Chapman, M., & Locke, D. H. (2023). Historical redlining is associated with increasing geographical disparities in bird biodiversity sampling in the United States. Nature Human Behaviour, 1-9
+
+GBIF. (2022). Global Biodiversity Information Facility. <https://www.gbif.org/>
+
+Nelson, K. R., Winling, L., Marciano, R., Connolly, N., “Mapping Inequality,” American Panorama, ed. Robert K. Nelson and Edward L. Ayers, accessed October 17, 2023, <https://dsl.richmond.edu/panorama/redlining/> 
+
+United States Environmental Protection Agency. 2024 version. EJScreen. <https://www.epa.gov/ejscreen>
+
 
 
 

@@ -10,11 +10,583 @@ author:
 date: 2024-11-15
 categories: [Geospatial-analysis, MESM, RStudio]
 toc: true
-image: blackout_income.jpg
+image: nightlight.jpg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/
 draft: false
+execute:
+  eval: true
+  warning: false
+  message: false
 ---
+
+## Background/Overview
+
+The frequency and intensity of extreme weather events are increasing due to climate change, bringing devastating impacts. "In February 2021, the state of Texas suffered a major power crisis, which came about as a result of three severe winter storms sweeping across the United States on February 10–11, 13–17, and 15–20" (Wikipedia, 2021).
+
+This analysis will identify the impacts of these extreme winter storms by estimating the number of homes that lost power throughout the Houston metropolitan area, and examine whether or not these impacts were distributed equitably across census tracts based on their median income levels. Remotely-sensed night lights data, acquired from the [Visible Infrared Imaging Radiometer Suite (VIIRS)](https://en.wikipedia.org/wiki/Visible_Infrared_Imaging_Radiometer_Suite) onboard the Suomi satellite, serve as the basis for this analysis. Specifically, we used the `VNP46A1` to detect differences in nighttime lights before and after the winter storms, allowing the identification of areas that lost electric power.
+
+To determine the number of homes that lost power, these areas identified with the VIIRS data were linked to [OpenStreetMap (OSM)](https://www.openstreetmap.org/#map=4/38.01/-95.84) data on buildings and road. These analyses were then linked with data from the US Census Bureau to investigate the correlation between socioeconomic factors and recovery.
+
+## Data description
+
+#### Night lights
+
+As mentioned above, this analysis uses night light data acquired from the [Visible Infrared Imaging Radiometer Suite (VIIRS)](https://en.wikipedia.org/wiki/Visible_Infrared_Imaging_Radiometer_Suite). VIIRS data is distributed through NASA's [Level-1 and Atmospheric Archive & Distribution System Distributed Active Archive Center (LAADS DAAC)](https://ladsweb.modaps.eosdis.nasa.gov/). Many NASA Earth data products are distributed in 10x10 degree tiles in sinusoidal equal-area projection, and tiles are identified by their horizontal and vertical position in the grid. Houston lies on the border of tiles h08v05 and h08v06, so we need to download two files per date to cover the entire Houston area, as described below.
+
+*Data files:*
+
+-   `VNP46A1.A2021038.h08v05.001.2021039064328.tif`: tile h08v05, collected on 2021-02-07
+-   `VNP46A1.A2021038.h08v06.001.2021039064329.tif`: tile h08v06, collected on 2021-02-07
+-   `VNP46A1.A2021047.h08v05.001.2021048091106.tif`: tile h08v05, collected on 2021-02-16
+-   `VNP46A1.A2021047.h08v06.001.2021048091105.tif`: tile h08v06, collected on 2021-02-16
+
+#### Roads
+
+Because highways typically account for a large portion of night lights observable from space, we need to exclude them from the analysis to avoid falsely identifying areas with reduced traffic as areas without power. [OpenStreetMap (OSM)](https://planet.openstreetmap.org/) is a collaborative project that creates publicy avialable geographic data; however, because it covers global extents, organizing this data into a database where it can be subsetted and processed is a large undertaking. Thankfully, third party companies such as [Geofabrik's](https://download.geofabrik.de/) redistribute OSM. We used this site to retrieve a shapefile of all highways in Texas and then subset this data to only include roads intersecting the Houston metropolitan area.
+
+*Data file*
+
+- `gis_osm_roads_free_1.gpkg`: OpenStreetMap data for roads in Texas
+
+#### Houses
+
+OSM also provides building data, which again was downloaded from Geofabrik and subset to only include houses in the Houston metropolitan area.
+
+*Data file*
+
+- `gis_osm_buildings_a_free_1.gpkg`: OpenStreetMap data for buildings in Texas
+
+#### Socioeconomic
+
+We obtained data from the U.S. Census Bureau's [American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs) for 2019. This data is distributed in a file geodatabase format, which contains both the geometry of census tracts and layers that contain a subset of the fields documents in the [ACS metadata](https://www2.census.gov/geo/docs/maps-data/data/tiger/prejoined/ACSMetadata2011.txt). 
+
+*Data file*
+
+- `ACS_2019_5YR_TRACT_48_TEXAS.gdb`: ACS data for Texas
+
+## Load packages
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true 
+#| code-summary: "Show packages used in this analysis"
+
+library(sf)
+library(terra)
+library(stars)
+library(tmap)
+library(tmaptools)
+library(tidyverse)
+library(here)
+library(patchwork)
+```
+
+## Part 1: Find locations that experienced a blackout by creating a mask
+
+*Psuedo code:*
+
+1.  Load VIIRS night light data for two days to explore the data around the day of the storm. `2021-02-07` and `2021-02-16` provide two clear, contrasting images to visualize the extent of the power outage in Texas.
+
+2.  Create a raster object for each day with `st_mosaic()`. Houston lies on the border of two tiles (h08v05 and h08v06) produced by the NASA data products; therefore, we need to download these two files per date and mosaic them into one raster.
+
+3.  Find the change in night light intensity between the two days by subtracting the `Feb 07` mosaic raster (pre-blackout data) by the `Feb 16` mosaic raster (post-blackout data). The *difference in night light intensity* will help identify the areas that experienced a blackout.
+
+4.  Reclassify the difference raster to create a "blackout mask", assuming that any location that experienced a drop of more than 200 nW cm\^-2 sr\^-1 experienced a blackout. Assign `NA` values to the areas that did not experience a blackout (all locations that experienced a drop of less than 200 nW cm\^-2 sr\^-1 change).
+
+5.  Vectorize the blackout mask to create a polygon layer that can be used to identify the census tracts that experienced a blackout.
+
+6.  Crop (spatially subset) the blackout mask to the Houston area as defined by the following coordinates: (-96.5, 29), (-96.5, 30.5), (-94.5, 30.5), (-94.5, 29). This was completed by the following steps: **(1)** define the bounding box for Houston using the coordinates provided; **(2)** create a polygon from the bounding box and make the polygon an `sf` object; **(3)** use a spatial subset to crop the blackout mask to the Houston area.
+
+7.  Re-project the cropped blackout dataset to `EPSG:3083` (NAD83 / Texas Centric Albers Equal Area)
+
+#### Load data
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# h08v05 on 2021-02-07
+NL_0207_v05 <- stars::read_stars(here("posts/2024-11-10-houston-blackout/data/VNP46A1/VNP46A1.A2021038.h08v05.001.2021039064328.tif"))
+# h08v06 on 2021-02-07
+NL_0207_v06 <- stars::read_stars(here("posts/2024-11-10-houston-blackout/data/VNP46A1/VNP46A1.A2021038.h08v06.001.2021039064329.tif"))
+# h08v05 on 2021-02-16
+NL_0216_v05 <- stars::read_stars(here("posts/2024-11-10-houston-blackout/data/VNP46A1/VNP46A1.A2021047.h08v05.001.2021048091106.tif"))
+# h08v06 on 2021-02-16
+NL_0216_v06 <- stars::read_stars(here("posts/2024-11-10-houston-blackout/data/VNP46A1/VNP46A1.A2021047.h08v06.001.2021048091105.tif"))
+```
+
+#### Create a raster object for each day with `terra::mosaic()`
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# mosaic the raster objects for 2021-02-07
+NL_0207_mosaic <- stars::st_mosaic(NL_0207_v05, NL_0207_v06)
+
+# mosaic the raster objects for 2021-02-16
+NL_0216_mosaic <- stars::st_mosaic(NL_0216_v05, NL_0216_v06)
+```
+
+#### Make a map showing the night light intensity for each day
+
+```{r, fig.width = 9, fig.height = 7, fig.align = "center"}
+#| label: fig-map1
+#| fig-cap: "Night light intensity in Houston for 2021-02-07 and 2021-02-16. The color scale represents the night light intensity in nW cm^-2 sr^-1."
+#| code-fold: true
+#| code-summary: "Show the code"
+
+tmap_mode("plot")
+
+map1 <- tm_graticules(lines = FALSE) +
+tm_shape(NL_0207_mosaic) + 
+  tm_raster(breaks = c(0, 0.2, 1, 3, 5, 10, 100, 200, 10000, 100000), 
+            palette = viridisLite::viridis(8), 
+            title = "Night light intensity (nW cm^-2sr^-1)") + 
+  tm_layout(legend.outside = TRUE,
+            main.title = "2021-02-07",
+            main.title.size = 1,
+            legend.outside.position = "right",
+            legend.text.size = 0.5, 
+            legend.title.size = 1)
+
+map2 <- tm_graticules(lines = FALSE) +
+tm_shape(NL_0216_mosaic) +
+  tm_raster(breaks = c(0, 0.2, 1, 3, 5, 10, 100, 200, 10000, 100000), 
+            palette = viridisLite::viridis(8), 
+            title = "Night light intensity (nW cm^-2sr^-1)") + 
+  tm_layout(legend.outside = TRUE,
+            main.title = "2021-02-16",
+            main.title.size = 1,
+            legend.outside.position = "right",
+            legend.text.size = 0.5, 
+            legend.title.size = 1)
+
+tmap_arrange(map1, map2, nrow = 1)
+```
+
+#### Find the change in night light intensity between the two days
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# find the difference in night light intensity
+NL_diff <- NL_0207_mosaic - NL_0216_mosaic
+```
+
+#### Reclassify the difference raster
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# assign NA values to areas that did not experience a blackout (< 200 nW)
+# assume any location w/ a drop of more than 200 nW experienced a blackout
+NL_diff[NL_diff < 200] <- NA
+# plot(NL_diff)
+```
+
+#### Vectorize the blackout mask
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# vectorize the blackout mask
+blackout_mask_sf <- st_as_sf(NL_diff) %>% # convert from raster to vector
+  st_make_valid() # fix any invalid geometries 
+```
+
+#### QC1: Check for invalid geometries in the blackout mask
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# check for invalid geometries in the redlining data with testthat
+if(testthat::expect_true(all(st_is_valid(blackout_mask_sf)))) {
+  print("No invalid geometries in the blackout mask")
+} else {
+  warning("There are invalid geometries in the blackout mask")
+}
+```
+
+#### Crop the blackout mask to the Houston area
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# define the bounding box for Houston
+houston_bbox <- matrix(c(-96.5, 29, 
+                         -96.5, 30.5, 
+                         -94.5, 30.5, 
+                         -94.5, 29, 
+                         -96.5, 29), # last coordinate to close the polygon
+                       ncol = 2, byrow = TRUE)
+
+# create a polygon with the bbox list of coordinates
+houston_polygon <- st_polygon(list(houston_bbox))
+
+# make the polygon an sf object
+houston_sf <- st_sfc(houston_polygon, 
+                     crs = crs(blackout_mask_sf)) # assign same CRS as bo mask 
+
+# use a spatial subset to crop the blackout mask to the Houston area
+blackout_mask_houston <- blackout_mask_sf[houston_sf, ]
+# plot(blackout_mask_houston)
+
+# re-project cropped blackout sf to EPSG:3083 (NAD83 / Texas Centric Albers Equal Area)
+blackout_mask_houston_3083 <- st_transform(blackout_mask_houston, 
+                                           crs = 3083)
+crs(blackout_mask_houston_3083) #QC
+```
+
+#### QC2: Make sure the spatial subset worked; are all the data points within the Houston area?
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# change the houston_sf to the same CRS as the blackout mask for the QC
+houston_sf_QC <- st_transform(houston_sf, 
+                              crs(blackout_mask_houston_3083), 
+                              quiet = TRUE)
+
+# check if all points are within the Houston area
+if(testthat::expect_true(all(st_intersects(blackout_mask_houston_3083, 
+                                           houston_sf_QC)))) {
+  print("All points are within the Houston area!")
+} else {
+  warning("STOP! Not all points are within the Houston area")
+}
+```
+
+## Part 2: Exclude highways from the analysis
+
+Because highways may have experienced changes in their night light intensities that are unrelated to the storm, we need to exlude any locations within 200m of all highways in the Houston areas.
+
+*Pseudocode*:
+
+1. Load the OpenStreetMap data for Houston and filter the OpenStreetMap data to only include highways. A cool `query` shared by Ruth was used in the `st_read()` function to only load the highways from the roads GPKG!
+
+2, Identify all areas within 200m of all highways with the `st_buffer()` function. Before using `st_buffer()`, I transformed the highways to the same CRS as the blackout mask (`EPSG:3083`) and checked the units of the CRS to make sure the buffer was correct.
+
+3. Use `st_union()` to combine all the highway buffers into one polygon.
+
+4. Use the `st_difference()` function to exclude the highways from the blackout mask. `st_difference(x, y)` creates a polygon of the area of x that is not in y (x being the blackout mask, and y being the highway buffer.
+
+#### Load highways data
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# load the OpenStreetMap data for Houston
+highways <- st_read(here("posts/2024-11-10-houston-blackout/data/gis_osm_roads_free_1.gpkg/gis_osm_roads_free_1.gpkg"), 
+                    query = "SELECT * FROM gis_osm_roads_free_1 WHERE fclass='motorway'")
+```
+
+#### Identify all areas within 200m of all highways
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# put the highways into the same crs as the blackout mask
+highways_3083 <- st_transform(highways, 
+                              crs(blackout_mask_houston_3083))
+
+# check the units of the crs
+st_crs(highways_3083)$units # meters!
+
+# buffer the highways by 200m
+highways_buffer <- st_buffer(highways_3083, 
+                             dist = 200)
+
+# make sure the highways buffer is valid
+highways_buffer <- st_make_valid(highways_buffer) 
+
+# combine all the highway buffers into one polygon
+highways_buffer_union <- st_union(highways_buffer)
+# plot(highways_buffer_union)
+
+# make sure the highways buffer is in the same CRS as the blackout mask
+highways_buffer_union <- st_transform(highways_buffer_union, 
+                                      crs(blackout_mask_houston_3083))
+```
+
+#### QC3: Make sure the blackout mask & highways buffer are in the same CRS
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# check if the blackout mask and highways buffer are in the same CRS
+if(st_crs(blackout_mask_houston_3083) == st_crs(highways_buffer_union)) {
+  print("Carry on! The blackout mask and highways buffer are in the same CRS")
+} else {
+  warning("STOP! The blackout mask and highways buffer are not in the same CRS")
+}
+```
+
+#### Exclude the highways from the blackout mask using `st_difference()`
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# exclude the highways from the blackout mask
+blackout_mask_houston_no_highways <- st_difference(blackout_mask_houston_3083, 
+                                                   highways_buffer_union)
+```
+
+## Part 3: Identify homes that experienced blackouts by combining the locations of homes and blackouts
+
+#### Load the OpenStreetMap data for homes
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+homes_query <- "SELECT * FROM gis_osm_buildings_a_free_1 WHERE (type IS NULL AND name IS NULL) OR type in ('residential', 'apartments', 'house', 'static_caravan', 'detached')"
+
+homes <- st_read(here("posts/2024-11-10-houston-blackout/data/gis_osm_buildings_a_free_1.gpkg/gis_osm_buildings_a_free_1.gpkg"), 
+                 query = homes_query)
+
+# transform the crs to the same as the blackout mask
+homes_3083 <- st_transform(homes, 
+                           crs(blackout_mask_houston_no_highways))
+# plot(homes_3083)
+```
+
+#### QC4: Make sure the homes are in the same CRS as the blackout mask
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# check if the homes are in the same CRS as the blackout mask
+if(st_crs(homes_3083) == st_crs(blackout_mask_houston_no_highways)) {
+  print("Carry on! The homes are in the same CRS as the blackout mask")
+} else {
+  warning("STOP! The homes are not in the same CRS as the blackout mask")
+}
+```
+
+#### Identify homes that overlap with areas that experienced blackouts
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# filter the homes that overlap with the blackout mask
+homes_blackout <- homes_3083 %>% 
+  st_filter(y = blackout_mask_houston_no_highways, .predicate = st_intersects)
+```
+
+According to this analysis, there were an estimated **157,970 homes** in Houston that lost power during the 2021 winter storm (see Figure 2 below). Homes were defined as any building that was classified as residential, apartments, house, static caravan, or detached in the `OpenStreetMap` buildings data.
+
+#### Make a map of homes in Houston that experienced blackouts
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# load the Houston county boundary for context 
+houston_counties <- st_read(here("posts/2024-11-10-houston-blackout/data/houston_county_boundaries/houston-county-boundaries.shp")) %>% 
+  st_transform(crs(blackout_mask_houston_no_highways))
+```
+
+```{r, fig.align = "center"}
+#| label: fig-map2
+#| fig-cap: "Homes in the Houston metropolitan area that experienced blackouts during the 2021 winter storm. Homes, represented by the black dots, were defined as any building that was classified as residential, apartments, house, static caravan, or detached in the OpenStreetMap buildings data."
+#| code-fold: true
+#| code-summary: "Show the code"
+
+tmap_mode("plot")
+
+tm_graticules(lines = FALSE) +
+tm_shape(houston_counties) + 
+  tm_polygons(col = "NAME", border.col = "black", 
+              title = "Surrounding County", 
+              palette = tmaptools::get_brewer_pal("Accent", n = 13, 
+                                                  plot = FALSE)) +
+tm_shape(homes_blackout, name = "Homes") +
+  tm_dots(col = "black", size = 0.1) + 
+  tm_scale_bar(position = c("right", "bottom")) + 
+  tm_compass(position = c(0.85, 0.85), 
+             size = 2) + 
+  tm_layout(legend.outside = TRUE)
+```
+
+## Part 4: Identify the census tracts likely impacted by blackouts
+
+*Pseudocode*:
+
+1. The folder `ACS_2019_5YR_TRACT_48.gdb` is an ArcGIS “file geodatabase” that contains data from the US Census Bureaus American Community Survet for census tracts in 2019. We need to use the `st_layers()` function to list the layers in the file geodatabase and identify the layer that contains the census tract data.
+
+2. Income data is stored in the `X19_INCOME` layer. Looking at the [ACS metadata](https://www2.census.gov/geo/docs/maps-data/data/tiger/prejoined/ACSMetadata2011.txt), we can see that the `B19013e1` variable represents the median household income.
+
+3. The geodatabase contains a layer holding the geometry information (`ACS_2019_5YR_TRACT_48_TEXAS`), separate from the layers holding the ACS attributes. We have to combine the geometry with the attributes to get a feature layer that `sf` can use. We used a `left_join()` to combine the geometry and income data by the `GEOID_Data` field.
+
+4. Identify the census tracts that contain homes that experienced blackouts by using the `st_filter()` function with `.predicate = st_intersects` to filter the census tract geometries that intersect with the homes that experienced blackouts.
+
+5. Make a new column in the `sf` object containing all census tracts that identified each tract as either experiencing a blackout or not. Use this column to create a boxplot comparing the distribution of median household income in census tracts that experienced blackouts to those that did not.
+
+#### Load the socio-economic data for Houston
+
+```{r, echo = TRUE, output = FALSE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# load the ACS gbd layers
+st_layers(here("posts/2024-11-10-houston-blackout/data/ACS_2019_5YR_TRACT_48_TEXAS.gdb/ACS_2019_5YR_TRACT_48_TEXAS.gdb"))
+
+# load in the geometries layer & assign the same CRS as the blackout mask
+acs_geometry <- st_read(here("posts/2024-11-10-houston-blackout/data/ACS_2019_5YR_TRACT_48_TEXAS.gdb/ACS_2019_5YR_TRACT_48_TEXAS.gdb"), 
+                        layer = "ACS_2019_5YR_TRACT_48_TEXAS") %>% 
+  st_transform(crs(blackout_mask_houston_no_highways))
+
+# load in the income layer
+acs_income <- st_read(here("posts/2024-11-10-houston-blackout/data/ACS_2019_5YR_TRACT_48_TEXAS.gdb/ACS_2019_5YR_TRACT_48_TEXAS.gdb"), 
+                      layer = "X19_INCOME")
+
+# select the median household income variable & GEOID
+acs_median_income <- acs_income %>% 
+  select(med_income = B19013e1, GEOID_Data = GEOID)
+```
+
+#### Join the median household income to the census tract geometries by `GEOID_Data`
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# join the median household income to the census tract geometries
+acs_census_income <- left_join(acs_geometry, acs_median_income, 
+                               by = "GEOID_Data")
+```
+
+#### Identify census tracts that contained homes that experienced blackouts
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# filter the census tracts that contain homes that experienced blackouts
+census_tracts_blackout <- acs_census_income %>% 
+  st_filter(y = homes_blackout, .predicate = st_intersects)
+
+# list the names of the census tracts that contain homes that experienced blackouts
+cencus_tract_list <- unique(census_tracts_blackout$NAME)
+# cencus_tract_list
+
+# count the number of census tracts that contain homes that experienced blackouts
+num_census_tracts <- length(cencus_tract_list)
+```
+
+According to this analysis, there were an estimated **756 census tracts** in Houston that contained homes that lost power during the 2021 winter storm.
+
+#### Make a map of the census tracts that contained homes that experienced blackouts
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make sure the census tract layer is in the same CRS as the blackout mask
+acs_census_income <- st_transform(acs_census_income, 
+                                  crs(blackout_mask_houston_no_highways))
+
+# mask the tract layer to Houston for map context
+full_tract_layer <- acs_census_income[houston_sf_QC, ]
+```
+
+```{r, fig.align = "center"}
+#| label: fig-map3
+#| fig-cap: "Census tracts in Houston containing homes that experienced a blackout during the 2021 winter storm. All grey areas represesent census tracts that did not experience blackouts. The color scale represents the median household income ($) in census tracts that experienced a blackout."
+#| code-fold: true
+#| code-summary: "Show the code"
+
+tmap_mode("plot")
+
+tm_graticules(lines = FALSE) +
+tm_shape(full_tract_layer) + 
+  tm_fill(col = "grey", alpha = 0.5, 
+          showNA = FALSE) +
+tm_shape(census_tracts_blackout) + 
+  tm_fill(col = "med_income", 
+          style = "cont", 
+          title = "Median Household Income ($)", 
+          palette = viridisLite::plasma(5), 
+          showNA = FALSE, 
+          legend.reverse = TRUE) +
+  tm_compass(size = 2, 
+             position = c(0.85, 0.1)) + 
+  tm_scale_bar(position = c(0.6, 0.01)) +
+  tm_layout(legend.outside = TRUE)
+```
+
+#### Make a plot comparing the distribution of median household income in census tracts that experienced blackouts to those that did not experience blackouts
+
+The `census_tract_list` object contains the census tracts that experienced blackouts. We can use this to create a new column in the `full_tract_layer` object that indicates whether or not a census tract experienced a blackout.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# make a new layer of census tracts that did not experience blackouts
+full_tract_layer <- full_tract_layer %>% 
+  mutate(blackout = ifelse(NAME %in% cencus_tract_list, "Yes", "No"))
+```
+
+```{r}
+#| label: fig-box
+#| fig-cap: "Distribution of median household income in census tracts that experienced blackouts compared to those that did not experience blackouts. The median income for census tracts that experienced blackouts was $60,415, while the median income for census tracts that did not experience blackouts was approximately $57,220."
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# calculate the median income for census tracts that experienced blackouts and those that did not
+median_income_blackout <- full_tract_layer %>%
+  st_drop_geometry() %>%
+  group_by(blackout) %>%
+  summarise(med_income = median(med_income, na.rm = TRUE))
+
+# make a boxplot 
+ggplot(full_tract_layer, aes(x = blackout, y = med_income, fill = blackout)) + 
+  geom_boxplot() + 
+  scale_fill_manual(values = c("No" = "grey", "Yes" = "salmon")) +
+  theme_bw() + 
+  labs(x = "Blackout", 
+       y = "Median Household Income ($)") + 
+  theme(legend.position = "none")
+```
+
+## Reflection
+
+This analysis examined the impacts of the 2021 winter storms in the Houston metropolitan area. We estimated the number of homes that lost power between February 7th and 16th, and examined the relationship between median income levels of census tracts that were likely impacted by the blackout versus those that were not. The analysis found that an estimated **157,970 homes** in the Houston metropolitan area lost power during the winter storm. These homes were distributed across **756 census tracts** in the region. The median household income in census tracts that experienced blackouts was **$60,415**, compared to **$57,220** in census tracts that did not experience blackouts.
+
+One of the limitations of this analysis is that the VIIRS night lights data used to identify areas that experienced blackouts is not a perfect measure of power outages, and while its resolution is relatively granular, it's still coarse enough that some areas might be "brighter" or "darker" than they truly were. Additionally, the analysis assumes that any location that experienced a drop in night light intensity of more than 200 nW cm\^-2 sr\^-1 experienced a blackout. This threshold was chosen somewhat arbitrarily and may not accurately capture all areas that lost power. Therefore, taking both of these limitations into account, there's a chance we didn't truly capture all homes/locations that experienced blackouts. However, this analysis provides a good estimate of the impacts of the 2021 winter storms in Houston.
+
+## Links to data sources
+
+- [Geofabrik OSM Data Extracts](https://download.geofabrik.de/)
+
+-   [Houston County Boundaries](https://koordinates.com/layer/112438-houston-county-boundaries/)
+
+-   [OpenStreetMap](https://www.openstreetmap.org/#map=4/38.01/-95.84)
+
+- [U.S. Census Bureau's ACS](https://www.census.gov/programs-surveys/acs)
+
+-   [Visible Infrared Imaging Radiometer Suite (VIIRS)](https://en.wikipedia.org/wiki/Visible_Infrared_Imaging_Radiometer_Suite)
+
+## References
+
+Wikipedia. 2021. “2021 Texas power crisis.” Last modified October 2, 2021. https://en.wikipedia.org/wiki/2021_Texas_power_crisis.
+
+
+
 
 
 
