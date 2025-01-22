@@ -10,12 +10,8 @@ author:
 date: 2024-09-22
 categories: [MaxEnt, MESM, Conservation-planning, RStudio]
 toc: true
-image: coral_maxent.jpg
+image: cots_scuba.jpg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/
 draft: false
 ---
-
-
-
-

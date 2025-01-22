@@ -10,13 +10,8 @@ author:
 date: 2024-09-17
 categories: [Geospatial-analysis, MESM, Conservation-planning, ArcGIS Pro]
 toc: true
-image: connectivity_map.jpg
+image: jaguar_wwf.jpg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-09-17-connectivity/
 draft: false
 ---
-
-
-
-
-

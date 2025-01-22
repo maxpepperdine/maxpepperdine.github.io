@@ -1,14 +1,17 @@
 ---
-title: " "
+toc: false
+about:
+  template: solana
 ---
 
 ## About me
 
 Hi there! I'm Maxwell Pepperdine (no affiliation to the university) and I'm a current master's student in Environmental Science and Management at the Bren School at UC Santa Barbara. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning.
 
-I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family.
+I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a B.S. in Environmental Management and Protection and double minors in Biology & Sustainable Environments. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family.
 
 ::: panel-tabset
+
 #### Experience
 
 **Arnhold Environmental Graduate Fellow** (Jun 2024 - present) \| Environmental Markets Lab, (emLab), Santa Barbara, CA
@@ -27,33 +30,35 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 
 #### Ocean photography
 
-insert photos here
+::: {layout-ncol="2"}
+![](photos/turtle1.jpg)
+![](photos/turtle2.jpg)
+
+![](photos/turtle3.jpg)
+
+![](photos/turtle4.jpg)
+
+![](photos/turtle5.jpg)
+
+![](photos/turtle6.jpg)
+
+![](photos/fish.jpg)
+
+![](photos/wave1.jpg)
+
+![](photos/wave2.jpg)
+
+![](photos/wave3.jpg)
+
+![](photos/wave4.jpg)
+
+![](photos/wave5.jpg)
+:::
 
 #### Some of my favorate places
 
-insert more photos here
+:::
+![](photos/turtle1.jpg)
+:::
 :::
 
-## What I do for work
-
-<p class="title">
-
-some text goes here
-
-</p>
-
-## What I do for fun
-
-<p class="blue-text">
-
-more text goes here
-
-</p>
-
-[here is some more text styled with Quarto]{.blue-text}
-
-::: center-text
-here is a line
-
-here is another line
-:::
