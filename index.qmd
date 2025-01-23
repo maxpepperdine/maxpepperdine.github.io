@@ -20,15 +20,25 @@ editor_options:
   chunk_output_type: inline
 ---
 
-Hi there! I'm Maxwell Pepperdine (no affiliation to the university) and I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a Bachelor of Science in Environmental Management and Protection. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems. This fostered my admiration and affinity for the natural environment at an early age. Specializing in Conservation Planning at the Bren School with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning.
+## Hello!
 
-## Education
+My name is Maxwell, and I created this personal website using Quarto to share a little bit about who I am and some of the projects I've worked on throughout my academic and professional experiences. I am a current master's student in Environmental Science and Management at the [Bren School of Environmental Science & Management](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) who is passionate about finding data-driven solutions to today's critical environmental problems. 
 
-some text 
+## Professional Interests
 
-## Professional Experience
+Conservation planning | GIS | Geospatial analysis | Data analysis | Water resources management | Nature-based solutions | Remote sensing | Climate adaptation 
 
-more text here
+## Skills
+
+**Software/Computer:** Esri ArcGIS Products (Pro, Online, Field Maps), RStudio, Python, Microsoft Office (Word, Excel, PowerPoint), Google Earth Engine, QGIS, GitHub, Quarto
+
+**Writing:** Technical writing of scientific research manuscripts, policy memos, and CEQA and NEPA reports/assessments
+
+## Recent & Ongoing Projects
+
+[Integrating climate adaptation strategies into forest management](https://bren.ucsb.edu/projects/integrating-climate-adaptation-strategies-local-collaborative-forest-management-northern)
+
+[Mapping suitable nesting habitat for marbled murrelets in the SCM](files/MAMU_mapping_SCM_final_report.pdf)
 
 
 

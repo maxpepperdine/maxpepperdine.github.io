@@ -7,3 +7,6 @@
 
 /.quarto/
 posts/*/data/
+photos/*
+files/*
+docs/*
