@@ -28,11 +28,18 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 
 **B.S. in Environmental Management and Protection** (Jun 2023) \| California Polytechnic State University (Cal Poly), San Luis Obispo
 
+#### Honors & awards
+
+[2023 Environmental Engineering and Science Foundation (EESF) Scholarship Recipient](https://www.eesfoundation.org/scholarship/ScholarshipRecipients-2023.php)
+
+**Presidents Honor List (2020, 2021, 2022, 2023) \| Cal Poly, San Luis Obispo**\ *to make the list, students must have a GPA of 3.5 or higher for every quarter of the academic year*
+
 #### Ocean photography
 
 ::: {layout-ncol="2"}
 
 ![](photos/turtle1.jpg)
+
 ![](photos/turtle3.jpg)
 
 ![](photos/turtle2.jpg)
@@ -40,7 +47,6 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 ![](photos/turtle4.jpg)
 
 ![](photos/turtle6.jpg)
-
 
 ![](photos/wave1.jpg)
 
@@ -58,10 +64,12 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 #### Some of my favorate places
 
 ::: {layout-ncol="2"}
+
 ![White Sands National Park, New Mexico](photos/land1.jpg)
-![White Sands National Park, New Mexico](photos/land2.jpg)
 
 ![Bentonite Hills, Utah](photos/land3.jpg)
+
+![White Sands National Park, New Mexico](photos/land2.jpg)
 
 ![Bentonite Hills, Utah](photos/land4.jpg)
 
