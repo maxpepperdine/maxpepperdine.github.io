@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Maxwell Pepperdine">
+<meta name="author" content="Maxwell Pepperdine &amp; Zoe Zhou">
 <meta name="dcterms.date" content="2024-09-22">
 <meta name="description" content="Using MaxEnt to model current and future distributions of grape coral and crown-of-thorn starfish">
 
@@ -122,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
+    <div class="quarto-title column-page-left">
       <h1 class="title">Mapping the distribution of native and invasive marine species in the Indo-Pacific region</h1>
                   <div>
         <div class="description">
@@ -138,12 +138,12 @@ ul.task-list li input[type="checkbox"] {
                   </div>
   </div>
     
-  <div class="quarto-title-meta-author column-page">
+  <div class="quarto-title-meta-author column-page-left">
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-heading">Affiliation</div>
     
       <div class="quarto-title-meta-contents">
-      <p class="author"><a href="https://maxpepperdine.github.io">Maxwell Pepperdine</a> </p>
+      <p class="author"><a href="https://maxpepperdine.github.io">Maxwell Pepperdine &amp; Zoe Zhou</a> </p>
     </div>
     <div class="quarto-title-meta-contents">
           <p class="affiliation">
@@ -152,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     </div>
 
-  <div class="quarto-title-meta column-page">
+  <div class="quarto-title-meta column-page-left">
 
         
       <div>
@@ -169,31 +169,80 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
 
 
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This analysis, completed by Zoe Zhou and I, is from an assignment in ESM 270 (Conservation Planning) at the Bren School of Environmental Science &amp; Management at the University of California, Santa Barbara. The assignment focused on modeling the current and future distributions of the crown-of-thorns starfish (<em>Acanthaster planci</em>) and grape coral (<em>Euphyllia cristata</em>) in the eastern Indo-Pacific region using Maxent. It was required to be limited to two pages, with a figure included, hence the brevity of the write-up. The analysis aimed to visualize changes in the occurrence probability and geographical distribution of these species under current and future climate scenarios to delineate regions where active restoration plans could be implemented.</p>
+</section>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Ecological restoration is the process of enhancing the recovery of natural ecosystems that have been degraded, damaged, or destroyed (SER, 2004). Among other reasons, restoration efforts are commonly employed to mitigate and repair damage caused by introduced or invasive species. One example of an invasive species is the crown-of-thorn starfish (Acanthaster planci) which is known to eat and decimate coral populations such as the grape coral (Euphyllia cristata) (Brodie et al., 2005). Before initiating restoration efforts, it’s important to conduct data-driven analyses to advance restoration planning and employ the most effective management actions.</p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<p>A maximum entropy (Maxent) model was used to predict changes in the occurrence distribution for the crown-of-thorns starfish (Acanthaster planci) and grape coral (Euphyllia cristata) based on key marine data layers. Our analysis aimed to accomplish two primary goals: (1) Visualize changes in the current and future occurrence probability and geographical distribution of the crown-of-thorns starfish (COTS) and grape coral in the eastern Indo-Pacific region; (2) Utilize information from the species distribution models to propose an active restoration plan in areas where the COTS and grape coral are likely to occur. Maxent was applied using the R package Wallace (v2.1.1), an R-based GUI application that offers a simple, reproducible approach for ecological modeling and niche/distribution modeling analyses (Kass et al., 2022).</p>
+<p>Occurrence data for each species was acquired from the Global Biodiversity Information Facility (GBIF). Marine environmental data were sourced from Bio-ORACLE, which provides essential oceanographic layers such as ocean temperature (mean, max, min), salinity, nitrate and phosphate concentrations, and pH, all at a resolution of 0.05 degrees (Tyberghein et al., 2012; Assis et al., 2024). These variables were chosen based on their relevance to marine species distribution (Brodie et al., 2005; Yasuda, 2018; Wang &amp; Tabeta, 2023). To model future distribution, we used data from a moderate emission scenario (SSP3-7.0) for the decade 2020-2030. All marine environmental data were downloaded in NetCDF format and converted to GeoTIFFs using the terra package in R to ensure compatibility with Maxent.</p>
+<p>For model evaluation, we used spatial partitioning with a 75:25 (training:testing) split. The Maxent model leveraged presence and background points to account for potential biases that may arise from using presence-only points (Merow, 2013). A linear-quadratic (LQ) feature class was used to balance model complexity and account for non-linear species-environment relationships. After developing the distribution models, we analyzed the results in ArcGIS Pro v3.0 to identify key areas for restoration.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>Under current conditions, the Maxent models indicated a high probability of occurrence for both the crown-of-thorns starfish (CoTS) and grape coral along the coastal areas of Northern Australia. Grape coral also showed a concentrated distribution around the Natuna Islands in the South China Sea, where CoTS is not projected to occur (Figure 1 Bottom). Future projections suggest a shift in both species’ distributions to the northeastern coast of Australia, with a contraction across the broader Indo-Pacific (Figure 1B). Notably, the contraction appears more pronounced for CoTS than grape coral. Despite these changes, the northeastern coast remains a favorable habitat for both species, making it a critical focus for future conservation and management strategies. The model’s performance was strong, with an AUC of 0.9187 for the training data and 0.9024 for the validation data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="coral_maxent1.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1. Current (A) and Future (B) Distributions for Grape Coral and CoTS under a moderate emission scenario (SSP3-7.0). Moderate (50%-75%) to high (75%-100%) projected occurrence for CoTS is overlaid in yellow, highlighting areas where both species may overlap, and regions prone to CoTS outbreaks.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="coral_maxent.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 2. Current (A) and future (B) projected occurrence distribution for the crown-of-thorn starfish in the eastern Indo-Pacific region. Higher probabilities of occurrence are shown in darker shades of green, signifying areas of higher habitat suitability. A general shift to lower occurrence probabilities in the future is evident throughout the study area.</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>For restoration efforts, the predicted overlap between CoTS and grape coral distributions offers essential insights. Despite CoTS being native to the Great Barrier Reef, their periodic population outbreaks—exacerbated by human activities—continue to pose a significant threat to coral ecosystems. Active management strategies, such as the ongoing Crown-of-Thorns Starfish Control Program on the Great Barrier Reef, play a pivotal role in mitigating CoTS outbreaks. However, the study has several caveats, such as the reliance on presence-only data and environmental layers that may not capture local habitat variability, as well as uncertainty in future projections based on a single emission scenario. Moreover, the model does not account for species interactions or local adaptations, which could affect the predicted distributions of both species.</p>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>This assignment was created and organized Ashley Larsen, an Associate Professor at the Bren School and the instructor for ESM 270. ESM 270 (Conservation Planning) is offered in the <a href="https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management">Master of Environmental Science &amp; Management (MESM)</a> program at the Bren School.</p>
 
 
+</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{pepperdine2024,
-  author = {Pepperdine, Maxwell},
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{pepperdine &amp; zoe zhou2024,
+  author = {Pepperdine \&amp; Zoe Zhou, Maxwell},
   title = {Mapping the Distribution of Native and Invasive Marine
     Species in the {Indo-Pacific} Region},
   date = {2024-09-22},
   url = {https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-pepperdine2024" class="csl-entry quarto-appendix-citeas" role="listitem">
-Pepperdine, Maxwell. 2024. <span>“Mapping the Distribution of Native and
-Invasive Marine Species in the Indo-Pacific Region.”</span> September
-22, 2024. <a href="https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/">https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/</a>.
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-pepperdine &amp; zoe zhou2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+Pepperdine &amp; Zoe Zhou, Maxwell. 2024. <span>“Mapping the
+Distribution of Native and Invasive Marine Species in the Indo-Pacific
+Region.”</span> September 22, 2024. <a href="https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/">https://maxpepperdine.github.io/posts/2024-09-22-maxent-coral/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -122,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
+    <div class="quarto-title column-page-left">
       <h1 class="title">Exploring habitat connectivity between core areas in a Costa Rican landscape</h1>
                   <div>
         <div class="description">
@@ -138,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
                   </div>
   </div>
     
-  <div class="quarto-title-meta-author column-page">
+  <div class="quarto-title-meta-author column-page-left">
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-heading">Affiliation</div>
     
@@ -152,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     </div>
 
-  <div class="quarto-title-meta column-page">
+  <div class="quarto-title-meta column-page-left">
 
         
       <div>
@@ -169,18 +169,61 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#background-problem" id="toc-background-problem" class="nav-link" data-scroll-target="#background-problem">Background &amp; Problem</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
 
 
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This analysis is from an assignment in ESM 270 (Conservation Planning) at the Bren School of Environmental Science &amp; Management at the University of California, Santa Barbara. The assignment focused on modeling movement patterns and connectivity for the jaguar (<em>Panthera onca</em>) across southern Costa Rica with Circuitscape. It was required to be limited to two pages, with a figure included, hence the brevity of the write-up. The analysis aimed to identify important movement corridors and barriers between core areas in the Talamanca-Osa region of southern Costa Rica to support jaguar connectivity and continued movement across the landscape.</p>
+</section>
+<section id="background-problem" class="level2">
+<h2 class="anchored" data-anchor-id="background-problem">Background &amp; Problem</h2>
+<p>Throughout the last 100 years, southern Costa Rica has undergone significant agricultural expansion and urban development. This has had adverse impacts on many species occurring throughout the region, especially jaguars (Panthera onca) which are forest-dependent with wide home ranges and require large areas of undisturbed habitat; therefore, making them particularly vulnerable to fragmentation. Increasing fragmentation in this region has resulted in two disconnected jaguar populations. To reconnect them and support their continued persistence throughout the southern Costa Rican landscape, land managers and conservation practitioners need to understand the species’ movement patterns and barriers hindering movement connectivity.</p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<p>Circuitscape and Linkage Mapper were used to model connectivity across the study area in ArcGIS Pro v3.0. Circuitscape is a tool that treats landscapes as conductive surfaces, utilizing connections between random walk theory and electrical circuit theory to predict aspects of movement and connectivity between important patches of a landscape. This analysis employed three Linkage Mapper modules to analyze jaguar movement and connectivity between identified core areas in the Talamanca-Osa region of southern Costa Rica: Linkage Mapper, Pinchpoint Mapper, and Barrier Mapper. The core areas are 3 national parks in the region–Corcovado, Piedras Blancas, and La Amistad which was clipped to the study area.</p>
+<p>The first step of the analysis was to map the least-cost corridors between the three core areas with Linkage Mapper using a cost-weighted distance (CWD) threshold of 20,000 m. This served to create a distribution of CWDs of the best route passing through each cell across the study area, with lower values being closer to the LCP and higher values being more costly/resistive. Next, Circuitscape was run using Pinchpoint Mapper to inject ‘electrical current’ into the core areas and facilitate its flow across the landscape between cores. This step was conducted twice, once with a CWD cutoff distance of 1,000,000 m to run Circuitscape across the entire resistance surface, and once with a CWD cutoff distance of 20,000 m to constrain current flow to the least-cost corridor. As implied in the tool’s name, flowing current concentrates in ‘pinch-points’, representing areas where jaguar movement is likely to be funneled through a narrow area. Lastly, the Barrier Mapper tool was used to identify important barriers running along and adjacent to the LCP. A barrier detection radius of 1000 m was used, detecting barriers up to 2 km across.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>Results of the Circuitscape and Linkage mapper analysis are shown in Figure 1 below. Figure 1(A) portrays the Circuitscape and Pinchpoint Mapper analysis with a CWD cutoff distance of 20,000 m to constrain current flow to the least-cost corridor defined in the first step of the analysis. Areas in red represent higher values and regions where the corridor is more constricted (and jaguar movement is concentrated), with green regions as lower values and less constricted areas. Pinchpoint Mapper was designed to run Circuitscape within identified least-cost corridors to map pinch-points within these areas; however, running this tool across an entire landscape can also provide valuable information regarding alternative movement routes and stepping stones. Figure 1(B) shows the result of the Barrier Mapper analysis. Again, red areas represent higher values that indicate barriers with the most significant effect on CWDs between core areas.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connectivity_map.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1. Least-cost paths (LCP) and corridors connecting core areas for jaguars in the Talamanca-Osa region of southern Costa Rica. The top map shows the three core areas (Corcovado National Park in the southwest, Piedras Blancas National Park in the center, and La Amistad National Park in the northeast) with LCPs (white lines) connecting each core area. Figure 1(A) portrays the results of the pinch-point mapper analysis with a CWD cutoff distance of 20,000 m, with red areas representing higher values and places where the corridor surrounding the LCP is more constricted. Figure 1(B) shows the results of the barrier mapper analysis with a barrier detection radius of 1000 m. Again, red areas have higher values representing the strongest CWD effect between core areas, and more likely barriers to movement.</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This analysis provides valuable insight into jaguar movement between 3 core areas in the Talamanca-Osa region of southern Costa Rica. The Circuitscape analysis identified pinch-points within the least-cost corridors connecting core areas (Figure 1(A)). These regions are extremely important for connectivity and ensuring continued movement by jaguars across the landscape. They represent locations where jaguar movement is likely to be funneled through more narrow areas and vulnerable regions where a loss or degradation of habitat might significantly alter or sever important movement linkages. Barriers surrounding LCPs with the strongest effect on CWDs between core areas also represent more vulnerable areas within the landscape (Figure 1(B)), and conservation planning efforts should be focused in these locations to improve connectivity in high resistance areas within identified corridors.</p>
+<p>One important consideration that isn’t captured in this analysis is the impact that increased jaguar connectivity or habitat might have on surrounding rural subsistence farmers in the region. Throughout the modeling process and selection of regions to focus connectivity enhancement on, land managers and conservation practitioners should engage local community members and ensure a diverse range of voices are included to incorporate important socioeconomic dynamics of conservation planning.</p>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>This assignment was created and organized Ashley Larsen, an Associate Professor at the Bren School and the instructor for ESM 270. ESM 270 (Conservation Planning) is offered in the <a href="https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management">Master of Environmental Science &amp; Management (MESM)</a> program at the Bren School.</p>
 
 
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{pepperdine2024,
   author = {Pepperdine, Maxwell},

@@ -215,8 +215,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-3-identify-homes-that-experienced-blackouts-by-combining-the-locations-of-homes-and-blackouts" id="toc-part-3-identify-homes-that-experienced-blackouts-by-combining-the-locations-of-homes-and-blackouts" class="nav-link" data-scroll-target="#part-3-identify-homes-that-experienced-blackouts-by-combining-the-locations-of-homes-and-blackouts">Part 3: Identify homes that experienced blackouts by combining the locations of homes and blackouts</a></li>
   <li><a href="#part-4-identify-the-census-tracts-likely-impacted-by-blackouts" id="toc-part-4-identify-the-census-tracts-likely-impacted-by-blackouts" class="nav-link" data-scroll-target="#part-4-identify-the-census-tracts-likely-impacted-by-blackouts">Part 4: Identify the census tracts likely impacted by blackouts</a></li>
   <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   <li><a href="#links-to-data-sources" id="toc-links-to-data-sources" class="nav-link" data-scroll-target="#links-to-data-sources">Links to data sources</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#github-repository" id="toc-github-repository" class="nav-link" data-scroll-target="#github-repository">GitHub repository</a></li>
   </ul>
 </nav>
     </div>
@@ -812,6 +814,10 @@ Figure&nbsp;4: Distribution of median household income in census tracts that exp
 <p>This analysis examined the impacts of the 2021 winter storms in the Houston metropolitan area. We estimated the number of homes that lost power between February 7th and 16th, and examined the relationship between median income levels of census tracts that were likely impacted by the blackout versus those that were not. The analysis found that an estimated <strong>157,970 homes</strong> in the Houston metropolitan area lost power during the winter storm. These homes were distributed across <strong>756 census tracts</strong> in the region. The median household income in census tracts that experienced blackouts was <strong>$60,415</strong>, compared to <strong>$57,220</strong> in census tracts that did not experience blackouts.</p>
 <p>One of the limitations of this analysis is that the VIIRS night lights data used to identify areas that experienced blackouts is not a perfect measure of power outages, and while its resolution is relatively granular, it’s still coarse enough that some areas might be “brighter” or “darker” than they truly were. Additionally, the analysis assumes that any location that experienced a drop in night light intensity of more than 200 nW cm^-2 sr^-1 experienced a blackout. This threshold was chosen somewhat arbitrarily and may not accurately capture all areas that lost power. Therefore, taking both of these limitations into account, there’s a chance we didn’t truly capture all homes/locations that experienced blackouts. However, this analysis provides a good estimate of the impacts of the 2021 winter storms in Houston.</p>
 </section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>This assignment was created and organized Ruth Oliver, an Assistant Professor at the Bren School and the instructor for EDS 223. EDS 223 (Geospatial Analysis &amp; Remote Sensing) is offered in the <a href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science">Master of Environmental Data Science (MEDS)</a> program at the Bren School.</p>
+</section>
 <section id="links-to-data-sources" class="level2">
 <h2 class="anchored" data-anchor-id="links-to-data-sources">Links to data sources</h2>
 <ul>
@@ -825,6 +831,10 @@ Figure&nbsp;4: Distribution of median household income in census tracts that exp
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p>Wikipedia. 2021. “2021 Texas power crisis.” Last modified October 2, 2021. https://en.wikipedia.org/wiki/2021_Texas_power_crisis.</p>
+</section>
+<section id="github-repository" class="level2">
+<h2 class="anchored" data-anchor-id="github-repository">GitHub repository</h2>
+<p><strong>Link to the GitHub repository for this analysis:</strong> <a href="https://github.com/maxpepperdine/houston-blackout-analysis">houston-blackout-analysis</a></p>
 
 
 </section>

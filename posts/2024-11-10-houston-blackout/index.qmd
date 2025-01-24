@@ -47,7 +47,7 @@ Because highways typically account for a large portion of night lights observabl
 
 *Data file*
 
-- `gis_osm_roads_free_1.gpkg`: OpenStreetMap data for roads in Texas
+-   `gis_osm_roads_free_1.gpkg`: OpenStreetMap data for roads in Texas
 
 #### Houses
 
@@ -55,15 +55,15 @@ OSM also provides building data, which again was downloaded from Geofabrik and s
 
 *Data file*
 
-- `gis_osm_buildings_a_free_1.gpkg`: OpenStreetMap data for buildings in Texas
+-   `gis_osm_buildings_a_free_1.gpkg`: OpenStreetMap data for buildings in Texas
 
 #### Socioeconomic
 
-We obtained data from the U.S. Census Bureau's [American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs) for 2019. This data is distributed in a file geodatabase format, which contains both the geometry of census tracts and layers that contain a subset of the fields documents in the [ACS metadata](https://www2.census.gov/geo/docs/maps-data/data/tiger/prejoined/ACSMetadata2011.txt). 
+We obtained data from the U.S. Census Bureau's [American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs) for 2019. This data is distributed in a file geodatabase format, which contains both the geometry of census tracts and layers that contain a subset of the fields documents in the [ACS metadata](https://www2.census.gov/geo/docs/maps-data/data/tiger/prejoined/ACSMetadata2011.txt).
 
 *Data file*
 
-- `ACS_2019_5YR_TRACT_48_TEXAS.gdb`: ACS data for Texas
+-   `ACS_2019_5YR_TRACT_48_TEXAS.gdb`: ACS data for Texas
 
 ## Load packages
 
@@ -269,13 +269,13 @@ Because highways may have experienced changes in their night light intensities t
 
 *Pseudocode*:
 
-1. Load the OpenStreetMap data for Houston and filter the OpenStreetMap data to only include highways. A cool `query` shared by Ruth was used in the `st_read()` function to only load the highways from the roads GPKG!
+1.  Load the OpenStreetMap data for Houston and filter the OpenStreetMap data to only include highways. A cool `query` shared by Ruth was used in the `st_read()` function to only load the highways from the roads GPKG!
 
 2, Identify all areas within 200m of all highways with the `st_buffer()` function. Before using `st_buffer()`, I transformed the highways to the same CRS as the blackout mask (`EPSG:3083`) and checked the units of the CRS to make sure the buffer was correct.
 
-3. Use `st_union()` to combine all the highway buffers into one polygon.
+3.  Use `st_union()` to combine all the highway buffers into one polygon.
 
-4. Use the `st_difference()` function to exclude the highways from the blackout mask. `st_difference(x, y)` creates a polygon of the area of x that is not in y (x being the blackout mask, and y being the highway buffer.
+4.  Use the `st_difference()` function to exclude the highways from the blackout mask. `st_difference(x, y)` creates a polygon of the area of x that is not in y (x being the blackout mask, and y being the highway buffer.
 
 #### Load highways data
 
@@ -425,15 +425,15 @@ tm_shape(homes_blackout, name = "Homes") +
 
 *Pseudocode*:
 
-1. The folder `ACS_2019_5YR_TRACT_48.gdb` is an ArcGIS “file geodatabase” that contains data from the US Census Bureaus American Community Survet for census tracts in 2019. We need to use the `st_layers()` function to list the layers in the file geodatabase and identify the layer that contains the census tract data.
+1.  The folder `ACS_2019_5YR_TRACT_48.gdb` is an ArcGIS “file geodatabase” that contains data from the US Census Bureaus American Community Survet for census tracts in 2019. We need to use the `st_layers()` function to list the layers in the file geodatabase and identify the layer that contains the census tract data.
 
-2. Income data is stored in the `X19_INCOME` layer. Looking at the [ACS metadata](https://www2.census.gov/geo/docs/maps-data/data/tiger/prejoined/ACSMetadata2011.txt), we can see that the `B19013e1` variable represents the median household income.
+2.  Income data is stored in the `X19_INCOME` layer. Looking at the [ACS metadata](https://www2.census.gov/geo/docs/maps-data/data/tiger/prejoined/ACSMetadata2011.txt), we can see that the `B19013e1` variable represents the median household income.
 
-3. The geodatabase contains a layer holding the geometry information (`ACS_2019_5YR_TRACT_48_TEXAS`), separate from the layers holding the ACS attributes. We have to combine the geometry with the attributes to get a feature layer that `sf` can use. We used a `left_join()` to combine the geometry and income data by the `GEOID_Data` field.
+3.  The geodatabase contains a layer holding the geometry information (`ACS_2019_5YR_TRACT_48_TEXAS`), separate from the layers holding the ACS attributes. We have to combine the geometry with the attributes to get a feature layer that `sf` can use. We used a `left_join()` to combine the geometry and income data by the `GEOID_Data` field.
 
-4. Identify the census tracts that contain homes that experienced blackouts by using the `st_filter()` function with `.predicate = st_intersects` to filter the census tract geometries that intersect with the homes that experienced blackouts.
+4.  Identify the census tracts that contain homes that experienced blackouts by using the `st_filter()` function with `.predicate = st_intersects` to filter the census tract geometries that intersect with the homes that experienced blackouts.
 
-5. Make a new column in the `sf` object containing all census tracts that identified each tract as either experiencing a blackout or not. Use this column to create a boxplot comparing the distribution of median household income in census tracts that experienced blackouts to those that did not.
+5.  Make a new column in the `sf` object containing all census tracts that identified each tract as either experiencing a blackout or not. Use this column to create a boxplot comparing the distribution of median household income in census tracts that experienced blackouts to those that did not.
 
 #### Load the socio-economic data for Houston
 
@@ -565,19 +565,23 @@ ggplot(full_tract_layer, aes(x = blackout, y = med_income, fill = blackout)) +
 
 ## Reflection
 
-This analysis examined the impacts of the 2021 winter storms in the Houston metropolitan area. We estimated the number of homes that lost power between February 7th and 16th, and examined the relationship between median income levels of census tracts that were likely impacted by the blackout versus those that were not. The analysis found that an estimated **157,970 homes** in the Houston metropolitan area lost power during the winter storm. These homes were distributed across **756 census tracts** in the region. The median household income in census tracts that experienced blackouts was **$60,415**, compared to **$57,220** in census tracts that did not experience blackouts.
+This analysis examined the impacts of the 2021 winter storms in the Houston metropolitan area. We estimated the number of homes that lost power between February 7th and 16th, and examined the relationship between median income levels of census tracts that were likely impacted by the blackout versus those that were not. The analysis found that an estimated **157,970 homes** in the Houston metropolitan area lost power during the winter storm. These homes were distributed across **756 census tracts** in the region. The median household income in census tracts that experienced blackouts was **\$60,415**, compared to **\$57,220** in census tracts that did not experience blackouts.
 
 One of the limitations of this analysis is that the VIIRS night lights data used to identify areas that experienced blackouts is not a perfect measure of power outages, and while its resolution is relatively granular, it's still coarse enough that some areas might be "brighter" or "darker" than they truly were. Additionally, the analysis assumes that any location that experienced a drop in night light intensity of more than 200 nW cm\^-2 sr\^-1 experienced a blackout. This threshold was chosen somewhat arbitrarily and may not accurately capture all areas that lost power. Therefore, taking both of these limitations into account, there's a chance we didn't truly capture all homes/locations that experienced blackouts. However, this analysis provides a good estimate of the impacts of the 2021 winter storms in Houston.
 
+## Acknowledgements
+
+This assignment was created and organized Ruth Oliver, an Assistant Professor at the Bren School and the instructor for EDS 223. EDS 223 (Geospatial Analysis & Remote Sensing) is offered in the [Master of Environmental Data Science (MEDS)](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) program at the Bren School.
+
 ## Links to data sources
 
-- [Geofabrik OSM Data Extracts](https://download.geofabrik.de/)
+-   [Geofabrik OSM Data Extracts](https://download.geofabrik.de/)
 
 -   [Houston County Boundaries](https://koordinates.com/layer/112438-houston-county-boundaries/)
 
 -   [OpenStreetMap](https://www.openstreetmap.org/#map=4/38.01/-95.84)
 
-- [U.S. Census Bureau's ACS](https://www.census.gov/programs-surveys/acs)
+-   [U.S. Census Bureau's ACS](https://www.census.gov/programs-surveys/acs)
 
 -   [Visible Infrared Imaging Radiometer Suite (VIIRS)](https://en.wikipedia.org/wiki/Visible_Infrared_Imaging_Radiometer_Suite)
 
@@ -585,8 +589,6 @@ One of the limitations of this analysis is that the VIIRS night lights data used
 
 Wikipedia. 2021. “2021 Texas power crisis.” Last modified October 2, 2021. https://en.wikipedia.org/wiki/2021_Texas_power_crisis.
 
+## GitHub repository
 
-
-
-
-
+**Link to the GitHub repository for this analysis:** [houston-blackout-analysis](https://github.com/maxpepperdine/houston-blackout-analysis)

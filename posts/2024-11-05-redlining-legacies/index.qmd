@@ -20,15 +20,15 @@ execute:
   message: false
 ---
 
-#### Background
+## Background
 
 Legacies of historical injustices are often reflected in present-day environmental injustices. One example of this is racial segregation in the United States, in which a long history of these injustices are still visible today. As part of the New Deal in the 1930's, the Home Owners' Loan Corporation (HOLC) classified neighborhoods based on their perceived safety or risk for mortgage lending (hereby refered to as 'HOLC grade'). Thy used this ranking system (HOLC grades of A, B, C, D) to block access to loans for home ownership, delineating maps to indicate where mortgages and loans should not be invested. This practice, colloquially known as "redlining," disproportionately affected communities of color and has had lasting impacts on the socio-economic and environmental conditions of these neighborhoods that are still evident today.
 
 This analysis aims to explore the legacy of redlining in Los Angeles County by examining the distribution of environmental and biodiversity observations within each HOLC grade. The analysis will be divided into two parts:
 
-1. **Legacy of redlining in current environmental (in)justice:** This section will explore the relationship between HOLC grades and three environmental justice (EJ) screen variables in Los Angeles County: % low income, percentile for PM 2.5, and percentile for low life expectancy. The analysis will examine how the current conditions of these variables differ with the four HOLC grades.
+1.  **Legacy of redlining in current environmental (in)justice:** This section will explore the relationship between HOLC grades and three environmental justice (EJ) screen variables in Los Angeles County: % low income, percentile for PM 2.5, and percentile for low life expectancy. The analysis will examine how the current conditions of these variables differ with the four HOLC grades.
 
-2. **Legacy of redlining in biodiversity observations:** This section will examine the distribution of bird observations from 2022 within each HOLC grade in Los Angeles County to explore how the distribution of biodiversity observations has been influenced by historical redlining practices.
+2.  **Legacy of redlining in biodiversity observations:** This section will examine the distribution of bird observations from 2022 within each HOLC grade in Los Angeles County to explore how the distribution of biodiversity observations has been influenced by historical redlining practices.
 
 ## Part 1: Legacy of redlining in current environmental (in)justice
 
@@ -130,17 +130,17 @@ tm_shape(la_county,
 #   tm_compass(position = c("left", "bottom"))
 ```
 
-#### Determine the % of current census block groups within each HOLC grade 
+#### Determine the % of current census block groups within each HOLC grade
 
 *Pseudocode outline:*
 
-1. Check if the EJ screen and HOLC redlining data are in the same Coordinate Reference System (CRS) using `st_crs()`. If they are not in the same CRS, reproject one of the datasets to match the other.
+1.  Check if the EJ screen and HOLC redlining data are in the same Coordinate Reference System (CRS) using `st_crs()`. If they are not in the same CRS, reproject one of the datasets to match the other.
 
-2. Join the HOLC redlining data to the EJ screen data. In this step, I used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the EJ screen data which is already at the block group level and add the HOLC grade to each observation.
+2.  Join the HOLC redlining data to the EJ screen data. In this step, I used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the EJ screen data which is already at the block group level and add the HOLC grade to each observation.
 
-3. Calculate the % census blocks groups within in HOLC grade (A, B, C, D). Group the data by HOLC grade using `group_by()` and then calculate the % of block groups in each grade. I used the `n()` function to count the number of block groups in each grade, and then calculated the % of block groups in each grade by dividing the count number by the sum of blocks counted.
+3.  Calculate the % census blocks groups within in HOLC grade (A, B, C, D). Group the data by HOLC grade using `group_by()` and then calculate the % of block groups in each grade. I used the `n()` function to count the number of block groups in each grade, and then calculated the % of block groups in each grade by dividing the count number by the sum of blocks counted.
 
-4. Clean up the data and show the results in a table (Table 1 below).
+4.  Clean up the data and show the results in a table (Table 1 below).
 
 ###### QC #2: Are the EJ screen and redlining data in the same CRS?
 
@@ -227,25 +227,24 @@ if(st_crs(ej_screen_la) == st_crs(holc_redlining)) {
 
 ###### Overview of analysis & variables
 
-- *Analysis goal:* 
-  - This analysis aims to explore the relationship between the Home Owners’ Loan Corporation (HOLC) grades and three EJ Screen variables in Los Angeles County. To examine how the current conditions of these variables in census block groups differ with the four HOLC grades, I calculated the mean of each variable within each HOLC grade. Figure 2 below shows the results of this analysis.
-
-- *Variables of interest:*
-  - **% low income (`LOWINCPCT`)**: Taken from the EPA EJ Screen documentation: "The percent of a block group's population in households where the household income is less than or equal to twice the federal 'poverty level.'"
-  - **Percentile for PM 2.5 (`P_PM25`)**: Taken from the EPA EJ Screen documentation: "EJScreen presents PM2.5 concentrations using percentile rank, ranging from 0 (lowest) to 100 (highest)."
-  - **Percentile for low life expectancy (`P_LIFEEXPPCT`)**: Taken from the EPA EJ Screen documentation: EJScreen presents life expectancy using percentile rank, ranging from 0 (lowest) to 100 (highest) low life expectancy. A higher percentile indicates a lower life expectancy.
+-   *Analysis goal:*
+    -   This analysis aims to explore the relationship between the Home Owners’ Loan Corporation (HOLC) grades and three EJ Screen variables in Los Angeles County. To examine how the current conditions of these variables in census block groups differ with the four HOLC grades, I calculated the mean of each variable within each HOLC grade. Figure 2 below shows the results of this analysis.
+-   *Variables of interest:*
+    -   **% low income (`LOWINCPCT`)**: Taken from the EPA EJ Screen documentation: "The percent of a block group's population in households where the household income is less than or equal to twice the federal 'poverty level.'"
+    -   **Percentile for PM 2.5 (`P_PM25`)**: Taken from the EPA EJ Screen documentation: "EJScreen presents PM2.5 concentrations using percentile rank, ranging from 0 (lowest) to 100 (highest)."
+    -   **Percentile for low life expectancy (`P_LIFEEXPPCT`)**: Taken from the EPA EJ Screen documentation: EJScreen presents life expectancy using percentile rank, ranging from 0 (lowest) to 100 (highest) low life expectancy. A higher percentile indicates a lower life expectancy.
 
 ###### Data wrangling
 
 *Steps/Pseudocode outline:*
 
-1. Filter the EJ Screen data to create three new data frames that contain the EJ Screen variables of interest in LA County: % low income (`LOWINCPCT`), percentile for PM 2.5 (`P_PM25`), and percentile for low life expectancy (`P_LIFEEXPPCT`)
+1.  Filter the EJ Screen data to create three new data frames that contain the EJ Screen variables of interest in LA County: % low income (`LOWINCPCT`), percentile for PM 2.5 (`P_PM25`), and percentile for low life expectancy (`P_LIFEEXPPCT`)
 
-2. With each of the three variables created, join the EJ Screen data to the HOLC redlining data. In this step, I again used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the EJ Screen data and add the HOLC grade to each observation.
+2.  With each of the three variables created, join the EJ Screen data to the HOLC redlining data. In this step, I again used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the EJ Screen data and add the HOLC grade to each observation.
 
-3. Calculate the mean of each variable for each HOLC grade. This is done by grouping the data by HOLC grade using `group_by()` and then calculating the mean of the variable of interest. I used the `na.rm = TRUE` argument in the `mean()` function to remove any NA values in the data.
+3.  Calculate the mean of each variable for each HOLC grade. This is done by grouping the data by HOLC grade using `group_by()` and then calculating the mean of the variable of interest. I used the `na.rm = TRUE` argument in the `mean()` function to remove any NA values in the data.
 
-4. Make a set of figures to show the results, and then combine them into one with the `patchwork` package.
+4.  Make a set of figures to show the results, and then combine them into one with the `patchwork` package.
 
 ```{r}
 #| code-fold: true
@@ -412,7 +411,7 @@ birds <- birds %>%
   filter(year == 2022)
 ```
 
-#### QC #4: Are the GBIF birds data and redlining data in the same CRS? 
+#### QC #4: Are the GBIF birds data and redlining data in the same CRS?
 
 ```{r}
 #| code-fold: true
@@ -444,11 +443,11 @@ if(all(birds$year == 2022)) {
 
 *Steps/Pseudocode outline:*
 
-1. Join the GBIF birds data with observations from 2022 to the HOLC redlining data. In this step, I again used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the GBIF birds data and add the HOLC grade to each observation.
+1.  Join the GBIF birds data with observations from 2022 to the HOLC redlining data. In this step, I again used a spatial join with `st_join()` because this joins based on geometries that intersect by default. `st_join()` also performs a left join by default, so this will keep all the GBIF birds data and add the HOLC grade to each observation.
 
-2. Calculate the percent of observations within each HOLC grade. This is done by grouping the data by HOLC grade using `group_by()` and then calculating the percent of observations in each grade. I used the `n()` function to count the number of observations in each grade and then calculated the percent of observations in each grade by dividing this number by the sum of observations.
+2.  Calculate the percent of observations within each HOLC grade. This is done by grouping the data by HOLC grade using `group_by()` and then calculating the percent of observations in each grade. I used the `n()` function to count the number of observations in each grade and then calculated the percent of observations in each grade by dividing this number by the sum of observations.
 
-3. Make a figure to show the results.
+3.  Make a figure to show the results.
 
 ```{r}
 #| code-fold: true
@@ -536,6 +535,10 @@ birds_plot_none + birds_plot +
 
 Ellis-Soto et al. (2023) found that redlining has shaped our observations and distribution of biodiveristy as well as the socio-economic and environmental conditions of communities. They showed that "historically redlined neigborhoods remain the most under sampled urban areas for bird biodiversity today." While there isn't a clear difference in the % of bird observations between HOLC grades, Figure 1(A) makes it clear that redlined neighborhoods are still under sampled for bird biodiversity. This aligns with the findings of Ellis-Soto et al. (2023) and suggests that the legacy of redlining has had lasting impacts on the distribution of biodiversity observations in Los Angeles County.
 
+## Acknowledgements
+
+This assignment was created and organized Ruth Oliver, an Assistant Professor at the Bren School and the instructor for EDS 223. EDS 223 (Geospatial Analysis & Remote Sensing) is offered in the [Master of Environmental Data Science (MEDS)](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) program at the Bren School.
+
 ## References
 
 City of Los Angeles GeoHub. (2020). County Boundary. <https://geohub.lacity.org/datasets/county-boundary>
@@ -544,9 +547,13 @@ Ellis-Soto, D., Chapman, M., & Locke, D. H. (2023). Historical redlining is asso
 
 GBIF. (2022). Global Biodiversity Information Facility. <https://www.gbif.org/>
 
-Nelson, K. R., Winling, L., Marciano, R., Connolly, N., “Mapping Inequality,” American Panorama, ed. Robert K. Nelson and Edward L. Ayers, accessed October 17, 2023, <https://dsl.richmond.edu/panorama/redlining/> 
+Nelson, K. R., Winling, L., Marciano, R., Connolly, N., “Mapping Inequality,” American Panorama, ed. Robert K. Nelson and Edward L. Ayers, accessed October 17, 2023, <https://dsl.richmond.edu/panorama/redlining/>
 
 United States Environmental Protection Agency. 2024 version. EJScreen. <https://www.epa.gov/ejscreen>
+
+## GitHub repository
+
+**Link to the GitHub repository for this analysis:** [redlining-legacies-LA](https://github.com/maxpepperdine/redlining-legacies-LA)
 
 
 
