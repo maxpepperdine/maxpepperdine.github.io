@@ -15,7 +15,8 @@ website:
       - href: posts.qmd
         text: Portfolio
       - text: Resume
-        href: Resume/Living Resume.pdf
+        href: Resume/WebsiteResume.pdf
+        target: _blank
   page-footer:
     background: light
     left: Copyright 2024, Maxwell Pepperdine

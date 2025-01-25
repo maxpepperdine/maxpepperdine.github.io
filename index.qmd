@@ -28,12 +28,6 @@ My name is Maxwell, and I created this personal website using Quarto to share a 
 
 Conservation planning | GIS | Geospatial analysis | Data analysis | Water resources management | Nature-based solutions | Remote sensing | Climate adaptation 
 
-## Skills
-
-**Software/Computer:** Esri ArcGIS Products (Pro, Online, Field Maps), RStudio, Python, Microsoft Office (Word, Excel, PowerPoint), Google Earth Engine, QGIS, GitHub, Quarto
-
-**Writing:** Technical writing of scientific research manuscripts, policy memos, and CEQA and NEPA reports/assessments
-
 ## Recent & Ongoing Projects
 
 [Integrating climate adaptation strategies into forest management](https://bren.ucsb.edu/projects/integrating-climate-adaptation-strategies-local-collaborative-forest-management-northern)

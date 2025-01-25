@@ -7,7 +7,7 @@ author:
     url: https://maxpepperdine.github.io
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
-date: 2024-09-10
+date: 2024-09-26
 categories: [Geospatial-analysis, MESM, Remote-sensing, Python]
 toc: true
 image: bathy_difference.jpg
@@ -15,6 +15,3 @@ citation:
   url: https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/
 draft: false
 ---
-
-
-
