@@ -22,18 +22,14 @@ editor_options:
 
 ## Hello!
 
-My name is Maxwell, and I created this personal website using Quarto to share a little bit about who I am and some of the projects I've worked on throughout my academic and professional experiences. I am a current master's student in Environmental Science and Management at the [Bren School of Environmental Science & Management](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) who is passionate about finding data-driven solutions to today's critical environmental problems. 
+My name is Maxwell, and I created this personal website using Quarto to share a little bit about who I am and some of the projects I've worked on throughout my academic and professional experiences. I am a 2nd-year master's student in Environmental Science and Management at the [Bren School of Environmental Science & Management](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) and received a B.S. in Environmental Management & Protection from Cal Poly, SLO in June 2023. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis at the Bren School, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning.
 
 ## Professional Interests
 
-Conservation planning | GIS | Geospatial analysis | Data analysis | Water resources management | Nature-based solutions | Remote sensing | Climate adaptation 
+Conservation planning \| GIS \| Geospatial analysis \| Data analysis \| Water resources management \| Nature-based solutions \| Remote sensing \| Climate adaptation
 
 ## Recent & Ongoing Projects
 
 [Integrating climate adaptation strategies into forest management](https://bren.ucsb.edu/projects/integrating-climate-adaptation-strategies-local-collaborative-forest-management-northern)
 
 [Mapping suitable nesting habitat for marbled murrelets in the SCM](files/MAMU_mapping_SCM_final_report.pdf)
-
-
-
-

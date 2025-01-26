@@ -1,0 +1,370 @@
+---
+title: "Maximizing crop yields with data analysis"
+title-block-banner: true
+description: "Running non-linear least squares to predict crop yields in Greece"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-02-15
+categories: [Data analysis, MESM, RStudio]
+toc: true
+image: graph.jpg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-02-15-nonlinear-squares/
+draft: false
+execute: 
+  echo: true
+  message: false
+  warning: false
+code-fold: true
+---
+
+![Grain growing at a farm in Greece. Image credit: Enterprise Greece](grain_image.jpeg)
+
+## Overview
+
+### Load Packages
+
+```{r}
+library(tidyverse)
+library(here)
+library(nlraa)
+library(janitor)
+library(tibble)
+library(kableExtra)
+library(knitr)
+library(Metrics)
+library(nls2)
+library(broom)
+```
+
+**Data Description:**
+
+The data used in this analysis comes from the paper "Nonlinear Regression Models and Applications in Agricultural Research," written by Sotirios Archontoulis and Fernando Miguez. It's stored in an object called `sm` in the `nlraa` package, and contains the following 5 variables:
+
+-   'doy' - integer representing the day of the year, spanning 141-303
+-   'block' - integer that represents 1-4 blocks used in the experiment
+-   'input' - integer that represents low (1) or high (2) agronomic input
+-   'crop' - factor with three levels; fiber sorghum (F), sweet sorghum (S), and maize (M)
+-   'yield' - numeric variable representing biomass yield in Mg/ha
+
+```{r}
+#| label: tbl-data
+#| tbl-cap: "Summary of the data used in the report, stored in the `sm` object from the `nlraa` package."
+
+variable <- c("doy", "block", "input", "crop", "yield")
+data_type <- c("integer", "integer", "integer", "factor", "numeric")
+description <- c("day of the year, spanning 141-303", 
+                 "1-4 blocks used in the experiment", 
+                 "low (1) or high (2) agronomic input", 
+                 "three levels: fiber sorghum (F), sweet sorghum (S), and maize (M)", 
+                 "biomass yield in Mg/ha")
+
+sm_variables <- tibble(Variable = variable, 
+                           Data.Type = data_type, 
+                           Description = description)
+
+kable(sm_variables, col.names = c("Variable", "Data Type", 
+                                  "Description")) %>% 
+  kable_classic_2() 
+```
+
+**Objective:**
+
+To maximize yield, it's crucial for farmers to understand the biology of plants and their responses to fertilizers. This analysis aims to help farmers make predictions on their yields by running non-linear least squares on experimental growth data for three grains in Greece.
+
+**Data Citation:**
+
+Archontoulis, S.V. and Miguez, F.E. (2015), Nonlinear Regression Models and Applications in Agricultural Research. Agronomy Journal, *107: 786-798*. <https://doi.org/10.2134/agronj2012.0506>
+
+**Psuedo-code:**
+
+-   Load the data stored as `sm` from the `nlraa` package.
+-   Choose candidate models; in this case, we're using the Beta function from Table 1, Equation 2.5 of Archontoulis, S.V. and Miguez, F.E. (2015).
+-   Write a function to model the Beta function.
+-   Create a plot to find some potential starting parameter values, and set initial guesses.
+-   Run an NLS model to predict yield on any given day for sorghum fields with high inputs.
+-   Run NLS models for all 24 combinations of plot, input level, and crop type using `purrr`
+-   Find the 'best' model among competing models for each species.
+-   Plot the results of the anaysis, recreating Figure 7 of the paper.
+
+## Setup
+
+### Load the Data
+
+```{r}
+sm_raw <- nlraa::sm
+
+sm_df <- sm_raw %>% 
+  clean_names()
+```
+
+## Beta Function (from Archontoulis & Miguez, 2015)
+
+$$
+Y=Y_{max}(1 + \frac{t_e-t}{t_e-t_m})(\frac{t}{t_e})^\frac{t_e}{t_e-t_m} 
+$$
+
+#### Description of Beta Function Parameters
+
+-   Y is the response variable (biomass)
+-   t is the explanatory variable (doy)
+-   Y~max~ is the maximum Y value
+-   t~m~ is the inflection point at which the growth rate is maximized
+-   t~e~ is the time when Y = Y~asym~
+
+#### Write a Function to Model the Beta Function
+
+```{r betamodel}
+beta <- function(ymax,doy,tm,te){
+  out=ymax*(1 + ((te-doy)/(te-tm)))*((doy/te)^(te/(te-tm)))
+return(out)
+}
+```
+
+### Choosing Starting Values
+
+#### Make a Plot Similar to Figure 4
+
+```{r}
+guess_plot <- ggplot(sm_df, aes(x = doy, y = yield, 
+                                shape = crop, color = crop)) +
+  geom_point() + 
+  facet_wrap(~input) +
+  theme_bw()
+
+#guess_plot
+```
+
+#### Define Guesses / Potential Starting Values
+
+```{r}
+ymax_guess = max(sm_df$yield)
+
+tm_guess = 225
+
+te_guess = 260
+```
+
+## Sorghum Fields NLS
+
+```{r}
+sorghum_df <- sm_df %>% 
+  filter(input == 2 & crop == "S")
+```
+
+### Run NLS
+
+```{r, results = 'hide'}
+sorghum_nls=nls(formula=yield~beta(ymax,doy,tm,te),
+                  data=sorghum_df,
+                  start=list(ymax=ymax_guess, tm=tm_guess, 
+                             te=te_guess),
+                  trace=TRUE)
+
+# sorghum_nls
+```
+
+### Make a Table
+
+```{r}
+#| label: tbl-sorghum
+#| tbl-cap: "Selected parameter values, standard errors, statistics, and p-values of the estimated parameters for the sorghum fields, high input NLS model. The p-values aren't actually 0, but low enough that the function used to create the table considered them 0."
+
+tidy(sorghum_nls) %>% 
+  kable(col.names = c("Parameter", "Selected Value", 
+                      "Standard Error", "Statistic", "p-value")) %>% 
+  kable_classic_2()
+```
+
+### Evaluate the Model
+
+```{r}
+#| label: fig-nlseval
+#| fig-cap: "Fitted NLS model for high input, sweet sorghum fields. The fitted model (red line) is graphed on top of the raw sweet sorghum data."
+
+# find the sorghum_nls model predictions
+sorghum_predict <- sorghum_df %>% 
+  mutate(predict = predict(sorghum_nls, newdata = sorghum_df))
+
+# plot the sorghum_nls model on top of the sweet sorghum data
+ggplot(data = sorghum_predict) +
+  geom_point(aes(x = doy, y = yield)) +
+  geom_path(aes(x = doy, y = predict), color = 'red') +
+  theme_bw() +
+  labs(x = "Day of the Year", 
+       y = "Biomass (Mg/ha)") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+```
+
+## Run NLS Models for All Combinations
+
+### Create a New Function
+
+```{r}
+#Define a new function to pass along all nls calls
+
+all_nls_fcn<-function(sm_df){ 
+  
+  ymax_guess=max(sm_df$yield)
+  tm_guess=225
+  te_guess=260
+  
+  nls(yield~beta(ymax,doy,tm,te),
+    data=sm_df,
+    start=list(ymax=ymax_guess, tm=tm_guess, 
+                             te=te_guess)) 
+}
+```
+
+### Use purrr to Run All NLS
+
+```{r}
+# run nls models for all 24 combinations of plot, input level, crop type
+# calculate RMSE values 
+beta_all <- sm_df %>% 
+  group_by(input, crop, block) %>% 
+  nest() %>% 
+  mutate(nls_model = map(data, ~all_nls_fcn(.x))) %>% 
+  mutate(predictions = map2(nls_model, data, 
+                            ~predict(.x, newdata = .y))) %>% 
+  mutate(RMSE = map2_dbl(predictions, data, 
+                         ~Metrics::rmse(.x, .y$yield))) %>%
+  mutate(smooth = map(nls_model, 
+                      ~predict(.x, newdata = list(doy = seq(147, 306)))))
+
+#'smooth' breakdown:
+### runs the model between every single 'doy' point 
+### creates a smoothed line of the best fitting NLS model 
+```
+
+### Lowest RMSE for Each Species
+
+```{r}
+### Fiber Sorghum (F) ###
+beta_fiber <- beta_all %>% 
+  filter(crop == "F") 
+best_fiber = min(beta_fiber$RMSE)
+
+#pull out the model to make tables
+best_fiber1 <- beta_all$nls_model[22]
+
+
+### Sweet Sorghum (S) ###
+beta_sweet <- beta_all %>% 
+  filter(crop == "S") 
+best_sweet = min(beta_sweet$RMSE)
+
+#pull out the model to make tables
+best_sweet1 <- beta_all$nls_model[14]
+
+
+### Maize (M) ###
+beta_maize <- beta_all %>% 
+  filter(crop == "M") 
+best_maize = min(beta_maize$RMSE)
+
+#pull out the model to make tables
+best_maize1 <- beta_all$nls_model[4]
+```
+
+### Make Tables
+
+```{r}
+#| label: tbl-models
+#| tbl-cap: "Best fitted NLS models for each species: (a) fiber sorghum; (b) sweet sorghum; (c) maize. The RMSE scores for each model are reported in the subcaptions."
+#| tbl-subcap: 
+#|   - "Fiber sorghum (model RMSE: 1.82)"
+#|   - "Sweet sorghum (model RMSE: 2.22)"
+#|   - "Maize (model RMSE: 0.81)"
+#| layout-nrow: 3
+
+# add RMSE values into the table caption
+
+### Fiber ###
+tidy(best_fiber1[[1]]) %>% 
+  kable(col.names = c("Variable", "Parameter Values", 
+                      "Standard Error", "Statistic", 
+                      "p-value")) %>% 
+  kable_classic_2()
+
+
+### Sweet ###
+tidy(best_sweet1[[1]]) %>% 
+  kable(col.names = c("Variable", "Parameter Values", 
+                      "Standard Error", "Statistic", 
+                      "p-value")) %>% 
+  kable_classic_2()
+
+
+### Maize ###
+tidy(best_maize1[[1]]) %>% 
+  kable(col.names = c("Variable", "Parameter Values", 
+                      "Standard Error", "Statistic", 
+                      "p-value")) %>% 
+  kable_classic_2()
+```
+
+### Recreate Figure 7
+
+#### Data Prep
+
+```{r}
+# filtered the data and unnest the smoothed values for plotting
+# add a doy column
+unnest_df <- beta_all %>% 
+  filter(block == 1) %>% 
+  tidyr::unnest(smooth) %>% 
+  mutate(doy = seq(147, 306)) %>% 
+  filter(!(doy > 263 & crop == "M")) 
+
+# filter the original data for plotting on top of model results
+sm_filter <- sm_df %>% 
+  filter(block == 1) %>% 
+  select(doy, yield, crop)
+
+# # join the unnest_df to the sm_filter to get yield data for fun
+# unnest_sm_join <- left_join(unnest_df, sm_filter, 
+#                             by = join_by(doy))
+
+# # unnest the model predictions
+# predict_df <- beta_all %>% 
+#   tidyr::unnest(predictions)
+```
+
+#### Make a Plot
+
+```{r}
+#| label: fig-fugure7
+#| fig-cap: "Best fitted NLS models for each crop species in block 1 from the experiment (this is a recreation of Figure 7 from Archontoulis, S.V. & Miguez, F.E. (2015)). The sm data for each species in block 1 is shown. It's evident that higher fertilizer inputs resulted in increased yields (Mg/ha) for all three crop species."
+
+# change the facet labels from "1" and "2" to "low" and "high"
+unnest_df$input <- factor(unnest_df$input, levels = c(1, 2), 
+                          labels = c("Low", "High"))
+
+# make the final plot
+final_plot <- ggplot() +
+  geom_path(data = unnest_df, aes(x = doy, y = smooth, color = crop)) +
+  geom_point(data = sm_filter, aes(x = doy, y = yield, shape = crop), 
+             size = 1.5, color = "darkslategrey") +
+  facet_wrap(~input) +
+  theme_bw() +
+  labs(x = "Day of the Year", 
+       y = "Biomass (Mg/ha)", 
+       color = "Model Fit", 
+       shape = "sm Data") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+
+final_plot
+```
+
+
+

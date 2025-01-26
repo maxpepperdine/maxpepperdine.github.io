@@ -3,7 +3,7 @@ title: "Mapping the distribution of native and invasive marine species in the In
 title-block-banner: true
 description: "Using MaxEnt to model current and future distributions of grape coral and crown-of-thorn starfish"
 author: 
-  - name: Maxwell Pepperdine & Zoe Zhou
+  - name: Maxwell Pepperdine, Zoe Zhou
     url: https://maxpepperdine.github.io
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
@@ -34,11 +34,9 @@ For model evaluation, we used spatial partitioning with a 75:25 (training:testin
 
 ## Results 
 
-Under current conditions, the Maxent models indicated a high probability of occurrence for both the crown-of-thorns starfish (CoTS) and grape coral along the coastal areas of Northern Australia. Grape coral also showed a concentrated distribution around the Natuna Islands in the South China Sea, where CoTS is not projected to occur (Figure 1 Bottom). Future projections suggest a shift in both species' distributions to the northeastern coast of Australia, with a contraction across the broader Indo-Pacific (Figure 1B). Notably, the contraction appears more pronounced for CoTS than grape coral. Despite these changes, the northeastern coast remains a favorable habitat for both species, making it a critical focus for future conservation and management strategies. The model's performance was strong, with an AUC of 0.9187 for the training data and 0.9024 for the validation data. 
+Under current conditions, the Maxent models indicated a high probability of occurrence for both the crown-of-thorns starfish (CoTS) and grape coral along the coastal areas of Northern Australia. Grape coral also showed a concentrated distribution around the Natuna Islands in the South China Sea, where CoTS is not projected to occur (Figure 1). Future projections suggest a shift in both species' distributions to the northeastern coast of Australia, with a contraction across the broader Indo-Pacific. Notably, the contraction appears more pronounced for CoTS than grape coral. Despite these changes, the northeastern coast remains a favorable habitat for both species, making it a critical focus for future conservation and management strategies. The model's performance was strong, with an AUC of 0.9187 for the training data and 0.9024 for the validation data. 
 
-![Figure 1. Current (A) and Future (B) Distributions for Grape Coral and CoTS under a moderate emission scenario (SSP3-7.0). Moderate (50%-75%) to high (75%-100%) projected occurrence for CoTS is overlaid in yellow, highlighting areas where both species may overlap, and regions prone to CoTS outbreaks.](coral_maxent1.jpg)
-
-![Figure 2. Current (A) and future (B) projected occurrence distribution for the crown-of-thorn starfish in the eastern Indo-Pacific region. Higher probabilities of occurrence are shown in darker shades of green, signifying areas of higher habitat suitability. A general shift to lower occurrence probabilities in the future is evident throughout the study area.](coral_maxent.jpg)
+![Figure 1. Current (A) and future (B) projected occurrence distribution for the crown-of-thorn starfish in the eastern Indo-Pacific region. Higher probabilities of occurrence are shown in darker shades of green, signifying areas of higher habitat suitability. A general shift to lower occurrence probabilities in the future is evident throughout the study area.](coral_maxent.jpg)
 
 ## Conclusion
 

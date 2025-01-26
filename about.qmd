@@ -11,7 +11,6 @@ Hi there! I'm Maxwell Pepperdine (no affiliation to the university) and I'm a cu
 I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a B.S. in Environmental Management and Protection and double minors in Biology & Sustainable Environments. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family. Ocean photography was one of my favorite hobbies growing up. While I haven't done much as of late, it's something that I would love to get back in to at some point. A few of my favorite photos are shared below!
 
 ::: panel-tabset
-
 #### Experience
 
 **Arnhold Environmental Graduate Fellow** – Environmental Markets Lab (emLab), Santa Barbara, CA (6/24 – Present)
@@ -45,12 +44,13 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 #### Ocean photography
 
 ::: {layout-ncol="2"}
-
 ![](photos/turtle1.jpg)
 
 ![](photos/turtle3.jpg)
 
 ![](photos/turtle2.jpg)
+
+![](photos/turtle03.jpg)
 
 ![](photos/turtle4.jpg)
 
@@ -64,14 +64,25 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 
 ![](photos/wave4.jpg)
 
-![](photos/turtle5.jpg)
-
 ![](photos/fish.jpg)
+
+![](photos/turtle7.jpg)
+
+![](photos/turtle5.jpg)
 :::
 
 #### Some of my favorate places
 
 ::: {layout-ncol="2"}
+![Yosemite National Park, California](photos/land0.jpg)
+
+![Yosemite National Park, California](photos/land01.jpg)
+
+![Yosemite National Park, California](photos/land03.jpg)
+
+![Yosemite National Park, California](photos/land02.jpg)
+
+![Colorado Springs, Colorado](photos/land04.jpg)
 
 ![White Sands National Park, New Mexico](photos/land1.jpg)
 
@@ -81,6 +92,24 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 
 ![Bentonite Hills, Utah](photos/land4.jpg)
 
-:::
-:::
+![Bisti/De-Na-Zin Wilderness, New Mexico](photos/land5.jpg)
 
+![Bisti/De-Na-Zin Wilderness, New Mexico](photos/land6.jpg)
+
+![Bisti/De-Na-Zin Wilderness, New Mexico](photos/land7.jpg)
+
+![Great Sand Dunes National Park, Colorado](photos/land8.jpg)
+
+![Bryce Canyon National Park, Utah](photos/land9.jpg)
+
+![Shiprock, New Mexico](photos/land10.jpg)
+
+![Arches National Park, Utah](photos/land11.jpg)
+
+![Goblin Valley State Park, Utah](photos/land12.jpg)
+
+![Platforms Beach, Aptos, CA](photos/land13.jpg)
+
+*all photos were taken by my partner, Indra Lyons, or myself*
+:::
+:::

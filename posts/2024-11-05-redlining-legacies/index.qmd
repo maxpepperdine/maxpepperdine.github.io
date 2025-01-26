@@ -554,8 +554,3 @@ United States Environmental Protection Agency. 2024 version. EJScreen. <https://
 ## GitHub repository
 
 **Link to the GitHub repository for this analysis:** [redlining-legacies-LA](https://github.com/maxpepperdine/redlining-legacies-LA)
-
-
-
-
-
