@@ -8,7 +8,7 @@ author:
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
 date: 2024-11-20
-categories: [Machine-learning, MESM, Remote-sensing, RStudio]
+categories: [Machine-learning, MESM, Remote-sensing, RStudio, Quarto]
 toc: true
 image: lu_classification.jpeg
 citation: 

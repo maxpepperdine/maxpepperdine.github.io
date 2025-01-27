@@ -1,0 +1,491 @@
+---
+title: "Plant classification using logistic regression"
+title-block-banner: true
+description: "Building models to identify plant species with binary logistic regression and cross validation"
+author: 
+  - name: Maxwell Pepperdine
+    url: https://maxpepperdine.github.io
+    affiliation: MESM
+    affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
+date: 2024-02-14
+categories: [Data analysis, MESM, RStudio, Quarto]
+toc: true
+image: serenoa_image.jpeg
+citation: 
+  url: https://maxpepperdine.github.io/posts/2024-02-14-blr-plant-classification/
+draft: false
+execute: 
+  echo: true
+  message: false
+  warning: false
+code-fold: true
+---
+
+![Cluster of saw palmetto (*Serenoa Repens*) plants. Image credit: iNaturalist](serenoa_image.jpeg)
+
+## Overview
+
+**Data Description:**
+
+Data used in this analysis comes from a study conducted by Warren Abrahamson which looked at survival, growth, and biomass estimated of two dominant palmetto species of South Florida: *Serenoa repens* and *Sabal etonia*. The study includes three data sets, and the one used in this analysis, `palmetto_data`, contains survival and growth data from 1981 through 1997, and then again in 2001 and 2017; data collection is ongoing at 5-year intervals.
+
+**Objective:**
+
+This analysis aims to test the feasibility of using variables plant height, canopy length, canopy width, and number of green leaves to classify whether a palmetto species is *Serenoa repens* or *Sabal etonia*. It will examine two different models with combinations of these predictor variables, determine which model is the 'best', and then examine the success of that model in classifying plant species correctly.
+
+**Data Citation:**
+
+Abrahamson, W.G. 2019. Survival, growth and biomass estimates of two dominant palmetto species of south-central Florida from 1981 - 2017, ongoing at 5-year intervals ver 1. Environmental Data Initiative. <https://doi.org/10.6073/pasta/f2f96ec76fbbd4b9db431c79a770c4d5>
+
+**Pseudo-code:**
+
+-   Load the `palmetto` data, clean it up, and wrangle it to prep for exploratory data visualizations.
+-   Create basic visualizations that explore differences in canopy height, length, width, and number of green leaves between the two species.
+-   Set up the two models we're comparing based on several predictor variables, and perform a binary logistic regression (BLR) for each.
+-   Split the data into training (80%) and testing (20%).
+-   Set up each BLR model, and fit them to the training data.
+-   Compare how well each model predicts species correctly based on their respective predictor variables.
+-   Create ROC curves and calculate the AUC to further explore both models' performance.
+-   Use a ten-fold cross validation to examine which model performs better at classification.
+-   Train the 'better' model using the entire dataset.
+-   Evaluate how successfully this chosen model would classify a plant as the correct species, using a 50% cutoff.
+-   Create a finalized table showing, for each species, how many plants in the original dataset would be correctly/incorrectly classified.
+
+## Setup
+
+### Load Packages
+
+```{r}
+library(tidyverse)
+library(Metrics)
+library(cowplot)
+library(here)
+library(patchwork)
+library(tidymodels)
+library(broom)
+library(kableExtra)
+```
+
+### Load Data & Select Variables
+
+```{r}
+palmetto_df <- read_csv(here("posts/2024-02-14-blr-plant-classification/data/palmetto.csv"))
+
+palmetto_mod <- palmetto_df %>% 
+  select(year, plant, species, survival, height, 
+         length, width, green_lvs) %>% 
+  mutate(spec_fac = as_factor(species))
+```
+
+## Data Visualizations for Canopy Height, Length, Width & Green Leaves
+
+### Data Wrangling
+
+```{r}
+#create a df to visualize canopy height for each species
+palmetto_height <- palmetto_mod %>% 
+  group_by(spec_fac) %>% 
+  summarize(height_avg = mean(height, na.rm = TRUE))
+
+palmetto_height$height_avg <- round(palmetto_height$height_avg, digits = 1)
+
+
+#create a df to visualize canopy length 
+palmetto_length <- palmetto_mod %>% 
+  group_by(spec_fac) %>% 
+  summarize(length_avg = mean(length, na.rm = TRUE))
+
+palmetto_length$length_avg <- round(palmetto_length$length_avg, digits = 1)
+
+
+#create a df to visualize canopy width
+palmetto_width <- palmetto_mod %>% 
+  group_by(spec_fac) %>% 
+  summarize(width_avg = mean(width, na.rm = TRUE))
+
+palmetto_width$width_avg <- round(palmetto_width$width_avg, digits = 1)
+
+
+#Create a df to visualize # of green leaves 
+palmetto_leaves <- palmetto_mod %>% 
+  group_by(spec_fac, year) %>% 
+  summarize(leaves_avg = mean(green_lvs, na.rm = TRUE))
+```
+
+### Make Plots
+
+#### Height Plot
+
+```{r}
+height_plot <- ggplot(palmetto_height, 
+                      aes(x = spec_fac, y = height_avg, fill = spec_fac)) +
+  geom_col() +
+  geom_text(aes(label = height_avg), vjust = -0.5, size = 3.5) +
+  theme_bw() +
+  labs(x = " ", 
+       y = "Average measurement (cm)", 
+       title = "Height") +
+  scale_fill_manual(values = c("1" = "chartreuse3", 
+                               "2" = "darkolivegreen")) + 
+  theme(legend.position = "none") +
+  scale_x_discrete(labels = c("Serenoa repens", "Sabal etonia")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+height_plot <- height_plot + 
+  coord_cartesian(ylim = c(0, 125)) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+
+#height_plot
+```
+
+#### Length Plot
+
+```{r}
+length_plot <- ggplot(palmetto_length, 
+                      aes(x = spec_fac, y = length_avg, fill = spec_fac)) +
+  geom_col() + 
+  geom_text(aes(label = length_avg), vjust = -0.5, size = 3.5) +
+  theme_bw() +
+  labs(x = " ", 
+       y = " ", 
+       title = "Length") +
+  scale_fill_manual(values = c("1" = "chartreuse3", 
+                               "2" = "darkolivegreen")) + 
+  theme(legend.position = "none") +
+  scale_x_discrete(labels = c("Serenoa repens", "Sabal etonia")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+length_plot <- length_plot + 
+  coord_cartesian(ylim = c(0, 175)) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+
+#length_plot
+```
+
+#### Width Plot
+
+```{r}
+width_plot <- ggplot(palmetto_width, 
+                     aes(x = spec_fac, y = width_avg, fill = spec_fac)) +
+  geom_col() + 
+  geom_text(aes(label = width_avg), vjust = -0.5, size = 3.5) +
+  theme_bw() +
+  labs(x = " ", 
+       y = " ", 
+       title = "Width") +
+  scale_fill_manual(values = c("1" = "chartreuse3", 
+                               "2" = "darkolivegreen")) + 
+  theme(legend.position = "none") +
+  scale_x_discrete(labels = c("Serenoa repens", "Sabal etonia")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+width_plot <- width_plot +
+  coord_cartesian(ylim = c(0, 125)) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+
+#width_plot
+```
+
+#### Combined Plots
+
+```{r}
+#| label: fig-plant
+#| fig-cap: "Comparison of average canopy height, length, and width in Serenoa repens and Sabal etonia during the study period. Average values are shown on top of each bar, and they represent the mean values for each species across the entire study period."
+
+h_w_l_plot <- height_plot + length_plot + width_plot
+
+h_w_l_plot
+```
+
+#### Green Leaves Plot
+
+```{r}
+#| label: fig-leaves
+#| fig-cap: "Average count of leaves in Serenoa repens and Sabal etonia. The mean number of leaves for both species in each year over the study period was calculated, and the distribution of the mean value of leaves for each year is shown."
+
+ggplot(palmetto_leaves, 
+       aes(x = spec_fac, y = leaves_avg, fill = spec_fac)) +
+  geom_boxplot(alpha = 0.5) +
+  theme_bw() +
+  scale_x_discrete(labels = c("Serenoa repens", "Sabal etonia")) +
+  labs(y = "Average count of leaves", 
+       x = " ") +
+  theme(legend.position = "none") + 
+  scale_fill_manual(values = c("1" = "chartreuse3", 
+                               "2" = "darkolivegreen")) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+  
+```
+
+**Key Takeaways:**
+
+-   Canopy height doesn't appear to differ significantly between the two species.
+-   Based on Figure 1, canopy length is likely to be the best predictor, and canopy width may also be a fairly good predictor.
+-   Based on Figure 2, it appears that the average count of leaves could likely help classify species correctly as well.
+
+## Binary Logistic Regression
+
+### Set up the Two Models
+
+```{r, results = 'hide'}
+#define the two models
+m1 <- spec_fac ~ height + length + width + green_lvs
+m2 <- spec_fac ~ height + width + green_lvs
+
+
+#create each of the BLR's with the two models
+blr1 <- glm(formula = m1, data = palmetto_mod, family = binomial)
+summary(blr1)
+
+blr2 <- glm(formula = m2, data = palmetto_mod, family = binomial)
+summary(blr2)
+
+
+# AIC & BIC scores for each model
+AIC(blr1) #5195
+AIC(blr2) #5987
+
+BIC(blr1) #5231
+BIC(blr2) #6017
+```
+
+### Split the Data
+
+```{r, results = 'hide'}
+#check balance of the spec_fac column
+palmetto_mod %>%
+  group_by(spec_fac) %>%
+  summarize(n = n()) %>%
+  ungroup() %>%
+  mutate(prop = n / sum(n))
+#species counts are pretty much split 50/50
+#no need to choose a stratified split
+
+spec_split <- initial_split(palmetto_mod, prop = 0.80)
+
+spec_train_df <- training(spec_split)
+spec_test_df <- testing(spec_split)
+```
+
+### Set up the Basic BLR Models
+
+```{r, results = 'hide'}
+### Set up our model
+blr_mdl <- logistic_reg() %>% 
+  set_engine("glm")
+
+
+### Model 1 ###
+blr1_fit <- blr_mdl %>%
+  fit(formula = m1, data = spec_train_df)
+
+
+### Model 2 ###
+blr2_fit <- blr_mdl %>%
+  fit(formula = m2, data = spec_train_df)
+
+
+#Examine the model coefficients
+blr1_fit
+blr2_fit
+```
+
+### Compare How Well Each Model Predicts Species
+
+```{r, results = 'hide'}
+## Model 1 ##
+spec_test_predict1 <- spec_test_df %>%
+  mutate(predict(blr1_fit, new_data = spec_test_df)) %>%
+  mutate(predict(blr1_fit, new_data = ., type = 'prob'))
+
+
+## Model 2 ##
+spec_test_predict2 <- spec_test_df %>%
+  mutate(predict(blr2_fit, new_data = spec_test_df)) %>%
+  mutate(predict(blr2_fit, new_data = ., type = 'prob'))
+
+
+# Examine relationship b/w `.pred_class`, `.pred_1`, and `.pred_2`.
+table(spec_test_predict1 %>%
+        select(spec_fac, .pred_class))
+
+table(spec_test_predict2 %>%
+        select(spec_fac, .pred_class))
+
+
+# Examine the accuracy of each model
+accuracy(spec_test_predict1, truth = spec_fac, estimate = .pred_class)
+accuracy(spec_test_predict2, truth = spec_fac, estimate = .pred_class)
+```
+
+### Create ROC Curves and Calculate AUC
+
+```{r, results = 'hide'}
+## Model 1 ##
+blr1_roc_df <- roc_curve(spec_test_predict1, 
+                         truth = spec_fac, .pred_1)
+#autoplot(blr1_roc_df)
+
+
+## Model 2 ##
+blr2_roc_df <- roc_curve(spec_test_predict2, 
+                         truth = spec_fac, .pred_1)
+#autoplot(blr2_roc_df)
+
+
+# Calculate area under curve
+# 50% is random guessing, 100% is perfect classifier
+yardstick::roc_auc(spec_test_predict1, truth = spec_fac, .pred_1)
+yardstick::roc_auc(spec_test_predict2, truth = spec_fac, .pred_1)
+```
+
+### Ten-Fold Cross Validation
+
+```{r, results = 'hide'}
+# Define the number of folds, and number of repeats
+spec_train_folds <- vfold_cv(spec_train_df, v = 10, repeats = 10)
+spec_train_folds
+
+##### Model 1 #####
+
+# Create a workflow that combines our model & a formula 
+blr1_wf <- workflow() %>% 
+  add_model(blr_mdl) %>%
+  add_formula(spec_fac ~ height + length + width + green_lvs)
+
+# Apply the workflow to the train dataset & see how it performs
+blr1_fit_folds <- blr1_wf %>%
+  fit_resamples(spec_train_folds)
+
+blr1_fit_folds
+
+### Average the predictive performance of the ten models:
+collect_metrics(blr1_fit_folds)
+
+
+##### Model 2 #####
+
+# Create a workflow that combines our model & a formula 
+blr2_wf <- workflow() %>%
+  add_model(blr_mdl) %>%
+  add_formula(spec_fac ~ height + width + green_lvs)
+
+# Apply the workflow to the train dataset & see how it performs
+blr2_fit_folds <- blr2_wf %>%
+  fit_resamples(spec_train_folds)
+
+blr2_fit_folds
+
+### Average the predictive performance of the ten models:
+collect_metrics(blr2_fit_folds)
+```
+
+### Summary: 'Best' Model
+
+-   Based on the results of the BLR and cross validation, model 1 (species \~ height + length + width + green_lvs) performs better at classifying *Serenoa repens* or *Sabal etonia* correctly.
+-   Model 1 had a lower AIC score of 5195 compared to model 2's AIC score of 5987. Model 1 also had a lower BIC score of 5231 compared to model 2's BIC score of 6017.
+-   After testing each model's predictive capabilities on the test df, model 1 predicted species classification accurately \~ 92% of the time, and model 2 did \~ 90% of the time.
+-   Both models had high area under ROC curve scores, although model 1 had a slightly higher AUC at \~ 0.97 compared to model 2's AUC score of \~ 0.96.
+
+## Train Model 1 Using Entire Dataset
+
+```{r}
+# Fit the first model to the entire data set
+last_mdl_fit <- blr_mdl %>%
+  fit(formula = m1, data = palmetto_mod)
+```
+
+### Finalized Table for Model 1
+
+```{r}
+#| label: tbl-final
+#| tbl-cap: "Binary logistic regression results for model 1. The p-values aren't truly 0; all were so far below the significance threshold (0.05) that the broom::tidy() function regarded them as 0."
+
+tidy(last_mdl_fit) %>% 
+  kableExtra::kable(col.names = c("Variable", "Coefficient Estimate", 
+                                  "Standard Error", "Statistic", 
+                                  "p-value")) %>% 
+  kableExtra::kable_classic_2()
+
+# tidy(blr1_fit) %>% 
+#   kableExtra::kable(col.names = c("Variable", "Coefficient Estimate", 
+#                                   "Standard Error", "Statistic", 
+#                                   "p-value"), 
+#                     caption = "Table 1. Fill in later") %>% 
+#   kableExtra::kable_classic()
+```
+
+## Evaluation of Model 1's Classification Success
+
+```{r, results = 'hide'}
+### Last Fit ###
+# Apply our workflow to the train dataset & see how it performs
+last_mdl_eval <- blr1_wf %>%
+  last_fit(spec_split)
+
+### Average the predictive performance of the ten models:
+collect_metrics(last_mdl_eval)
+
+
+### Look at how well the trained model 1 predicts species ###
+spec_pred_final <- palmetto_mod %>%
+  mutate(predict(last_mdl_fit, new_data = palmetto_mod)) %>%
+  mutate(predict(last_mdl_fit, new_data = ., type = 'prob'))
+
+table(spec_pred_final %>%
+        select(spec_fac, .pred_class))
+
+# Examine the accuracy
+accuracy(spec_pred_final, truth = spec_fac, estimate = .pred_class)
+```
+
+### Make a Table of Model 1's Success
+
+```{r}
+#| label: tbl-succes
+#| tbl-cap: "Number of each plant species correctly and incorrectly classified by the model."
+
+Species <- c("Serenoa repens", "Sabal etonia")
+correctly_classified <- c(5548, 5701)
+incorrectly_classified <- c(564, 454)
+percent_correct <- c(90.77, 92.62)
+percent_incorrect <- c(9.23, 7.38)
+
+mdl_1_sucess <- tibble(Species = Species, 
+                       Correct = correctly_classified, 
+                       Incorrect = incorrectly_classified, 
+                       Percent.Correct = percent_correct, 
+                       Perfect.Incorrect = percent_incorrect)
+
+kable(mdl_1_sucess, col.names = c("Species", "Correct", "Incorrect", 
+                    "% Correct", "% Incorrect")) %>% 
+  kable_classic_2() %>% 
+  kable_styling(full_width = FALSE, 
+                bootstrap_options = c("striped", "hover", "condensed"),
+                font_size = 14)
+```
+
+**Conclusion:**
+
+After generating and comparing two models to classify whether a palmetto species is *Serenoa repens* or *Sabal etonia*, we found that model 1 (species \~ height + length + width + green_lvs) performed best. We then trained this model on the entire dataset and evaluated its classification success, finding that it correctly identified *Serenoa repens* about 90.77% of the time, and *Sabal etonia* about 92.62% of the time (see Table 2 above).
+
+
+
+
+
+
+
+
+
