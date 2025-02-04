@@ -13,5 +13,48 @@ toc: true
 image: bathy_difference.jpg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-09-10-bathy-dorian/
-draft: false
+draft: true
 ---
+
+## Project Overview / Background
+
+Hurricanes can significantly impact coastal and oceanic environments, reshaping bathymetry through sediment displacement, erosion, and deposition. Understanding these changes is critical for coastal management, marine navigation, and ecological conservation. This study aimed to analyze bathymetric changes in the waters surrounding Grand Bahama and Great Abaco Islands following Hurricane Dorian, a Category 5 storm that made landfall in September 2019.
+
+As part of a two-month summer internship as a Remote Sensing Research Assistant, I investigated how Hurricane Dorian influenced bathymetry in the region while working under the guidance of Nathan Thomas, a Senior Lecturer in GIS and remote sensing at Edge Hill University. The study combined ICESat-2 lidar data and Sentinel-2 multispectral imagery to develop oceanic depth models before and after the hurricane. A machine learning approach was applied to assess depth variations, providing insight into post-storm bathymetric changes and potential recovery patterns.
+
+## Methods
+
+#### Study Area
+
+The study focused on the coastal waters of Grand Bahama and Great Abaco Islands, two areas heavily affected by Hurricane Dorian.
+
+#### Data Collection & Processing
+
+###### ICESat-2 Data
+
+
+All ICESat-2 data available over the study site were queried, subset, and downloaded from the [National Snow and Ice Data Center (NSIDC)](https://nsidc.org/home) using the `ICEPYX` python software. 62 ICESat-2 tracks (version 5) were downloaded between 2019-06-01 and 2019-11-01. To extract bathymetric photons from ICESat-2 tracks, the classification of subaquatic height extracted photons (`C-SHELPh`) python tool was used to locate and separate training photons. Because our study area spans across two different projections, all GeoPackage (GPKG) files for the extracted bathymetric photons were then combined and split into two GPKGs–one for points within UTM zone 17N, and the other for points within UTM zone 18N. After the bathymetric points were populated with reflectance values from Sentinel-2 data, they were then combined into one GPKG to use in the machine learning depth modeling. 
+
+###### Sentinel-2 Data
+
+To assess bathymetric changes, Sentinel-2 Level-2A imagery was obtained from the [Copernicus Browser](https://dataspace.copernicus.eu/explore-data), covering pre- and post-hurricane conditions. For pre-Hurricane Dorian imagery, all 13 bands for 6 scenes covering the study area on 2019-08-16 were downloaded. Post-Hurricane Dorian imagery (cloud cover <20%) consisted of all 13 bands for 6 scenes on 2019-10-30. Each of the downloaded SAFE files were processed using the `RSGISLib` package’s image calibration function to extract the ESA Sentinel-2 Level 2A data from each file structure and create a single multi-band image. Reflectance values were then extracted at each ICESat-2 bathymetric point, preparing the dataset for machine learning.
+
+#### Machine Learning Model
+
+A Random Forest machine learning model was trained with an 80:20 (train:test) split to generate oceanic depth maps using the processed ICESat-2 and Sentinel-2 data. The model was trained to create a new bathymetric depth (TIFF) image from ICESat-2 photons and Sentinel-2 reflectance values. The Sentinel-2 data was then subset to three spectral bands (green, blue, and coastal) for depth estimation.
+
+## Results
+
+The machine learning model successfully generated bathymetric depth maps for the study area, highlighting areas of sediment deposition and erosion following Hurricane Dorian. These are initial results, and further analysis is needed to quantify the extent of bathymetric changes and their implications for coastal ecosystems and management. Figure 1 below shows an example of one of the bathymetric depth maps generated as a result of this project.
+
+
+
+## Acknowledgements 
+
+I would like to thank Dr. Nathan Thomas for his guidance and support throughout this project. It was such a valuable experience to work with him and learn more about remote sensing applications in environmental research.
+
+
+
+
+
+

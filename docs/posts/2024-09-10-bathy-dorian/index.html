@@ -122,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
+    <div class="quarto-title column-page-left">
       <h1 class="title">Analyzing the impacts of hurricanes upon bathymetry</h1>
                   <div>
         <div class="description">
@@ -138,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
                   </div>
   </div>
     
-  <div class="quarto-title-meta-author column-page">
+  <div class="quarto-title-meta-author column-page-left">
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-heading">Affiliation</div>
     
@@ -152,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     </div>
 
-  <div class="quarto-title-meta column-page">
+  <div class="quarto-title-meta column-page-left">
 
         
       <div>
@@ -169,18 +169,62 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-overview-background" id="toc-project-overview-background" class="nav-link active" data-scroll-target="#project-overview-background">Project Overview / Background</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
 
 
+<section id="project-overview-background" class="level2">
+<h2 class="anchored" data-anchor-id="project-overview-background">Project Overview / Background</h2>
+<p>Hurricanes can significantly impact coastal and oceanic environments, reshaping bathymetry through sediment displacement, erosion, and deposition. Understanding these changes is critical for coastal management, marine navigation, and ecological conservation. This study aimed to analyze bathymetric changes in the waters surrounding Grand Bahama and Great Abaco Islands following Hurricane Dorian, a Category 5 storm that made landfall in September 2019.</p>
+<p>As part of a two-month summer internship as a Remote Sensing Research Assistant, I investigated how Hurricane Dorian influenced bathymetry in the region while working under the guidance of Nathan Thomas, a Senior Lecturer in GIS and remote sensing at Edge Hill University. The study combined ICESat-2 lidar data and Sentinel-2 multispectral imagery to develop oceanic depth models before and after the hurricane. A machine learning approach was applied to assess depth variations, providing insight into post-storm bathymetric changes and potential recovery patterns.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<section id="study-area" class="level4">
+<h4 class="anchored" data-anchor-id="study-area">Study Area</h4>
+<p>The study focused on the coastal waters of Grand Bahama and Great Abaco Islands, two areas heavily affected by Hurricane Dorian.</p>
+</section>
+<section id="data-collection-processing" class="level4">
+<h4 class="anchored" data-anchor-id="data-collection-processing">Data Collection &amp; Processing</h4>
+<section id="icesat-2-data" class="level6">
+<h6 class="anchored" data-anchor-id="icesat-2-data">ICESat-2 Data</h6>
+<p>All ICESat-2 data available over the study site were queried, subset, and downloaded from the <a href="https://nsidc.org/home">National Snow and Ice Data Center (NSIDC)</a> using the <code>ICEPYX</code> python software. 62 ICESat-2 tracks (version 5) were downloaded between 2019-06-01 and 2019-11-01. To extract bathymetric photons from ICESat-2 tracks, the classification of subaquatic height extracted photons (<code>C-SHELPh</code>) python tool was used to locate and separate training photons. Because our study area spans across two different projections, all GeoPackage (GPKG) files for the extracted bathymetric photons were then combined and split into two GPKGs–one for points within UTM zone 17N, and the other for points within UTM zone 18N. After the bathymetric points were populated with reflectance values from Sentinel-2 data, they were then combined into one GPKG to use in the machine learning depth modeling.</p>
+</section>
+<section id="sentinel-2-data" class="level6">
+<h6 class="anchored" data-anchor-id="sentinel-2-data">Sentinel-2 Data</h6>
+<p>To assess bathymetric changes, Sentinel-2 Level-2A imagery was obtained from the <a href="https://dataspace.copernicus.eu/explore-data">Copernicus Browser</a>, covering pre- and post-hurricane conditions. For pre-Hurricane Dorian imagery, all 13 bands for 6 scenes covering the study area on 2019-08-16 were downloaded. Post-Hurricane Dorian imagery (cloud cover &lt;20%) consisted of all 13 bands for 6 scenes on 2019-10-30. Each of the downloaded SAFE files were processed using the <code>RSGISLib</code> package’s image calibration function to extract the ESA Sentinel-2 Level 2A data from each file structure and create a single multi-band image. Reflectance values were then extracted at each ICESat-2 bathymetric point, preparing the dataset for machine learning.</p>
+</section>
+</section>
+<section id="machine-learning-model" class="level4">
+<h4 class="anchored" data-anchor-id="machine-learning-model">Machine Learning Model</h4>
+<p>A Random Forest machine learning model was trained with an 80:20 (train:test) split to generate oceanic depth maps using the processed ICESat-2 and Sentinel-2 data. The model was trained to create a new bathymetric depth (TIFF) image from ICESat-2 photons and Sentinel-2 reflectance values. The Sentinel-2 data was then subset to three spectral bands (green, blue, and coastal) for depth estimation.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>The machine learning model successfully generated bathymetric depth maps for the study area, highlighting areas of sediment deposition and erosion following Hurricane Dorian. These are initial results, and further analysis is needed to quantify the extent of bathymetric changes and their implications for coastal ecosystems and management. Figure 1 below shows an example of one of the bathymetric depth maps generated as a result of this project.</p>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>I would like to thank Dr.&nbsp;Nathan Thomas for his guidance and support throughout this project. It was such a valuable experience to work with him and learn more about remote sensing applications in environmental research.</p>
 
 
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{pepperdine2024,
   author = {Pepperdine, Maxwell},
