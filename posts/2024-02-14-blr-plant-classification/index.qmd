@@ -481,7 +481,9 @@ kable(mdl_1_sucess, col.names = c("Species", "Correct", "Incorrect",
 
 After generating and comparing two models to classify whether a palmetto species is *Serenoa repens* or *Sabal etonia*, we found that model 1 (species \~ height + length + width + green_lvs) performed best. We then trained this model on the entire dataset and evaluated its classification success, finding that it correctly identified *Serenoa repens* about 90.77% of the time, and *Sabal etonia* about 92.62% of the time (see Table 2 above).
 
+## Acknowledgements
 
+This assignment was created and organized by Casey O'Hara at the Bren School for ESM 244 (Advanced Data Analysis for Environmental Science & Management). ESM 244 is offered in the [Master of Environmental Science & Management (MESM)](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) program.
 
 
 

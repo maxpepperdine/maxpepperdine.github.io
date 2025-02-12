@@ -44,4 +44,8 @@ One important consideration that isn’t captured in this analysis is the impact
 
 ## Acknowledgements
 
-This assignment was created and organized Ashley Larsen, an Associate Professor at the Bren School and the instructor for ESM 270. ESM 270 (Conservation Planning) is offered in the [Master of Environmental Science & Management (MESM)](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) program at the Bren School.
+This assignment was created and organized by Ashley Larsen, an Associate Professor at the Bren School and the instructor for ESM 270 (Conservation Planning). ESM 270 is offered in the [Master of Environmental Science & Management (MESM)](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) program at the Bren School.
+
+
+
+

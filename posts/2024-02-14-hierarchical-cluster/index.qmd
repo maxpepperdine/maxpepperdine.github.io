@@ -10,7 +10,7 @@ author:
 date: 2024-02-14
 categories: [Data analysis, MESM, RStudio, Quarto]
 toc: true
-image: sb_stream.jpg
+image: sb_stream1.jpg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-02-14-hierarchical-cluster/
 draft: false
@@ -167,3 +167,7 @@ ggdendrogram(stream_hc_complete) +
 -   The height at which branches merge and objects (different sites) exist on the dendrogram indicates the relative dissimilarity between the sites (clusters) being merged. The taller the branch or height at which two clusters merge, the less similar the sites are.
 -   Looking at the dendrogram in Figure 1 above, we can see that the water chemistry at sites 'DV01' and 'BC02' are most different from the rest of the sites.
 -   The smaller groupings of branches and branches closer to eachother might indicate sites in the same watershed or those in a closer spatial proximity with more similar water chemistry measurements.
+
+## Acknowledgements
+
+This assignment was created and organized by Casey O'Hara at the Bren School for ESM 244 (Advanced Data Analysis for Environmental Science & Management). ESM 244 is offered in the [Master of Environmental Science & Management (MESM)](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) program.

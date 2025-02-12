@@ -365,3 +365,8 @@ final_plot <- ggplot() +
 
 final_plot
 ```
+
+This assignment was created and organized by Nathan Grimes at the Bren School for ESM 244 (Advanced Data Analysis for Environmental Science & Management). ESM 244 is offered in the [Master of Environmental Science & Management (MESM)](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) program.
+
+
+

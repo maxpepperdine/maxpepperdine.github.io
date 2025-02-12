@@ -56,7 +56,15 @@ h1, h2 {
   width: auto;
 }
 
+.rounded-hover {
+    border-radius: 7px; /* Rounds the edges of the image */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
 
+.rounded-hover:hover {
+    transform: scale(1.03); /* Slightly enlarge the image */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
 
 
 

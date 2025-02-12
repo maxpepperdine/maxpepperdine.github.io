@@ -10,7 +10,7 @@ author:
 date: 2024-01-20
 categories: [Data analysis, MESM, RStudio, Quarto]
 toc: true
-image: salmon_jump.jpeg
+image: passage_seasonality.png
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-01-20-salmon-time-series/
 draft: false
@@ -164,5 +164,6 @@ annual_count
 -   I don't see any clear trends in the annual totals by species from 2001-2010. Fish passage counts for coho salmon appear to be increasing overall throughout the decade, with a significant increase in 2009 and 2010. Jack coho counts follow a similar patter to the coho with recent increases, but with far less total fish passage counts overall.
 -   Steelhead salmon have the most overall and consistent counts year to year. There seems to be a slight decrease in their annual fish passage counts starting in 2005, but rebounded in 2010.
 
+## Acknowledgements
 
-
+This assignment was created and organized by Casey O'Hara at the Bren School for ESM 244 (Advanced Data Analysis for Environmental Science & Management). ESM 244 is offered in the [Master of Environmental Science & Management (MESM)](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) program.
