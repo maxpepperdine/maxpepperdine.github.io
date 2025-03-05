@@ -8,7 +8,7 @@ author:
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
 date: 2024-02-14
-categories: [Data analysis, MESM, RStudio, Quarto]
+categories: [Data analysis, RStudio, Quarto, MESM]
 toc: true
 image: serenoa_image.jpeg
 citation: 
@@ -484,10 +484,3 @@ After generating and comparing two models to classify whether a palmetto species
 ## Acknowledgements
 
 This assignment was created and organized by Casey O'Hara at the Bren School for ESM 244 (Advanced Data Analysis for Environmental Science & Management). ESM 244 is offered in the [Master of Environmental Science & Management (MESM)](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) program.
-
-
-
-
-
-
-

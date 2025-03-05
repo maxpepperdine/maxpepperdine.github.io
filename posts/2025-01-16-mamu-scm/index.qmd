@@ -8,7 +8,7 @@ author:
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
 date: 2025-01-16
-categories: [Geospatial-analysis, MESM, Conservation-planning, RStudio]
+categories: [Geospatial-analysis, Machine-learning, Conservation-planning, RStudio, ArcGIS Pro, MaxEnt, MESM]
 toc: true
 image: sdm.jpg
 citation: 
@@ -29,7 +29,13 @@ Recovery and preservation of imperiled species are a major focus of conservation
 
 Primarily due to loss of habitat from logging and other anthropogenic pressures, the marbled murrelet was listed as “threatened” by the U.S. Fish and Wildlife Service (USFWS) under the Endangered Species Act in 1992 in California, Oregon, and Washington. Later that year, they were listed as “endangered” by the State of California under the California Endangered Species Act. The USFWS designated critical habitat for marbled murrelets in 1995 and then prepared a Federal Recovery Plan in 1997. This plan divided the breeding range of murrelets into six different conservation zones. Zone 6 includes the forested coastal habitats up to 24 km inland from San Francisco Bay to Point Sur in Monterey County, and the population of marbled murrelets in this zone nests primarily in the Santa Cruz Mountain (SCM) region. The SCM population of murrelets has been declining due to a variety of factors, including but not limited to wildfire events, land use change limiting the distribution and availability of contiguous breeding habitat, and increased predation from predators like corvids.
 
-The 2020 CZU Lightning Complex wildfires burned more than 35,000 ha of forest land in Santa Cruz and San Mateo Counties. The majority of areas characterized by high burn severity fell within Big Basin Redwoods State Park (BBRSP), which is a known historic stronghold of suitable nesting trees for marbled murrelets. Figure 1 portrays the USFWS-designated critical habitat for murrelets overlaid with the CZU fire soil burn severity, showing the amount of critical habitat within BBRSP that burned severely during the fires. This geographically separated and endangered population of marbled murrelets was declining prior to these fires decimating their prime nesting habitat. These cumulative threats and recent losses emphasize a need to focus on the top conservation actions for murrelets’ recovery in the Santa Cruz Mountains. A recommended strategy for murrelets in USFWS Zone 6 is to identify, protect, and restore key habitats that can serve as suitable nesting sites (Halbert & Singer, 2017). This project aims to help address this conservation goal through a series of objectives listed below.
+The 2020 CZU Lightning Complex wildfires burned more than 35,000 ha of forest land in Santa Cruz and San Mateo Counties. The majority of areas characterized by high burn severity fell within Big Basin Redwoods State Park (BBRSP), which is a known historic stronghold of suitable nesting trees for marbled murrelets. Figure 1 portrays the USFWS-designated critical habitat for murrelets overlaid with the CZU fire soil burn severity, showing the amount of critical habitat within BBRSP that burned severely during the fires. This geographically separated and endangered population of marbled murrelets was declining prior to these fires decimating their prime nesting habitat. These cumulative threats and recent losses emphasize a need to focus on the top conservation actions for murrelets’ recovery in the Santa Cruz Mountains. A recommended strategy for murrelets in USFWS Zone 6 is to identify, protect, and restore key habitats that can serve as suitable nesting sites (Halbert & Singer, 2017). This project aims to help address this conservation goal through the objectives:
+
+1. Employ a **science-based process** to inform habitat **preservation, conservation, and recovery efforts** for murrelets in the SCM.
+
+2. Map and delineate the **occurrence probability** and geographical distribution of **suitable nesting habitat** using MaxEnt modeling, before and after the 2020 CZU Lighting Complex Fires.
+
+3. **Prioritize county parcels** for future land acquisition and protection efforts, conservation easements with local land owners, and acoustic monitoring through a series of spatial overlays and intersections with the MaxEnt results and key data layers (e.g., post-fire suitable habitat, county parcels, and protected areas).
 
 ## Figures
 
@@ -41,11 +47,9 @@ The 2020 CZU Lightning Complex wildfires burned more than 35,000 ha of forest la
 
 ![Figure 4. Habitat suitability models for marbled murrelets under pre-fire (A) and post-fie (B) vegetation structure conditions. The differences between these models (C) show areas that gained, lost, or did not change suitability for nesting habitat due to the CZU fires.](habitat_suitability.jpg)
 
-::: {layout-ncol="2"}
 ![Figure 5. Post-CZU fire modeled suitable nesting habitat for marbled murrelets overlaid with all county parcels in the Santa Cruz Mountain region. In the land prioritization analysis, the area of post-fire suitable habitat within each parcel was calculated to determine parcels where conservation actions and surveying efforts should be focused.](land_prioritization.jpg)
 
 ![Figure 6. Protected or unprotected county parcels (green) and only unprotected county parcels (blue) in the SCM with the largest area of suitable marbled murrelet habitat within their boundaries.](prioritized_parcels_map.jpg)
-:::
 
 ![Figure 7. County parcels in the SCM region that have the greatest area (ha) of suitable habitat for marbled murrelets within their boundary. (A) Shows the results when considering all county parcels in the SCM region, whether protected or unprotected. (B) Shows the results of only unprotected county parcels. The unprotected parcel with the highest area of suitable habitat (083320070) was also in the top 10 of all parcels in the SCM region whether protected or unprotected. Protected status was determined using the California Protected Areas Database (CPAD).](prioritized_parcels_graph.png)
 

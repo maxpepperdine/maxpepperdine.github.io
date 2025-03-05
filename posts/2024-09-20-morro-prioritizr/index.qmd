@@ -8,7 +8,7 @@ author:
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
 date: 2024-09-20
-categories: [PrioritizR, MESM, Conservation-planning, RStudio]
+categories: [Conservation-planning, RStudio, ArcGIS Pro, PrioritizR, MESM]
 toc: true
 image: reserve_design.jpg
 citation: 

@@ -8,18 +8,22 @@ author:
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
 date: 2024-11-20
-categories: [Machine-learning, MESM, Remote-sensing, RStudio, Quarto]
+categories: [Machine-learning, Remote-sensing, RStudio, Quarto, MESM]
 toc: true
 image: lu_classification.jpeg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-11-15-ml-landuse/
-draft: false
 execute:
   eval: true
   warning: false
   message: false
 code-fold: true
+draft: true
 ---
+
+## Overview
+
+This analysis is from an assignment in EDS 223 (Geospatial Analysis & Remote Sensing).
 
 ## Install new packages
 

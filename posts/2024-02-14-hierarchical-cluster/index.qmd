@@ -8,7 +8,7 @@ author:
     affiliation: MESM
     affiliation_url: https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management 
 date: 2024-02-14
-categories: [Data analysis, MESM, RStudio, Quarto]
+categories: [Data analysis, RStudio, Quarto, MESM]
 toc: true
 image: sb_stream1.jpg
 citation: 

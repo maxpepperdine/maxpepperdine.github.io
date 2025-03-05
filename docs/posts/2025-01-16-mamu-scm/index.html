@@ -131,9 +131,12 @@ ul.task-list li input[type="checkbox"] {
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">Geospatial-analysis</div>
-                <div class="quarto-category">MESM</div>
+                <div class="quarto-category">Machine-learning</div>
                 <div class="quarto-category">Conservation-planning</div>
                 <div class="quarto-category">RStudio</div>
+                <div class="quarto-category">ArcGIS Pro</div>
+                <div class="quarto-category">MaxEnt</div>
+                <div class="quarto-category">MESM</div>
               </div>
                   </div>
   </div>
@@ -200,7 +203,12 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>Recovery and preservation of imperiled species are a major focus of conservation planning and one of the key conservation outcomes driving management actions. An avian species that is both imperiled and considered an umbrella species is the marbled murrelet (Brachyramphus marmoratus), a small seabird in the family Alcidae that forages at sea and nests on the large limbs of coastal old-growth forests. They spend most of their lives in near-shore marine environments, flying inland only to breed and nest in the tall canopies of coastal forests. Their at-sea distribution runs along the Pacific Coast from the Aleutian Islands and southern Alaska to southern California, and their breeding range extends from southern Alaska to central California.</p>
 <p>Primarily due to loss of habitat from logging and other anthropogenic pressures, the marbled murrelet was listed as “threatened” by the U.S. Fish and Wildlife Service (USFWS) under the Endangered Species Act in 1992 in California, Oregon, and Washington. Later that year, they were listed as “endangered” by the State of California under the California Endangered Species Act. The USFWS designated critical habitat for marbled murrelets in 1995 and then prepared a Federal Recovery Plan in 1997. This plan divided the breeding range of murrelets into six different conservation zones. Zone 6 includes the forested coastal habitats up to 24 km inland from San Francisco Bay to Point Sur in Monterey County, and the population of marbled murrelets in this zone nests primarily in the Santa Cruz Mountain (SCM) region. The SCM population of murrelets has been declining due to a variety of factors, including but not limited to wildfire events, land use change limiting the distribution and availability of contiguous breeding habitat, and increased predation from predators like corvids.</p>
-<p>The 2020 CZU Lightning Complex wildfires burned more than 35,000 ha of forest land in Santa Cruz and San Mateo Counties. The majority of areas characterized by high burn severity fell within Big Basin Redwoods State Park (BBRSP), which is a known historic stronghold of suitable nesting trees for marbled murrelets. Figure 1 portrays the USFWS-designated critical habitat for murrelets overlaid with the CZU fire soil burn severity, showing the amount of critical habitat within BBRSP that burned severely during the fires. This geographically separated and endangered population of marbled murrelets was declining prior to these fires decimating their prime nesting habitat. These cumulative threats and recent losses emphasize a need to focus on the top conservation actions for murrelets’ recovery in the Santa Cruz Mountains. A recommended strategy for murrelets in USFWS Zone 6 is to identify, protect, and restore key habitats that can serve as suitable nesting sites (Halbert &amp; Singer, 2017). This project aims to help address this conservation goal through a series of objectives listed below.</p>
+<p>The 2020 CZU Lightning Complex wildfires burned more than 35,000 ha of forest land in Santa Cruz and San Mateo Counties. The majority of areas characterized by high burn severity fell within Big Basin Redwoods State Park (BBRSP), which is a known historic stronghold of suitable nesting trees for marbled murrelets. Figure 1 portrays the USFWS-designated critical habitat for murrelets overlaid with the CZU fire soil burn severity, showing the amount of critical habitat within BBRSP that burned severely during the fires. This geographically separated and endangered population of marbled murrelets was declining prior to these fires decimating their prime nesting habitat. These cumulative threats and recent losses emphasize a need to focus on the top conservation actions for murrelets’ recovery in the Santa Cruz Mountains. A recommended strategy for murrelets in USFWS Zone 6 is to identify, protect, and restore key habitats that can serve as suitable nesting sites (Halbert &amp; Singer, 2017). This project aims to help address this conservation goal through the objectives:</p>
+<ol type="1">
+<li><p>Employ a <strong>science-based process</strong> to inform habitat <strong>preservation, conservation, and recovery efforts</strong> for murrelets in the SCM.</p></li>
+<li><p>Map and delineate the <strong>occurrence probability</strong> and geographical distribution of <strong>suitable nesting habitat</strong> using MaxEnt modeling, before and after the 2020 CZU Lighting Complex Fires.</p></li>
+<li><p><strong>Prioritize county parcels</strong> for future land acquisition and protection efforts, conservation easements with local land owners, and acoustic monitoring through a series of spatial overlays and intersections with the MaxEnt results and key data layers (e.g., post-fire suitable habitat, county parcels, and protected areas).</p></li>
+</ol>
 </section>
 <section id="figures" class="level2">
 <h2 class="anchored" data-anchor-id="figures">Figures</h2>
@@ -228,28 +236,17 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Figure 4. Habitat suitability models for marbled murrelets under pre-fire (A) and post-fie (B) vegetation structure conditions. The differences between these models (C) show areas that gained, lost, or did not change suitability for nesting habitat due to the CZU fires.</figcaption>
 </figure>
 </div>
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="land_prioritization.jpg" class="img-fluid figure-img"></p>
 <figcaption>Figure 5. Post-CZU fire modeled suitable nesting habitat for marbled murrelets overlaid with all county parcels in the Santa Cruz Mountain region. In the land prioritization analysis, the area of post-fire suitable habitat within each parcel was calculated to determine parcels where conservation actions and surveying efforts should be focused.</figcaption>
 </figure>
 </div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="prioritized_parcels_map.jpg" class="img-fluid figure-img"></p>
 <figcaption>Figure 6. Protected or unprotected county parcels (green) and only unprotected county parcels (blue) in the SCM with the largest area of suitable marbled murrelet habitat within their boundaries.</figcaption>
 </figure>
-</div>
-</div>
-</div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

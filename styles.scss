@@ -66,6 +66,10 @@ h1, h2 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow */
 }
 
+.custom-line {
+    border-style: solid;
+    border-top: 3px solid $darkslategrey; /* Adjust the width and color as needed */
+}
 
 
 
