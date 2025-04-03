@@ -37,7 +37,11 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 
 #### Skills
 
-**Software/Computer:** Esri ArcGIS Products (Pro, Online, Field Maps), RStudio, Python, Microsoft Office (Word, Excel, PowerPoint), Google Earth Engine, QGIS, GitHub, Quarto
+**Data Science and Management:** R/RStudio, Python, Quarto, GitHub, SQL, DuckDB, Google Drive
+
+**GIS and Geospatial Analysis:** R/RStudio, ArcGIS Pro, QGIS, ArcPy, Field Maps, Python, Google Earth Engine 
+
+**Other Technical:** Microsoft Office Suite (Word, Excel, PowerPoint), Quarto, NVivo, OpenLCA 
 
 **Writing:** Technical writing of scientific research manuscripts, policy memos, and CEQA and NEPA reports/assessments
 
