@@ -24,7 +24,7 @@ editor_options:
 
 <hr class="custom-line">
 
-My name is Maxwell, and I am 2nd-year environmental science graduate student at the [Bren School of Environmental Science & Management](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management) with a focus on geospatial analysis and conservation planning. I built this website using Quarto to share a little bit about myself and showcase my academic and professional projects, particularly those rooted in data-driven approaches to environmental problem-solving. Feel free to explore my work and reach out if you would like to connect!
+My name is Maxwell, and I'm a recent graduate with a Master of Environmental Science and Management at the [Bren School of Environmental Science & Management](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management), where I specialized in Conservation Planning with an emphasis in GIS and geospatial analysis. I built this website using Quarto to share a little bit about myself and showcase my academic and professional projects, particularly those rooted in data-driven approaches to environmental problem-solving. Feel free to explore my work and reach out if you would like to connect!
 
 <hr class="custom-line">
 

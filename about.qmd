@@ -6,16 +6,20 @@ about:
 
 ## About me
 
-Hi there! I'm Maxwell Pepperdine (no affiliation to the university) and I'm a current master's student in Environmental Science and Management at the Bren School at UC Santa Barbara. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis, I hope to develop data-driven solutions to today’s critical environmental problems. I have a strong interest in data analysis, geospatial analysis, and GIS and am excited to apply these skills in the field of natural resource management and conservation planning.
+Hi there! I'm Maxwell Pepperdine (no affiliation to the university) and I'm a recent graduate with a Master of Environmental Science and Management (MESM) from the Bren School at UC Santa Barbara. Specializing in Conservation Planning with an emphasis in GIS and geospatial analysis, I’m committed to using data-driven, interdisciplinary approaches to address today’s pressing environmental challenges.
 
-I graduated summa cum laude from California Polytechnic State University (Cal Poly), San Luis Obispo in June of 2023 with a B.S. in Environmental Management and Protection and double minors in Biology & Sustainable Environments. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems which fostered my admiration and affinity for the natural environment at an early age. Outside of work and school, I enjoy hiking, backpacking, playing disc golf, ocean photography and spending time with friends and family. 
+My work is grounded in a passion for protecting biodiversity, advancing nature-based solutions, and supporting human well-being through effective conservation planning and resource management. I bring strong technical skills in data analysis and management, GIS, and geospatial analysis, along with strengths in science communication and cross-disciplinary collaboration. I’m eager to apply these tools to contribute to projects supporting climate adaptation, resilient ecosystems, and spatial planning efforts that bridge science, policy, and practice to create meaningful environmental impact.
+
+I graduated *summa cum laude* from California Polytechnic State University (Cal Poly), San Luis Obispo in 2023 with a B.S. in Environmental Management and Protection, along with minors in Biology and Sustainable Environments. Growing up in Santa Cruz, CA, I was fortunate to be surrounded by incredible ocean and redwood ecosystems. This fostered my appreciation for nature at an early age, and instilled in me a lasting admiration for the natural world and a drive to protect it.
+
+Outside of work, you can find me hiking, backpacking, playing disc golf, practicing ocean photography (some of my favorite photos are shared below) or spending time with friends and family.
 
 ::: panel-tabset
 #### Experience
 
 **Arnhold Environmental Graduate Fellow** – Environmental Markets Lab (emLab), Santa Barbara, CA (6/24 – Present)
 
-**Graduate Teaching Assistant** – University of California, Santa Barbara (1/24 – Present)
+**Graduate Teaching Assistant** – University of California, Santa Barbara (1/24 – 6/25)
 
 **Remote Sensing Research Assistant** – Edge Hill University, Ormskirk, UK (6/24 – 9/24)
 
@@ -81,7 +85,7 @@ I graduated summa cum laude from California Polytechnic State University (Cal Po
 ![](photos/turtle5.jpg){.rounded-hover}
 :::
 
-#### Some of my favorate places
+#### Some of my favorite places
 
 ::: {layout-ncol="2"}
 ![Yosemite National Park, California](photos/land0.jpg){.rounded-hover}
