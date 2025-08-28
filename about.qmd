@@ -17,15 +17,17 @@ Outside of work, you can find me hiking, backpacking, playing disc golf, practic
 ::: panel-tabset
 #### Experience
 
+**GIS Volunteer** - Felidae Conservation Fund, Remote (8/25 – Present)
+
 **Arnhold Environmental Graduate Fellow** – Environmental Markets Lab (emLab), Santa Barbara, CA (6/24 – Present)
 
 **Graduate Teaching Assistant** – University of California, Santa Barbara (1/24 – 6/25)
 
-**Remote Sensing Research Assistant** – Edge Hill University, Ormskirk, UK (6/24 – 9/24)
+**Remote Sensing Research Assistant** – Edge Hill University, Remote (6/24 – 9/24)
 
-**Graduate Student Research Fellow** – California Central Coast Joint Venture (C3JV), Santa Cruz, CA (11/23 – 4/24)
+**Spatial Conservation Planning Intern** – California Central Coast Joint Venture (C3JV), Remote (11/23 – 4/24)
 
-**Spatial Conservation Planning Intern** – Frost Summer Undergraduate Research Program, Santa Cruz, CA (5/22 – 9/22)
+**Frost Summer Undergraduate Research Program** - California Polytechnic State University (Cal Poly), San Luis Obispo, Remote (5/22 – 9/22)
 
 #### Education
 
@@ -49,13 +51,19 @@ Outside of work, you can find me hiking, backpacking, playing disc golf, practic
 
 **Writing:** Technical writing of scientific research manuscripts, policy memos, and CEQA and NEPA reports/assessments
 
-#### Honors & awards
+#### Work Samples
+
+[Cartography](files/cartography_samples.pdf)
+
+[Writing](files/writing_sample.pdf)
+
+#### Honors & Awards
 
 [2023 Environmental Engineering and Science Foundation (EESF) Scholarship Recipient](https://www.eesfoundation.org/scholarship/ScholarshipRecipients-2023.php)
 
 **Presidents Honor List (2020, 2021, 2022, 2023) \| Cal Poly, San Luis Obispo**
 
-#### Ocean photography
+#### Ocean Photography
 
 ::: {layout-ncol="2"}
 ![](photos/turtle1.jpg){.rounded-hover}
@@ -85,7 +93,7 @@ Outside of work, you can find me hiking, backpacking, playing disc golf, practic
 ![](photos/turtle5.jpg){.rounded-hover}
 :::
 
-#### Some of my favorite places
+#### Some of My Favorite Places
 
 ::: {layout-ncol="2"}
 ![Yosemite National Park, California](photos/land0.jpg){.rounded-hover}
