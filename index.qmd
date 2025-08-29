@@ -30,7 +30,7 @@ My name is Maxwell, and I'm a recent graduate with a Master of Environmental Sci
 
 ## Professional Interests
 
-Conservation Planning \| GIS \| Geospatial Analysis \| Data Analysis \| Water Resources Management \| Nature-based Solutions \| Remote Sensing \| Climate Adaptation
+Conservation Planning \| Geographic Information Systems (GIS) \| Geospatial Analysis \| Data Analysis \| Water Resources Management \| Nature-based Solutions \| Remote Sensing \| Climate Adaptation \| Ecosystem Restoration
 
 ## Recent & Ongoing Projects
 
