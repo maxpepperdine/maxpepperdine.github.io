@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Maxwell Pepperdine">
-<meta name="dcterms.date" content="2024-10-18">
-<meta name="description" content="short description of the blog post">
+<meta name="dcterms.date" content="2025-09-10">
+<meta name="description" content="Mapping current and future HEC across a transboundary landscape in Southern Africa using maximum entropy (MaxEnt) modeling">
 
-<title>Maxwell Pepperdine - blog post title</title>
+<title>Maxwell Pepperdine - Using machine learning to predict human-elephant conflict (HEC)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -142,16 +123,20 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">blog post title</h1>
+      <h1 class="title">Using machine learning to predict human-elephant conflict (HEC)</h1>
                   <div>
         <div class="description">
-          short description of the blog post
+          Mapping current and future HEC across a transboundary landscape in Southern Africa using maximum entropy (MaxEnt) modeling
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">Geospatial-analysis</div>
-                <div class="quarto-category">MESM</div>
+                <div class="quarto-category">Machine-learning</div>
                 <div class="quarto-category">Conservation-planning</div>
+                <div class="quarto-category">RStudio</div>
+                <div class="quarto-category">ArcGIS Pro</div>
+                <div class="quarto-category">MaxEnt</div>
+                <div class="quarto-category">MESM</div>
               </div>
                   </div>
   </div>
@@ -165,7 +150,7 @@ div.csl-indent {
     </div>
     <div class="quarto-title-meta-contents">
           <p class="affiliation">
-              MESM
+              SPARCLE
             </p>
         </div>
     </div>
@@ -176,7 +161,7 @@ div.csl-indent {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 18, 2024</p>
+        <p class="date">September 10, 2025</p>
       </div>
     </div>
     
@@ -192,8 +177,12 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#this-is-my-first-section" id="toc-this-is-my-first-section" class="nav-link active" data-scroll-target="#this-is-my-first-section">This is my first section</a></li>
-  <li><a href="#this-is-my-second" id="toc-this-is-my-second" class="nav-link" data-scroll-target="#this-is-my-second">This is my second</a></li>
+  <li><a href="#backgroundoverview" id="toc-backgroundoverview" class="nav-link active" data-scroll-target="#backgroundoverview">Background/Overview</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#datacode" id="toc-datacode" class="nav-link" data-scroll-target="#datacode">Data/Code</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures">Figures</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul>
 </nav>
     </div>
@@ -204,62 +193,86 @@ div.csl-indent {
 
 
 
-<section id="this-is-my-first-section" class="level2">
-<h2 class="anchored" data-anchor-id="this-is-my-first-section">This is my first section</h2>
-<p>I’m going to insert a footnote here<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-</section>
-<section id="this-is-my-second" class="level2">
-<h2 class="anchored" data-anchor-id="this-is-my-second">This is my second</h2>
-<p>Here’s my next paragraph<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p>I’m citing me<span class="citation" data-cites="csik2022">[<a href="#ref-csik2022" role="doc-biblioref">1</a>]</span></p>
-<p>Here is more random text. I’m going to cite a journal article now<span class="citation" data-cites="gaynor2022">[<a href="#ref-gaynor2022" role="doc-biblioref">2</a>]</span>.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="blog-test-image.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="elephant_1.png" class="img-fluid figure-img"></p>
+<figcaption>Image credit: Natural History Museum</figcaption>
 </figure>
 </div>
-</div>
-</div>
-<div class="cell" data-layout-align="center" data-messages="false">
-<div class="cell-output-display">
+<section id="backgroundoverview" class="level2">
+<h2 class="anchored" data-anchor-id="backgroundoverview">Background/Overview</h2>
+<p>Human-elephant conflict (HEC) is a pressing conservation challenge in Southern Africa, where growing human populations increasingly overlap with recovering elephant populations. As communities expand into traditional elephant habitats, incidents such as crop raiding, property damage, and even loss of life have become more common, threatening rural livelihoods, elephant recovery, and eroding support for conservation. However, policymakers have limited tools to track and respond to patterns of HEC now and moving towards the future.</p>
+<p>To help anticipate and manage these challenges, I worked with a research team as an Arnhold Environmental Graduate Fellow to develop a multi-model framework to identify the current drivers and predict future patterns of HEC across a transboundary landscape in Southern Africa. Using a dataset of reported conflict events from 2004 to 2020, we combined causal inference methods with species distribution modeling to capture both the mechanisms and spatial patterns underlying conflict risk. This analysis is part of a paper I co-authored (currently in review), which presents one of the first regional-scale, multi-model forecasts of future HEC under multiple socioeconomic and climate scenarios. My main contribution to the project focused on leading the development of 4 maximum entropy (MaxEnt) models to predict the current and future probability of HEC occurrence across the landscape. MaxEnt, a machine learning method widely used in ecological modeling, estimates the relative likelihood of an event based on known observations and environmental conditions. We used this approach to model the spatial distribution of past HEC incidents and then project future conflict probabilities under different land use, population, and climate change scenarios.</p>
+<p>By integrating causal inference and machine learning, our work provides a framework to assess the underlying drivers and spatial hotspots of HEC now and under future scenarios, offering local decision-makers valuable information to mitigate HEC through proactive landscape planning. This project was an exciting opportunity to apply spatial modeling and machine learning techniques to a real-world conservation issue with direct implications for both human and elephant well-being.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>To predict where human-elephant conflict (HEC) is most likely to occur now and in the future, we used a Maximum Entropy (MaxEnt) modeling approach. MaxEnt is a machine learning tool commonly used in spatial ecology to map where species are likely to occur based on known observations and environmental conditions. In this project, we adapted it to model the probability of conflict events—using records of crop-raiding incidents reported across Namibia’s communal conservancies from 2004 to 2020.</p>
+<p>Because conflict patterns differ between the rainy and dry seasons, I built separate models for each. For every season, I combined the conflict data with sixteen environmental and human-related variables, including land cover type, population density, distance to roads, rivers, and protected areas, vegetation productivity, water availability, and topography. These variables helped describe the landscape conditions where conflict was more or less likely to occur. Since true “no-conflict” data don’t exist, I generated random background points within the same areas and time periods where conflicts were reported to help the model distinguish between conflict-prone and low-risk areas. I then used the <code>dismo</code> and <code>ENMeval</code> R packages to train and evaluate multiple MaxEnt models, and select the one that best balanced accuracy and complexity while avoiding overfitting. Finally, I applied the best-performing model to future HEC under various climate, land-use, and population scenarios for 2025, 2055, and 2085. The specific scenarios we modeled HEC under for each year were:</p>
+<ul>
+<li><code>SSP1-RCP2.6</code> (‘Sustainability’)</li>
+<li><code>SSP2-RCP4.5</code> (‘Middle of the Road’)</li>
+<li><code>SSP3-RCP7.0</code> (‘Regional Rivalry’)</li>
+<li><code>SSP5-RCP8.5</code> (‘Fossil-Fueled Development’)</li>
+</ul>
+<p>These projections allowed us to map how and where the likelihood of human-elephant conflict is predicted to shift across Namibia under different global change trajectories. For those interested in reading the full, detailed methodology for this analysis, I hope to share our paper here when it gets published!</p>
+</section>
+<section id="datacode" class="level2">
+<h2 class="anchored" data-anchor-id="datacode">Data/Code</h2>
+<p>This analysis involved various datasets, including HEC occurrence records, landscape characteristics (e.g., land cover, roads, rivers, fences, elephant core areas, etc.), historical climate data, and global change estimates under various shared socioeconomic pathways (SSP) and representative concentration pathways (RCP) listed above. All of the data and code used for the MaxEnt analysis can be found in the <code>maxent.zip</code> folder of our team’s <a href="https://zenodo.org/records/15466231?preview=1&amp;token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjJkN2UzZjNlLWI1YzYtNDFhYy04YWYzLTE2Y2IwN2QzYWFmNSIsImRhdGEiOnt9LCJyYW5kb20iOiIzMGUwOTM0NGY3YjlhNTI0MjRlNDQ5NzJjNDAxYWRiNiJ9.xoy_R0CO2masQpnvAH6TlnUEpaIyACbZYFaJVZqQK9-nuZUr43SPwuIyd9w8Lu4ocg3H8KcJFytEHErHju5A2Q">Zenodo</a> repository.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>The results revealed clear and consistent patterns across both modeling approaches. Regression-based estimates and the MaxEnt models predict a general increase in HEC towards the end of the century under all emission scenarios in both the wet and dry seasons, with conflict levels lowest under SSP1-RCP2.6 (“sustainability”), and highest under SSP3-RCP7.0 (“regional rivalry”). Areas experiencing rapid land conversion and human population growth are projected to face the greatest increases in conflict risk, while increasing aridity—particularly in core elephant habitats—also contributes to rising conflict probabilities within communal conservancies. These findings suggest that without targeted mitigation and land-use planning, HEC is likely to intensify across much of northern Namibia and the broader transboundary region in the coming decades. However, scenarios that limit land conversion showed substantially smaller increases in predicted conflict, underscoring the potential for proactive conservation and ‘elephant-sensitive’ land use planning to reduce future risks.</p>
+</section>
+<section id="figures" class="level2">
+<h2 class="anchored" data-anchor-id="figures">Figures</h2>
+<p>Here are some of the main figures I produced for the paper and as part of the analysis:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="study_area.png" class="img-fluid figure-img"></p>
+<figcaption>Fig 1. Study area extent. Land cover data are from Chen et al.&nbsp;(2022), showing land cover types in 2015. Rivers are from the HydroRivers dataset defined as greater than ord_flow 5 (10 km² or an average river flow of at least 0.1 m³/s). Core area boundaries were sourced from the WDPA dataset and identified from Huang et al.&nbsp;(2024). They are: A) Etosha National Park; B) Chobe; C) Moremi; D) Khaudum; E) Sioma Ngwezi; F) Nxai Pan; G) Makgadikgadi Pans. The core area adjacent to the top left corner of Chobe (B) is Nkasa Rupara.</figcaption>
 </figure>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="MaxEnt_results_wet_szn_CR.png" class="img-fluid figure-img"></p>
+<figcaption>Fig 2. Baseline predictions for the probability of crop raiding HEC during the 2020 wet season. The entire extent of the MaxEnt predictions (A) is the same extent as Fig. 1, generated by creating a bounding box around all HEC reporting communal conservancies (white polygons). HEC reporting conservancies are all Namibian communal conservancies that reported incidents of HEC in the conflict data set used in the analysis. Two predicted HEC risk hotspots are shown in the inset maps: regions north of Etosha National Park (B) in northwest Namibia and the Zambezi Region (C) in northeast Namibia. The white spot in panel B is Etosha Pan, a large salt pan covering almost a quarter of Etosha National Park.</figcaption>
+</figure>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="wetszn_cont_future_hec.png" class="img-fluid figure-img"></p>
+<figcaption>Fig 3. Future HEC projections generated from MaxEnt for crop raiding conflict event probability during the wet season under four emission scenarios – SSP1-RCP2.6 (‘sustainability’), SSP2-RCP4.5 (‘middle of the road’), SSP3-RCP7.0 (‘regional rivalry’), and SSP5-RCP8.5 (‘fossil-fueled development’).</figcaption>
+</figure>
 </div>
-
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="future_hotspots.png" class="img-fluid figure-img"></p>
+<figcaption>Fig 4. Change in the distribution of crop raiding HEC during the wet season from 2025 to 2055 and from 2025 to 2085 under two future scenarios – SSP1-RCP2.6 (“sustainability”) and SSP3-RCP7.0 (“regional rivalry”). Continuous HEC predictions were converted to binary outcomes (presence or absence of HEC) using the threshold (0.72) that maximized Cohen’s Kappa for the MaxEnt model. African elephant distribution from the IUCN is overlaid to compare model results with extant (dark green) and possibly extant (light green) delineations. All regions not colored in the figure were consistent “coldspots” of HEC (i.e., areas with an HEC probability less than 0.72 in both periods being compared).</figcaption>
+</figure>
+</div>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>I’m thankful to have worked with such an awesome team on this project, especially Evan Patrick, Christy Yu, and our advisors Ashley Larsen, Joana Krieger, Nickolas McManus, and Patrick Roehrdanz.</p>
+<p>Funding for my research in this project was supplied through the Arnhold UC Santa Barbara-Conservation International Climate Solutions Collaborative. Launched in 2021, the University of California Santa Barbara <a href="https://www.ucsb.edu/">(UCSB)</a> and Conservation International <a href="https://www.conservation.org/">(CI)</a> created this partnership to unify their demonstrated expertise and networks to conduct applied research with the goal of yielding tangible, progressive solutions, and to propel the careers of emerging environmental professionals. Along with launching numerous applied collaborative research projects, the Collaborative also created the Arnhold Environmental Graduate Fellows program - a powerful opportunity for graduate students to engage in collaborative research projects and receive mentorship from experts in the fields of environmental and ecological science.</p>
+<p>This analysis supports the larger <a href="https://emlab.ucsb.edu/projects/spatial-planning-climate-change-land-use-conservation-agriculture-and-energy">Spatial Planning for Climate Change: Land Use for Conservation, Agriculture, and Energy (SPARCLE)</a> initiative with the Environmental Markets Lab <a href="https://emlab.ucsb.edu/">(emLab)</a> and CI. Under the SPARCLE umbrella, UCSB and CI are working to advance the science of spatial planning for projected ecosystem responses to climate change through several projects related to <strong>1)</strong> climate-proofing conservation reserve networks, <strong>2)</strong> evaluating the potential of co-locating multiple land uses (e.g.&nbsp;agriculture &amp; renewable energy; “multifunctional landscapes”) and <strong>3)</strong> elucidating how climate and land use change will impact human-wildlife conflict. The SPARKLE team is focused on Sub-Saharan Africa, a region expected to undergo rapid population growth this century which will place increasing pressure on its unique and biodiverse land systems.</p>
 
 
 </section>
 
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
-<div id="ref-csik2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">Csik S. Adding a Blog to Your Existing <span>Quarto</span> Website. 24 Oct 2022. Available: <a href="https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/">https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/</a></div>
-</div>
-<div id="ref-gaynor2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">2. </div><div class="csl-right-inline">Gaynor KM, Azevedo T, Boyajian C, Brun J, Budden AE, Cole A, et al. Ten simple rules to cultivate belonging in collaborative data science research teams. PLOS Computational Biology. 2022;18: e1010567. doi:<a href="https://doi.org/10.1371/journal.pcbi.1010567">10.1371/journal.pcbi.1010567</a></div>
-</div>
-</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Here is a new footnote<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Here is my second footnote<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{pepperdine2024,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{pepperdine2025,
   author = {Pepperdine, Maxwell},
-  title = {Blog Post Title},
-  date = {2024-10-18},
-  url = {https://maxpepperdine.github.io/posts/2024-10-18-my-first-post/},
+  title = {Using Machine Learning to Predict Human-Elephant Conflict
+    {(HEC)}},
+  date = {2025-09-10},
+  url = {https://maxpepperdine.github.io/posts/2025-09-10-hec-maxent-namibia/},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-pepperdine2024" class="csl-entry quarto-appendix-citeas" role="listitem">
-<div class="">Pepperdine M. blog post title. 18 Oct 2024.
-Available: <a href="https://maxpepperdine.github.io/posts/2024-10-18-my-first-post/">https://maxpepperdine.github.io/posts/2024-10-18-my-first-post/</a></div>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-pepperdine2025" class="csl-entry quarto-appendix-citeas" role="listitem">
+Pepperdine, Maxwell. 2025. <span>“Using Machine Learning to Predict
+Human-Elephant Conflict (HEC).”</span> September 10, 2025. <a href="https://maxpepperdine.github.io/posts/2025-09-10-hec-maxent-namibia/">https://maxpepperdine.github.io/posts/2025-09-10-hec-maxent-namibia/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
