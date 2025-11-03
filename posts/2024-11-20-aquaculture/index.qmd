@@ -240,7 +240,7 @@ tm_shape(us_states) +
               alpha = 0.2,
               border.col = "black") +
 tm_shape(bathy_crop, 
-         is.master = TRUE) + 
+         is.main = TRUE) + 
   tm_raster(palette = "Blues", 
             breaks = c(-4000, -2000, -1000, -500, -100, -50, 0), 
             title = "Bathymetry (m)") + 
@@ -265,7 +265,7 @@ tm_shape(us_states) +
               alpha = 0.2,
               border.col = "black") +
 tm_shape(sst_mean_celsius, 
-         is.master = TRUE) + 
+         is.main = TRUE) + 
   tm_raster(palette = "viridis", 
             style = "cont", 
             title = "Sea Surface Temperature (°C)") +
@@ -361,7 +361,7 @@ To visualize the results, we made two figures: (1) a map of EEZ regions colored 
 
 ```{r, fig.width=10, fig.height=8}
 #| label: fig-resultsmap
-#| fig-cap: "Exclusive Economic Zones (EEZ) on the West Coast of the US colored by the amount of suitable area for oysters in each zone (km^2). WA = Washington, OR = Oregon, CA-N = northern California, CA-C = central California, and CA-S = southern California. The black areas show the delineated suitable growing areas for oysters that were summed."
+#| fig-cap: "Exclusive Economic Zones (EEZ) on the West Coast of the US colored by the amount of suitable area for oysters in each zone (km^2). WA = Washington, OR = Oregon, CA-N = northern California, CA-C = central California, and CA-S = southern California."
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -371,20 +371,13 @@ tm_shape(us_states) +
               alpha = 0.2,
               border.col = "black") + 
 tm_shape(wc_eez_joined, 
-         is.master = TRUE) + 
+         is.main = TRUE) + 
   tm_polygons(col = "suitable_area_km2", 
               palette = "Greens", 
-              title = "Amount of suitable area (km^2)", 
+              title = "Amount of suitable area (km²)", 
               style = "cat") + 
-  tm_text("rgn_key", size = 0.7, col = "black") + 
-tm_shape(wc_eez_suitable) + 
-    tm_raster(palette = "black", 
-              legend.show = FALSE) +
-  tm_add_legend(type = "fill", 
-                labels = " ", 
-                col = "black", 
-                title = "Suitable growing areas") +
-  tm_layout(legend.outside = TRUE, 
+  tm_text("rgn_key", size = 0.7, col = "black", show.legend = FALSE) + 
+tm_layout(legend.outside = TRUE, 
             frame = TRUE, 
             main.title = "Suitable growing area for oysters in West Coast EEZs", 
             main.title.size = 1.3)
@@ -511,24 +504,17 @@ ideal_growing_conditions <- function(species, depth_min, depth_max,
               alpha = 0.2,
               border.col = "black") +
   tm_shape(wc_eez_joined, 
-           is.master = TRUE) + 
+           is.main = TRUE) + 
     tm_polygons(col = "suitable_area_km2", 
                 palette = "Greens", 
-                title = "Amount of suitable area (km^2)", 
+                title = "Amount of suitable area (km²)", 
                 style = "cat") + 
-    tm_text("rgn_key", size = 0.7, col = "black") +
-  tm_shape(wc_eez_suitable) + 
-    tm_raster(palette = "black", 
-              legend.show = FALSE) +
-  tm_add_legend(type = "fill", 
-                labels = " ", 
-                col = "black", 
-                title = "Suitable growing areas") +
+    tm_text("rgn_key", size = 0.7, col = "black", show.legend = FALSE) +
     tm_layout(legend.outside = TRUE, 
               frame = TRUE, 
               main.title = paste("Suitable growing area for", species, 
                             "in West Coast EEZs"), 
-              main.title.size = 1.2)
+              main.title.size = 2)
   
 }
 ```

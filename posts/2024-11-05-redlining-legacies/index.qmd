@@ -385,7 +385,7 @@ combined_figures + plot_annotation(title = "EJ Screen variables by HOLC grade",
 
 #### Interpretation of Results
 
-Looking at the results of the analysis shown in Figure 2 above, it is clear that areas with **lower HOLC grades** (i.e., D) have **higher % low income, higher percentiles for particulate matter 2.5, and higher percentiles for low life expectancy**. This suggests that the legacy of redlining has had long lasting impacts on the socio-economic and environmental conditions of these neighborhoods, and that these present day environmental injustices reflect patterns of historical injustice. Given that that this analysis only explored 3 environmental and demographic variables, future research could expand on this analysis by examining additional information offered on EJ screen and exploring their conditions within different HOLC grades.
+Looking at the results of the analysis shown in Figure 2 above, it is clear that areas with **lower HOLC grades** (i.e., D) have **higher % low income, higher percentiles for particulate matter 2.5, and higher percentiles for low life expectancy**. This suggests that the legacy of redlining has had long lasting impacts on the socio-economic and environmental conditions of these neighborhoods, and that these present day environmental injustices reflect patterns of historical injustice. Given that this analysis only explored 3 environmental and demographic variables, future research could expand on this analysis by examining additional information offered on EJ screen and exploring their conditions within different HOLC grades.
 
 ## Part 2: Legacy of redlining in biodiversity observations
 
@@ -505,7 +505,7 @@ birds_plot <- ggplot(birds_redlining_pct_no_none,
                          fill = grade)) +
   geom_col(col = "black") +
   geom_text(aes(label = paste0(pct_grade, "%")), 
-            position = position_stack(vjust = 1.05), 
+            vjust = -0.5, 
             size = 3) +
   labs(title = " ",
        x = "HOLC Grade",
@@ -533,7 +533,7 @@ birds_plot_none + birds_plot +
 
 #### Interpretation of Results
 
-Ellis-Soto et al. (2023) found that redlining has shaped our observations and distribution of biodiveristy as well as the socio-economic and environmental conditions of communities. They showed that "historically redlined neigborhoods remain the most under sampled urban areas for bird biodiversity today." While there isn't a clear difference in the % of bird observations between HOLC grades, Figure 1(A) makes it clear that redlined neighborhoods are still under sampled for bird biodiversity. This aligns with the findings of Ellis-Soto et al. (2023) and suggests that the legacy of redlining has had lasting impacts on the distribution of biodiversity observations in Los Angeles County.
+Ellis-Soto et al. (2023) found that redlining has shaped our observations and distribution of biodiveristy as well as the socio-economic and environmental conditions of communities. They showed that "historically redlined neighborhoods remain the most under sampled urban areas for bird biodiversity today." While there isn't a clear difference in the % of bird observations between HOLC grades, Figure 1(A) makes it clear that redlined neighborhoods are still under sampled for bird biodiversity. This aligns with the findings of Ellis-Soto et al. (2023) and suggests that the legacy of redlining has had lasting impacts on the distribution of biodiversity observations in Los Angeles County.
 
 ## Acknowledgements
 
