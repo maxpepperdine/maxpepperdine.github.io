@@ -14,9 +14,6 @@ website:
         text: About
       - href: posts.qmd
         text: Portfolio
-      - text: Resume
-        href: Resume/WebsiteResume.pdf
-        target: _blank
   page-footer:
     background: light
     left: Copyright 2024, Maxwell Pepperdine

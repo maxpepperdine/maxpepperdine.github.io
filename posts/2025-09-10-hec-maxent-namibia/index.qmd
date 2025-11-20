@@ -28,7 +28,9 @@ By integrating causal inference and machine learning, our work provides a framew
 
 ## Data/Code
 
-This analysis involved various datasets, including HEC occurrence records, landscape characteristics (e.g., land cover, roads, rivers, fences, elephant core areas, etc.), historical climate data, and global change estimates under various shared socioeconomic pathways (SSP) and representative concentration pathways (RCP) listed above. All of the data and code used for the MaxEnt analysis can be found in the `maxent.zip` folder of our team's [Zenodo](https://zenodo.org/records/15466231?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjJkN2UzZjNlLWI1YzYtNDFhYy04YWYzLTE2Y2IwN2QzYWFmNSIsImRhdGEiOnt9LCJyYW5kb20iOiIzMGUwOTM0NGY3YjlhNTI0MjRlNDQ5NzJjNDAxYWRiNiJ9.xoy_R0CO2masQpnvAH6TlnUEpaIyACbZYFaJVZqQK9-nuZUr43SPwuIyd9w8Lu4ocg3H8KcJFytEHErHju5A2Q) repository.
+This analysis involved various datasets, including HEC occurrence records, landscape characteristics (e.g., land cover, roads, rivers, fences, elephant core areas, etc.), historical climate data, and global change estimates under various shared socioeconomic pathways (SSP) and representative concentration pathways (RCP) listed above. 
+
+All of the data and code used for the MaxEnt analysis can be found in the `maxent.zip` folder of our team's [Zenodo](https://zenodo.org/records/15466231) repository.
 
 ## Methods
 
