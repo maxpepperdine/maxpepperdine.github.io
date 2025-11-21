@@ -40,7 +40,6 @@ Here is more random text. I'm going to cite a journal article now[@gaynor2022].
 knitr::include_graphics("blog-test-image.jpg")
 ```
 
-
 ```{r}
 #| eval: true
 #| echo: false
@@ -54,11 +53,3 @@ ggplot(penguins, aes(x = species, fill = species)) +
   geom_bar() +
   theme_minimal()
 ```
-
-
-
-
-
-
-
-
