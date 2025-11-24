@@ -1,7 +1,7 @@
 ---
 title: "Mapping suitable nesting habitat for an endangered bird in the SCM"
 title-block-banner: true
-description: "Delineating suitable nesting habitat for marbled murrelets following severe wildfires in the Santa Cruz Mountains (SCM)"
+description: "A spatial analysis delineating suitable marbled murrelet nesting habitat in the Santa Cruz Mountains (SCM) following high-severity wildfires"
 author: 
   - name: Maxwell Pepperdine
     url: https://maxpepperdine.github.io
@@ -18,7 +18,7 @@ draft: false
 
 ## Overview
 
-This analysis was completed as part of a quarter-long project to develop a conservation plan in ESM 270p (Conservation Planning Practicum) at the Bren School of Environmental Science & Management at the University of California, Santa Barbara. The project focused on delineating suitable nesting habitat for the marbled murrelet (*Brachyramphus marmoratus*) following severe wildfires in the Santa Cruz Mountains (SCM). The background and objectives of the project are described below, as well as some of the main figures. If you're interested in reading and learning more about the project, please find links to the full project report and GitHub repository below:
+This analysis was completed as part of a quarter-long project to develop a conservation plan in ESM 270p (Conservation Planning Practicum) at the Bren School of Environmental Science & Management at the University of California, Santa Barbara. The project focused on delineating suitable nesting habitat for the marbled murrelet (*Brachyramphus marmoratus*) following severe wildfires in the Santa Cruz Mountains (SCM). The background and objectives of the project are described below, as well as some of the main figures. If you are interested in learning more about the project methodology, results and recommendations, or digging through the code and data, please find links to the full project report and GitHub repository below:
 
 -   [Full Project Report](MAMU_mapping_SCM_final_report.pdf)
 -   GitHub Repository: [mamu-conservation-scm](https://github.com/maxpepperdine/mamu-conservation-scm)
@@ -31,11 +31,11 @@ Primarily due to loss of habitat from logging and other anthropogenic pressures,
 
 The 2020 CZU Lightning Complex wildfires burned more than 35,000 ha of forest land in Santa Cruz and San Mateo Counties. The majority of areas characterized by high burn severity fell within Big Basin Redwoods State Park (BBRSP), which is a known historic stronghold of suitable nesting trees for marbled murrelets. Figure 1 portrays the USFWS-designated critical habitat for murrelets overlaid with the CZU fire soil burn severity, showing the amount of critical habitat within BBRSP that burned severely during the fires. This geographically separated and endangered population of marbled murrelets was declining prior to these fires decimating their prime nesting habitat. These cumulative threats and recent losses emphasize a need to focus on the top conservation actions for murrelets’ recovery in the Santa Cruz Mountains. A recommended strategy for murrelets in USFWS Zone 6 is to identify, protect, and restore key habitats that can serve as suitable nesting sites (Halbert & Singer, 2017). This project aims to help address this conservation goal through the objectives:
 
-1. Employ a **science-based process** to inform habitat **preservation, conservation, and recovery efforts** for murrelets in the SCM.
+1.  Employ a **science-based process** to inform habitat **preservation, conservation, and recovery efforts** for murrelets in the SCM.
 
-2. Map and delineate the **occurrence probability** and geographical distribution of **suitable nesting habitat** using MaxEnt modeling, before and after the 2020 CZU Lighting Complex Fires.
+2.  Map and delineate the **occurrence probability** and geographical distribution of **suitable nesting habitat** using MaxEnt modeling, before and after the 2020 CZU Lighting Complex Fires.
 
-3. **Prioritize county parcels** for future land acquisition and protection efforts, conservation easements with local land owners, and acoustic monitoring through a series of spatial overlays and intersections with the MaxEnt results and key data layers (e.g., post-fire suitable habitat, county parcels, and protected areas).
+3.  **Prioritize county parcels** for future land acquisition and protection efforts, conservation easements with local land owners, and acoustic monitoring through a series of spatial overlays and intersections with the MaxEnt results and key data layers (e.g., post-fire suitable habitat, county parcels, and protected areas).
 
 ## Figures
 

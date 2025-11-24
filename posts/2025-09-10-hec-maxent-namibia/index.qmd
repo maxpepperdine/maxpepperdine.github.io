@@ -1,5 +1,5 @@
 ---
-title: "Using machine learning to predict human-elephant conflict (HEC)"
+title: "Predicting human-elephant conflict (HEC) with machine learning"
 title-block-banner: true
 description: "Mapping current and future HEC across a transboundary landscape in Southern Africa using maximum entropy (MaxEnt) modeling"
 author: 

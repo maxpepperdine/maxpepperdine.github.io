@@ -33,9 +33,9 @@ Outside of work, you can find me hiking, backpacking, playing disc golf, practic
 
 #### Education
 
-**Master of Environmental Science and Management** \| Bren School of Environmental Science & Management, UCSB (June 2025)
+**Master of Environmental Science and Management (MESM)** \| Bren School of Environmental Science & Management, UCSB (June 2025)
 
-**B.S. in Environmental Management and Protection** \| California Polytechnic State University (Cal Poly), San Luis Obispo (June 2023)
+**Bachelor of Science (B.S.) in Environmental Management and Protection** \| California Polytechnic State University (Cal Poly), San Luis Obispo (June 2023)
 
 ::: {layout-ncol="2"}
 ![](photos/bren_logo.png){.rounded-hover}
@@ -45,9 +45,9 @@ Outside of work, you can find me hiking, backpacking, playing disc golf, practic
 
 #### Skills
 
-**Data Science and Management:** R/RStudio, Python, Quarto, GitHub, SQL, DuckDB, Google Drive
+**Data Analysis and Management:** R, Python, Quarto, GitHub, SQL, DuckDB, Google Drive
 
-**GIS and Geospatial Analysis:** R/RStudio, ArcGIS Pro, QGIS, ArcPy, Field Maps, Python, Google Earth Engine 
+**GIS and Geospatial Analysis:** R, ArcGIS Pro, Python, QGIS, ArcPy, Field Maps, Google Earth Engine 
 
 **Other Technical:** Microsoft Office Suite (Word, Excel, PowerPoint), Quarto, NVivo, OpenLCA 
 
@@ -63,7 +63,7 @@ Outside of work, you can find me hiking, backpacking, playing disc golf, practic
 
 [2023 Environmental Engineering and Science Foundation (EESF) Scholarship Recipient](https://www.eesfoundation.org/scholarship/ScholarshipRecipients-2023.php)
 
-**Presidents Honor List (2020, 2021, 2022, 2023) \| Cal Poly, San Luis Obispo**
+**Presidents Honor List (2020 – 2023) \| Cal Poly, San Luis Obispo**
 
 #### Ocean Photography
 

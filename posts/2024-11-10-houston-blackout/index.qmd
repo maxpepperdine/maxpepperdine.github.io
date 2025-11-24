@@ -1,7 +1,7 @@
 ---
 title: "Investigating EJ implications of the Houston blackout"
 title-block-banner: true
-description: "A spatial analysis of the Houston blackout and affected communities"
+description: "A spatial analysis of the Houston blackout to identify its impacts and examine whether they were distributed equitably across census tracts"
 author: 
   - name: Maxwell Pepperdine
     url: https://maxpepperdine.github.io
@@ -10,7 +10,7 @@ author:
 date: 2024-11-15
 categories: [Geospatial-analysis, RStudio, Quarto, MESM]
 toc: true
-image: nightlight.jpg
+image: houston_nights_sciTech.jpg
 citation: 
   url: https://maxpepperdine.github.io/posts/2024-11-10-houston-blackout/
 draft: false

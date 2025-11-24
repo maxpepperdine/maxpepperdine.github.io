@@ -1,5 +1,5 @@
 ---
-title: "Marine aquacultire suitability on the West Coast"
+title: "Assessing marine aquaculture suitability on the West Coast"
 title-block-banner: true
 description: "Building reproducible workflows to model aquaculture habitat through spatial analysis"
 author: 
