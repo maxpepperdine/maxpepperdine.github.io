@@ -45,9 +45,9 @@ Outside of work, you can find me hiking, backpacking, playing disc golf, practic
 
 #### Skills
 
-**Data Analysis and Management:** R, Python, Quarto, GitHub, SQL, DuckDB, Google Drive
+**Data Analysis & Management:** R, Python, Quarto, GitHub, SQL, DuckDB, Google Drive
 
-**GIS and Geospatial Analysis:** R, ArcGIS Pro, Python, QGIS, ArcPy, Field Maps, Google Earth Engine 
+**GIS & Geospatial Analysis:** R, ArcGIS Pro, Python, QGIS, ArcPy, Field Maps, Google Earth Engine 
 
 **Other Technical:** Microsoft Office Suite (Word, Excel, PowerPoint), Quarto, NVivo, OpenLCA 
 
