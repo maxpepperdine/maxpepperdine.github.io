@@ -1,7 +1,7 @@
 ---
 title: "Tracking agricultural land use change: finding the last cultivated crop"
 title-block-banner: true
-description: "A geospatial analysis to determine the most recent cultivated crop for idle and fallow agricultural fields in California's San Joaquin Valley using LandIQ data from 2014-2022"
+description: "A geospatial analysis to determine the most recent cultivated crop for idle and fallow agricultural fields in California's San Joaquin Valley using Land IQ data from 2014-2022"
 author: 
   - name: Maxwell Pepperdine
     url: https://maxpepperdine.github.io
@@ -20,40 +20,42 @@ execute:
   message: false
 ---
 
+![San Joaquin Valley agriculture. Image credit: Public Policy Institute of California (PPIC)](aerial-farmland.jpg)
+
 ## Background/Overview
 
-California's San Joaquin Valley faces mounting pressures from groundwater overdraft, habitat loss, and the need for renewable energy development. The Sustainable Groundwater Management Act (SGMA) requires groundwater basins to achieve sustainability by the early 2040s, which will necessitate the retirement of hundreds of thousands of acres of irrigated agricultural land. This presents both a challenge and an opportunity: strategic land retirement can be optimized to maximize co-benefits such as habitat restoration, water savings, and low-cost solar energy development while minimizing economic disruption to the agricultural sector.
+California's San Joaquin Valley (SJV) faces mounting pressures from decades of unsustainable groundwater use. Before 2014, agricultural production in the SJV was driven by unrestricted groundwater pumping, with extractions exceeding replenishment by 2 million acre-feet per year over the preceding three decades ([Butterfield et al., 2025](https://californiaagriculture.org/article/147498-there-s-a-path-forward-in-the-san-joaquin-valley-to-benefit-farmers-communities-and-nature-but-only-if-we-plan-and-plant)). The Sustainable Groundwater Management Act (SGMA), passed in 2014, requires that regions where groundwater is pumped more quickly than it is replenished set limits on current and future groundwater use ([Butterfield et al., 2025](https://californiaagriculture.org/article/147498-there-s-a-path-forward-in-the-san-joaquin-valley-to-benefit-farmers-communities-and-nature-but-only-if-we-plan-and-plant)). Local agencies were required to form groundwater sustainability agencies (GSAs) and develop groundwater sustainability plans (GSPs) to achieve sustainable use over the next two decades ([Leahy, 2016](https://digitalcommons.law.ggu.edu/gguelj/vol9/iss1/4/)).
 
-This analysis is part of a larger research project at the [Earth Research Institute](https://www.eri.ucsb.edu/) at UC Santa Barbara, led by Principal Investigator Dr. Ashley Larsen (Assistant Professor, [Bren School of Environmental Science & Management](https://bren.ucsb.edu/)). Our team is developing spatial optimization models using [`prioritizr`](https://prioritizr.net/) in R to evaluate strategic agricultural land retirement scenarios across 500,000+ acres in the San Joaquin Valley. The optimization framework assesses economic, ecological, and hydrologic outcomes of phased land retirement to identify solutions that balance competing objectives.
+To meet SGMA-mandated reductions in groundwater use, it's estimated that **over 500,000 acres of irrigated agricultural land will need to be retired** throughout the SJV ([Hanak et al., 2023](https://www.ppic.org/publication/managing-water-and-farmland-transitions-in-the-san-joaquin-valley/)). While daunting, this transition opens the door for promising alternative land uses, including habitat restoration, water-limited cropping, solar development, and recharge basins ([Hanak et al., 2023](https://www.ppic.org/publication/managing-water-and-farmland-transitions-in-the-san-joaquin-valley/)).
+
+This analysis is part of a larger research project at the [Earth Research Institute](https://www.eri.ucsb.edu/) at UC Santa Barbara, led by Principal Investigator Dr. Ashley Larsen (Assistant Professor, [Bren School of Environmental Science & Management](https://bren.ucsb.edu/)). Building on the approaches of [Bryant et al. (2020)](https://doi.org/10.3389/fsufs.2020.00138) and [Hyon et al. (2025)](https://doi.org/10.1016/j.agee.2024.109386), our team is developing spatial optimization models using [`prioritizr`](https://prioritizr.net/) in R to evaluate strategic agricultural land retirement scenarios across 500,000+ acres in the San Joaquin Valley. The optimization framework assesses economic, ecological, and hydrologic outcomes of phased land retirement to identify solutions that balance competing objectives—maximizing habitat creation, water savings, and solar development potential while minimizing costs to the agricultural economy.
 
 #### Why Last Cultivated Crop Matters
 
 A critical input to the spatial optimization model is the **economic cost** associated with retiring each parcel of agricultural land. For fields that are currently in production, this cost can be estimated from the crop being grown. However, for fields classified as idle or fallow in our base year (2022), we need to look backwards in time to determine what was last cultivated—this provides a reasonable proxy for the land's productive potential and thus its opportunity cost of retirement.
 
-This analysis uses [LandIQ](https://www.landiq.com/) crop mapping data to trace the agricultural history of idle and fallow fields, identifying the most recent cultivated crop from historical datasets spanning 2014-2021. The resulting `last_comm` (last commodity) attribute will be used to assign economic values to idle fields in the `prioritizr` optimization framework.
+This analysis uses [Land IQ](https://www.landiq.com/) crop mapping data to trace the agricultural history of idle and fallow fields, identifying the most recent cultivated crop from historical datasets spanning 2014-2021. The resulting `last_comm` (last commodity) attribute will be used to assign economic values to idle fields in the `prioritizr` optimization framework.
 
 ## Data Description
 
-#### LandIQ Crop Mapping Data
+#### Land IQ Crop Mapping Data
 
-[Land IQ](https://www.landiq.com/) has worked in cooperation with the Department of Water Resources (DWR) to complete the statewide crop mapping for 2014, 2016, and then for each hydrologic year beginning in 2018. At the time of this analysis, the 2023 water year dataset was provisional and the 2024 water year was in the classification process. As stated on the Land IQ website: 
-
-* "the mapping categorizes nearly 15.4 million acres of land use into more than 50 crop and land use types with accuracies exceeding 98%. Field-by-field classification resulted in over 446,000 individually classified polygons with a minimum field size of 0.5-2.0 acres depending on crop type." 
+[Land IQ](https://www.landiq.com/) has worked in cooperation with the Department of Water Resources (DWR) to complete the statewide crop mapping for 2014, 2016, and then for each hydrologic year beginning in 2018. At the time of this analysis, the 2023 water year dataset was provisional and the 2024 water year was in the classification process. As stated on the Land IQ website, "the mapping categorizes nearly 15.4 million acres of land use into more than 50 crop and land use types with accuracies exceeding 98%. Field-by-field classification resulted in over 446,000 individually classified polygons with a minimum field size of 0.5-2.0 acres depending on crop type."
 
 Their datasets classify agricultural fields by crop type using a combination of satellite imagery, aerial photography, and ground-truth verification. For this analysis, we used Land IQ data from multiple years:
 
-- **2022**: Primary dataset (and the "baseline" period for our research) identifying fields currently classified as idle or fallow. Original data included up to four crop rotations, peak date of vegetative production and percentage of field cropped.
-- **2021, 2020, 2019, 2018**: Historical datasets with consistent `UniqueID` field identifiers allowing for direct joins. Original data included up to four crop rotations, peak date of vegetative production and percentage of field cropped. Original data included main season (summer) mapping.
-- **2016, 2014**: Earlier historical datasets requiring spatial joins due to different field identification systems. Original data included only main season (summer) mapping.
+-   **2022**: Primary dataset (and the "baseline" period for our research) identifying fields currently classified as idle or fallow. Original data included up to four crop rotations, peak date of vegetative production and percentage of field cropped.
+-   **2021, 2020, 2019, 2018**: Historical datasets with consistent `UniqueID` field identifiers allowing for direct joins. Original data included up to four crop rotations, peak date of vegetative production and percentage of field cropped.
+-   **2016, 2014**: Earlier historical datasets requiring spatial joins due to different field identification systems. Original data included only main season (summer) mapping.
 
 #### Idle/Fallow Classifications
 
-LandIQ uses several classifications to indicate that a field is not currently in production:
+Land IQ uses several classifications to indicate that a field is not currently in production:
 
-- `Unclassified Fallow`: Land not cropped during the current water year only.
-- `Idle - Long Term`: Land that has been fallow or idle for 3 consecutive water years.
-- `Idle - Short Term`: Land not cropped the current or previous water year, but cropped within the past three years. 
-- `Idle`: General idle classification in 2014 and 2016 datasets.
+-   `Unclassified Fallow`: Land not cropped during the current water year only.
+-   `Idle - Long Term`: Land that has been fallow or idle for 3 consecutive water years.
+-   `Idle - Short Term`: Land not cropped the current or previous water year, but cropped within the past three years.
+-   `Idle`: General idle classification in 2014 and 2016 datasets.
 
 ## Load Packages
 
@@ -70,7 +72,7 @@ library(knitr)
 
 ## Part 1: Load Data and Define Idle Classifications
 
-The first step is to load the LandIQ datasets from each year and define which crop classifications indicate idle or fallow land.
+The first step is to load the Land IQ datasets from each year and define which crop classifications indicate idle or fallow land.
 
 ```{r}
 #| code-fold: true
@@ -131,7 +133,7 @@ lookup_2018 <- landiq_2018 %>%
 
 ## Part 3: Join Historical Data to 2022 Idle Fields
 
-We separate the 2022 data into idle/fallow fields and cultivated fields, then join the historical crop data to the idle fields. The 2018-2021 data can be joined directly using the unique field identifier, while the 2014 and 2016 data require spatial joins based on geometry overlap.
+We separate the 2022 data into idle/fallow fields and cultivated fields, then join the historical crop data to the idle fields. The 2018-2021 data can be joined directly using the unique field identifier (`uniqu_d`), while the 2014 and 2016 data require spatial joins based on geometry overlap.
 
 ```{r}
 #| code-fold: true
@@ -256,19 +258,19 @@ idle_summary <- landiq_2022_idle_final %>%
 
 ```{r}
 #| label: tbl-summary
-#| tbl-cap: "Summary of idle/fallow fields in 2022 and success rate in identifying last cultivated crop"
+#| tbl-cap: "Summary of idle/fallow fields in 2022 and success rate in identifying last cultivated crop using 2014-2021 Land IQ data."
 #| code-fold: true
 #| code-summary: "Show the code"
 
 # create a formatted summary table
 idle_summary %>%
   select(
-    `Idle Classification` = comm,
-    `Total Fields` = total_fields,
-    `With Last Crop` = fields_with_last_crop,
-    `% Found` = percent_with_last_crop,
-    `Without Last Crop` = fields_without_last_crop,
-    `% Not Found` = percent_without_last_crop
+    `Idle classification` = comm,
+    `Total fields` = total_fields,
+    `With last crop` = fields_with_last_crop,
+    `% found` = percent_with_last_crop,
+    `Without last crop` = fields_without_last_crop,
+    `% not found` = percent_without_last_crop
   ) %>%
   kable()
 ```
@@ -310,10 +312,10 @@ ggplot(idle_summary_long, aes(x = reorder(comm, -count), y = count, fill = statu
   ) +
   scale_y_continuous(labels = comma) +
   labs(
-    title = "Success Rate in Identifying Last Cultivated Crop",
-    subtitle = "For idle/fallow fields in 2022, searching historical LandIQ data (2014-2021)",
-    x = "2022 Idle Classification",
-    y = "Number of Fields"
+    title = "Success rate in identifying last cultivated crop",
+    subtitle = "For idle/fallow Land IQ fields in 2022, searching historical Land IQ data (2014-2021)",
+    x = "2022 idle classification",
+    y = "Number of fields"
   ) +
   theme_minimal() +
   theme(
@@ -366,7 +368,7 @@ ggplot(overall_data, aes(x = "", y = count, fill = status)) +
                "No Previous Crop Found" = "tan")
   ) +
   labs(
-    title = "Overall Success Rate: Finding Last Cultivated Crop",
+    title = "Overall success rate: finding last cultivated crop",
     subtitle = paste0("Total idle/fallow fields analyzed: ", comma(total_idle_fields))
   ) +
   theme_void() +
@@ -399,39 +401,26 @@ landiq_2022_final <- bind_rows(landiq_2022_cultivated, landiq_2022_idle_final_cl
 
 ## Reflection
 
-This analysis successfully traced the agricultural history of idle and fallow fields in California's San Joaquin Valley, providing a critical input for our spatial optimization models. By combining multiple years of LandIQ crop mapping data using both attribute-based joins (for 2018-2021 data with consistent field IDs) and spatial joins (for 2014 and 2016 data), we were able to determine the last cultivated crop for a significant portion of the idle fields.
+This analysis successfully traced the agricultural history of idle and fallow fields in California's San Joaquin Valley, providing a critical input for our spatial optimization models. By combining multiple years of Land IQ crop mapping data using both attribute-based joins (for 2018-2021 data with consistent field IDs) and spatial joins (for 2014 and 2016 data), we were able to determine the last cultivated crop for a significant portion of the idle fields.
 
 #### Key Findings
 
-- **Different idle classifications** showed varying success rates in finding historical crop data, with some categories having fields that have been idle since before our earliest available data (2014)
-- **Spatial joining** was necessary for the 2014 and 2016 datasets due to differences in field identification systems across years
-- Fields where no previous crop was found may represent land that has been out of agricultural production for extended periods, potentially due to water availability constraints, soil conditions, or land use changes
+-   **Different idle classifications** showed varying success rates in finding historical crop data, with some categories having fields that have been idle since before our earliest available data (2014)
+-   **Spatial joining** was necessary for the 2014 and 2016 datasets due to differences in field identification systems across years
+-   Fields where no previous crop was found may represent land that has been out of agricultural production for extended periods, potentially due to water availability constraints, soil conditions, or land use changes
 
 #### Implications for the Optimization Model
 
 The `last_comm` attribute generated by this analysis will be used to assign economic costs to idle fields in our `prioritizr` spatial optimization framework. Fields with identified last crops can be assigned costs based on the crop-specific economic value of that commodity (using the [USDA NASS annual crop report dataset](https://www.nass.usda.gov/Statistics_by_State/California/Publications/AgComm/index.php)), while fields without historical crop data may require alternative cost estimation approaches (e.g., taking the mean value of the 8 nearest fields in production, the mean or median value of all idle fields in 2022, etc.).
 
-The success rate of this analysis directly impacts the precision of our economic cost layer. Fields where we successfully identified the last cultivated crop can be assigned more accurate retirement costs, improving the reliability of our optimization results.
+Following the approach of [Bryant et al. (2020)](https://doi.org/10.3389/fsufs.2020.00138), who implemented retirement optimization as a cost-minimization problem using agricultural opportunity costs as the cost layer, we can now assign crop-specific economic values to both actively cultivated and recently-idled fields. This economic cost layer is essential for identifying retirement scenarios that achieve conservation and water-saving targets while minimizing disruption to the agricultural economy. 
 
 #### Limitations
 
-Several limitations should be considered when interpreting these results. First, the available historical data only extends back to 2014, meaning fields that became idle before this date cannot have their last crop identified. Second, the spatial join methodology for 2014 and 2016 data assumes that field boundaries have remained relatively stable over time, which may not always be the case. Third, the LandIQ classifications themselves have some inherent uncertainty, particularly for fields that may be transitioning between uses. Finally, the last cultivated crop may not perfectly reflect a field's future productive potential, as factors like water rights, soil degradation, or infrastructure changes may have altered the land's suitability for agriculture.
+Several limitations should be considered when interpreting these results. First, the available historical data only extends back to 2014, meaning fields that became idle before this date cannot have their last crop identified. Second, the spatial join methodology for 2014 and 2016 data assumes that field boundaries have remained relatively stable over time, which may not always be the case. Third, the Land IQ classifications themselves have some inherent uncertainty, particularly for fields that may be transitioning between uses. Finally, the last cultivated crop may not perfectly reflect a field's future productive potential, as factors like water rights, soil degradation, or infrastructure changes may have altered the land's suitability for agriculture.
 
 ## Acknowledgements
 
 This analysis was conducted as part of research on strategic agricultural land retirement in California's San Joaquin Valley. This work is supported by the [Earth Research Institute](https://www.eri.ucsb.edu/) at UC Santa Barbara.
 
 Land IQ crop mapping data was obtained through the [land use mapping data portal](https://www.landiq.com/land-use-mapping) on their website. Special thanks to the Land IQ team for their detailed agricultural land use mapping that makes this type of historical analysis possible.
-
-
-
-
-
-
-
-
-
-
-
-
-

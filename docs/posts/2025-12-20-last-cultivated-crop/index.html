@@ -8,7 +8,7 @@
 
 <meta name="author" content="Maxwell Pepperdine">
 <meta name="dcterms.date" content="2025-12-20">
-<meta name="description" content="A geospatial analysis to determine the most recent cultivated crop for idle and fallow agricultural fields in California’s San Joaquin Valley using LandIQ data from 2014-2022">
+<meta name="description" content="A geospatial analysis to determine the most recent cultivated crop for idle and fallow agricultural fields in California’s San Joaquin Valley using Land IQ data from 2014-2022">
 
 <title>Tracking agricultural land use change: finding the last cultivated crop – Maxwell Pepperdine</title>
 <style>
@@ -158,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <h1 class="title">Tracking agricultural land use change: finding the last cultivated crop</h1>
                   <div>
         <div class="description">
-          A geospatial analysis to determine the most recent cultivated crop for idle and fallow agricultural fields in California’s San Joaquin Valley using LandIQ data from 2014-2022
+          A geospatial analysis to determine the most recent cultivated crop for idle and fallow agricultural fields in California’s San Joaquin Valley using Land IQ data from 2014-2022
         </div>
       </div>
                           <div class="quarto-categories">
@@ -227,34 +227,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="aerial-farmland.jpg" class="img-fluid figure-img"></p>
+<figcaption>San Joaquin Valley agriculture. Image credit: Public Policy Institute of California (PPIC)</figcaption>
+</figure>
+</div>
 <section id="backgroundoverview" class="level2">
 <h2 class="anchored" data-anchor-id="backgroundoverview">Background/Overview</h2>
-<p>California’s San Joaquin Valley faces mounting pressures from groundwater overdraft, habitat loss, and the need for renewable energy development. The Sustainable Groundwater Management Act (SGMA) requires groundwater basins to achieve sustainability by the early 2040s, which will necessitate the retirement of hundreds of thousands of acres of irrigated agricultural land. This presents both a challenge and an opportunity: strategic land retirement can be optimized to maximize co-benefits such as habitat restoration, water savings, and low-cost solar energy development while minimizing economic disruption to the agricultural sector.</p>
-<p>This analysis is part of a larger research project at the <a href="https://www.eri.ucsb.edu/">Earth Research Institute</a> at UC Santa Barbara, led by Principal Investigator Dr.&nbsp;Ashley Larsen (Assistant Professor, <a href="https://bren.ucsb.edu/">Bren School of Environmental Science &amp; Management</a>). Our team is developing spatial optimization models using <a href="https://prioritizr.net/"><code>prioritizr</code></a> in R to evaluate strategic agricultural land retirement scenarios across 500,000+ acres in the San Joaquin Valley. The optimization framework assesses economic, ecological, and hydrologic outcomes of phased land retirement to identify solutions that balance competing objectives.</p>
+<p>California’s San Joaquin Valley (SJV) faces mounting pressures from decades of unsustainable groundwater use. Before 2014, agricultural production in the SJV was driven by unrestricted groundwater pumping, with extractions exceeding replenishment by 2 million acre-feet per year over the preceding three decades (<a href="https://californiaagriculture.org/article/147498-there-s-a-path-forward-in-the-san-joaquin-valley-to-benefit-farmers-communities-and-nature-but-only-if-we-plan-and-plant">Butterfield et al., 2025</a>). The Sustainable Groundwater Management Act (SGMA), passed in 2014, requires that regions where groundwater is pumped more quickly than it is replenished set limits on current and future groundwater use (<a href="https://californiaagriculture.org/article/147498-there-s-a-path-forward-in-the-san-joaquin-valley-to-benefit-farmers-communities-and-nature-but-only-if-we-plan-and-plant">Butterfield et al., 2025</a>). Local agencies were required to form groundwater sustainability agencies (GSAs) and develop groundwater sustainability plans (GSPs) to achieve sustainable use over the next two decades (<a href="https://digitalcommons.law.ggu.edu/gguelj/vol9/iss1/4/">Leahy, 2016</a>).</p>
+<p>To meet SGMA-mandated reductions in groundwater use, it’s estimated that <strong>over 500,000 acres of irrigated agricultural land will need to be retired</strong> throughout the SJV (<a href="https://www.ppic.org/publication/managing-water-and-farmland-transitions-in-the-san-joaquin-valley/">Hanak et al., 2023</a>). While daunting, this transition opens the door for promising alternative land uses, including habitat restoration, water-limited cropping, solar development, and recharge basins (<a href="https://www.ppic.org/publication/managing-water-and-farmland-transitions-in-the-san-joaquin-valley/">Hanak et al., 2023</a>).</p>
+<p>This analysis is part of a larger research project at the <a href="https://www.eri.ucsb.edu/">Earth Research Institute</a> at UC Santa Barbara, led by Principal Investigator Dr.&nbsp;Ashley Larsen (Assistant Professor, <a href="https://bren.ucsb.edu/">Bren School of Environmental Science &amp; Management</a>). Building on the approaches of <a href="https://doi.org/10.3389/fsufs.2020.00138">Bryant et al.&nbsp;(2020)</a> and <a href="https://doi.org/10.1016/j.agee.2024.109386">Hyon et al.&nbsp;(2025)</a>, our team is developing spatial optimization models using <a href="https://prioritizr.net/"><code>prioritizr</code></a> in R to evaluate strategic agricultural land retirement scenarios across 500,000+ acres in the San Joaquin Valley. The optimization framework assesses economic, ecological, and hydrologic outcomes of phased land retirement to identify solutions that balance competing objectives—maximizing habitat creation, water savings, and solar development potential while minimizing costs to the agricultural economy.</p>
 <section id="why-last-cultivated-crop-matters" class="level4">
 <h4 class="anchored" data-anchor-id="why-last-cultivated-crop-matters">Why Last Cultivated Crop Matters</h4>
 <p>A critical input to the spatial optimization model is the <strong>economic cost</strong> associated with retiring each parcel of agricultural land. For fields that are currently in production, this cost can be estimated from the crop being grown. However, for fields classified as idle or fallow in our base year (2022), we need to look backwards in time to determine what was last cultivated—this provides a reasonable proxy for the land’s productive potential and thus its opportunity cost of retirement.</p>
-<p>This analysis uses <a href="https://www.landiq.com/">LandIQ</a> crop mapping data to trace the agricultural history of idle and fallow fields, identifying the most recent cultivated crop from historical datasets spanning 2014-2021. The resulting <code>last_comm</code> (last commodity) attribute will be used to assign economic values to idle fields in the <code>prioritizr</code> optimization framework.</p>
+<p>This analysis uses <a href="https://www.landiq.com/">Land IQ</a> crop mapping data to trace the agricultural history of idle and fallow fields, identifying the most recent cultivated crop from historical datasets spanning 2014-2021. The resulting <code>last_comm</code> (last commodity) attribute will be used to assign economic values to idle fields in the <code>prioritizr</code> optimization framework.</p>
 </section>
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
-<section id="landiq-crop-mapping-data" class="level4">
-<h4 class="anchored" data-anchor-id="landiq-crop-mapping-data">LandIQ Crop Mapping Data</h4>
-<p><a href="https://www.landiq.com/">Land IQ</a> has worked in cooperation with the Department of Water Resources (DWR) to complete the statewide crop mapping for 2014, 2016, and then for each hydrologic year beginning in 2018. At the time of this analysis, the 2023 water year dataset was provisional and the 2024 water year was in the classification process. As stated on the Land IQ website:</p>
-<ul>
-<li>“the mapping categorizes nearly 15.4 million acres of land use into more than 50 crop and land use types with accuracies exceeding 98%. Field-by-field classification resulted in over 446,000 individually classified polygons with a minimum field size of 0.5-2.0 acres depending on crop type.”</li>
-</ul>
+<section id="land-iq-crop-mapping-data" class="level4">
+<h4 class="anchored" data-anchor-id="land-iq-crop-mapping-data">Land IQ Crop Mapping Data</h4>
+<p><a href="https://www.landiq.com/">Land IQ</a> has worked in cooperation with the Department of Water Resources (DWR) to complete the statewide crop mapping for 2014, 2016, and then for each hydrologic year beginning in 2018. At the time of this analysis, the 2023 water year dataset was provisional and the 2024 water year was in the classification process. As stated on the Land IQ website, “the mapping categorizes nearly 15.4 million acres of land use into more than 50 crop and land use types with accuracies exceeding 98%. Field-by-field classification resulted in over 446,000 individually classified polygons with a minimum field size of 0.5-2.0 acres depending on crop type.”</p>
 <p>Their datasets classify agricultural fields by crop type using a combination of satellite imagery, aerial photography, and ground-truth verification. For this analysis, we used Land IQ data from multiple years:</p>
 <ul>
 <li><strong>2022</strong>: Primary dataset (and the “baseline” period for our research) identifying fields currently classified as idle or fallow. Original data included up to four crop rotations, peak date of vegetative production and percentage of field cropped.</li>
-<li><strong>2021, 2020, 2019, 2018</strong>: Historical datasets with consistent <code>UniqueID</code> field identifiers allowing for direct joins. Original data included up to four crop rotations, peak date of vegetative production and percentage of field cropped. Original data included main season (summer) mapping.</li>
+<li><strong>2021, 2020, 2019, 2018</strong>: Historical datasets with consistent <code>UniqueID</code> field identifiers allowing for direct joins. Original data included up to four crop rotations, peak date of vegetative production and percentage of field cropped.</li>
 <li><strong>2016, 2014</strong>: Earlier historical datasets requiring spatial joins due to different field identification systems. Original data included only main season (summer) mapping.</li>
 </ul>
 </section>
 <section id="idlefallow-classifications" class="level4">
 <h4 class="anchored" data-anchor-id="idlefallow-classifications">Idle/Fallow Classifications</h4>
-<p>LandIQ uses several classifications to indicate that a field is not currently in production:</p>
+<p>Land IQ uses several classifications to indicate that a field is not currently in production:</p>
 <ul>
 <li><code>Unclassified Fallow</code>: Land not cropped during the current water year only.</li>
 <li><code>Idle - Long Term</code>: Land that has been fallow or idle for 3 consecutive water years.</li>
@@ -278,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="part-1-load-data-and-define-idle-classifications" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-load-data-and-define-idle-classifications">Part 1: Load Data and Define Idle Classifications</h2>
-<p>The first step is to load the LandIQ datasets from each year and define which crop classifications indicate idle or fallow land.</p>
+<p>The first step is to load the Land IQ datasets from each year and define which crop classifications indicate idle or fallow land.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -337,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="part-3-join-historical-data-to-2022-idle-fields" class="level2">
 <h2 class="anchored" data-anchor-id="part-3-join-historical-data-to-2022-idle-fields">Part 3: Join Historical Data to 2022 Idle Fields</h2>
-<p>We separate the 2022 data into idle/fallow fields and cultivated fields, then join the historical crop data to the idle fields. The 2018-2021 data can be joined directly using the unique field identifier, while the 2014 and 2016 data require spatial joins based on geometry overlap.</p>
+<p>We separate the 2022 data into idle/fallow fields and cultivated fields, then join the historical crop data to the idle fields. The 2018-2021 data can be joined directly using the unique field identifier (<code>uniqu_d</code>), while the 2014 and 2016 data require spatial joins based on geometry overlap.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -462,19 +466,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a formatted summary table</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>idle_summary <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Idle Classification</span><span class="st">`</span> <span class="ot">=</span> comm,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Fields</span><span class="st">`</span> <span class="ot">=</span> total_fields,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">With Last Crop</span><span class="st">`</span> <span class="ot">=</span> fields_with_last_crop,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% Found</span><span class="st">`</span> <span class="ot">=</span> percent_with_last_crop,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Without Last Crop</span><span class="st">`</span> <span class="ot">=</span> fields_without_last_crop,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% Not Found</span><span class="st">`</span> <span class="ot">=</span> percent_without_last_crop</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Idle classification</span><span class="st">`</span> <span class="ot">=</span> comm,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total fields</span><span class="st">`</span> <span class="ot">=</span> total_fields,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">With last crop</span><span class="st">`</span> <span class="ot">=</span> fields_with_last_crop,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% found</span><span class="st">`</span> <span class="ot">=</span> percent_with_last_crop,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Without last crop</span><span class="st">`</span> <span class="ot">=</span> fields_without_last_crop,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% not found</span><span class="st">`</span> <span class="ot">=</span> percent_without_last_crop</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Summary of idle/fallow fields in 2022 and success rate in identifying last cultivated crop
+Table&nbsp;1: Summary of idle/fallow fields in 2022 and success rate in identifying last cultivated crop using 2014-2021 Land IQ data.
 </figcaption>
 <div aria-describedby="tbl-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -489,12 +493,12 @@ Table&nbsp;1: Summary of idle/fallow fields in 2022 and success rate in identify
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Idle Classification</th>
-<th style="text-align: right;">Total Fields</th>
-<th style="text-align: right;">With Last Crop</th>
-<th style="text-align: right;">% Found</th>
-<th style="text-align: right;">Without Last Crop</th>
-<th style="text-align: right;">% Not Found</th>
+<th style="text-align: left;">Idle classification</th>
+<th style="text-align: right;">Total fields</th>
+<th style="text-align: right;">With last crop</th>
+<th style="text-align: right;">% found</th>
+<th style="text-align: right;">Without last crop</th>
+<th style="text-align: right;">% not found</th>
 </tr>
 </thead>
 <tbody>
@@ -564,10 +568,10 @@ Table&nbsp;1: Summary of idle/fallow fields in 2022 and success rate in identify
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
 <span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Success Rate in Identifying Last Cultivated Crop"</span>,</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"For idle/fallow fields in 2022, searching historical LandIQ data (2014-2021)"</span>,</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"2022 Idle Classification"</span>,</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Fields"</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Success rate in identifying last cultivated crop"</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"For idle/fallow Land IQ fields in 2022, searching historical Land IQ data (2014-2021)"</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"2022 idle classification"</span>,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of fields"</span></span>
 <span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
@@ -629,7 +633,7 @@ Figure&nbsp;1: Number of idle/fallow fields in 2022 by classification type, show
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>               <span class="st">"No Previous Crop Found"</span> <span class="ot">=</span> <span class="st">"tan"</span>)</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Overall Success Rate: Finding Last Cultivated Crop"</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Overall success rate: finding last cultivated crop"</span>,</span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"Total idle/fallow fields analyzed: "</span>, <span class="fu">comma</span>(total_idle_fields))</span>
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
@@ -675,7 +679,7 @@ Figure&nbsp;2: Overall success rate in finding the last cultivated crop for all 
 </section>
 <section id="reflection" class="level2">
 <h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
-<p>This analysis successfully traced the agricultural history of idle and fallow fields in California’s San Joaquin Valley, providing a critical input for our spatial optimization models. By combining multiple years of LandIQ crop mapping data using both attribute-based joins (for 2018-2021 data with consistent field IDs) and spatial joins (for 2014 and 2016 data), we were able to determine the last cultivated crop for a significant portion of the idle fields.</p>
+<p>This analysis successfully traced the agricultural history of idle and fallow fields in California’s San Joaquin Valley, providing a critical input for our spatial optimization models. By combining multiple years of Land IQ crop mapping data using both attribute-based joins (for 2018-2021 data with consistent field IDs) and spatial joins (for 2014 and 2016 data), we were able to determine the last cultivated crop for a significant portion of the idle fields.</p>
 <section id="key-findings" class="level4">
 <h4 class="anchored" data-anchor-id="key-findings">Key Findings</h4>
 <ul>
@@ -687,11 +691,11 @@ Figure&nbsp;2: Overall success rate in finding the last cultivated crop for all 
 <section id="implications-for-the-optimization-model" class="level4">
 <h4 class="anchored" data-anchor-id="implications-for-the-optimization-model">Implications for the Optimization Model</h4>
 <p>The <code>last_comm</code> attribute generated by this analysis will be used to assign economic costs to idle fields in our <code>prioritizr</code> spatial optimization framework. Fields with identified last crops can be assigned costs based on the crop-specific economic value of that commodity (using the <a href="https://www.nass.usda.gov/Statistics_by_State/California/Publications/AgComm/index.php">USDA NASS annual crop report dataset</a>), while fields without historical crop data may require alternative cost estimation approaches (e.g., taking the mean value of the 8 nearest fields in production, the mean or median value of all idle fields in 2022, etc.).</p>
-<p>The success rate of this analysis directly impacts the precision of our economic cost layer. Fields where we successfully identified the last cultivated crop can be assigned more accurate retirement costs, improving the reliability of our optimization results.</p>
+<p>Following the approach of <a href="https://doi.org/10.3389/fsufs.2020.00138">Bryant et al.&nbsp;(2020)</a>, who implemented retirement optimization as a cost-minimization problem using agricultural opportunity costs as the cost layer, we can now assign crop-specific economic values to both actively cultivated and recently-idled fields. This economic cost layer is essential for identifying retirement scenarios that achieve conservation and water-saving targets while minimizing disruption to the agricultural economy.</p>
 </section>
 <section id="limitations" class="level4">
 <h4 class="anchored" data-anchor-id="limitations">Limitations</h4>
-<p>Several limitations should be considered when interpreting these results. First, the available historical data only extends back to 2014, meaning fields that became idle before this date cannot have their last crop identified. Second, the spatial join methodology for 2014 and 2016 data assumes that field boundaries have remained relatively stable over time, which may not always be the case. Third, the LandIQ classifications themselves have some inherent uncertainty, particularly for fields that may be transitioning between uses. Finally, the last cultivated crop may not perfectly reflect a field’s future productive potential, as factors like water rights, soil degradation, or infrastructure changes may have altered the land’s suitability for agriculture.</p>
+<p>Several limitations should be considered when interpreting these results. First, the available historical data only extends back to 2014, meaning fields that became idle before this date cannot have their last crop identified. Second, the spatial join methodology for 2014 and 2016 data assumes that field boundaries have remained relatively stable over time, which may not always be the case. Third, the Land IQ classifications themselves have some inherent uncertainty, particularly for fields that may be transitioning between uses. Finally, the last cultivated crop may not perfectly reflect a field’s future productive potential, as factors like water rights, soil degradation, or infrastructure changes may have altered the land’s suitability for agriculture.</p>
 </section>
 </section>
 <section id="acknowledgements" class="level2">
